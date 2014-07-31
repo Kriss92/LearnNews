@@ -17,6 +17,7 @@
     <string name="your_stories_menu_button">Saved Stories</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="categories_title">Categories</string>
+    <string name="saved_stories_activity_label">SavedStoriesActivity</string>
 
 
 </resources>
