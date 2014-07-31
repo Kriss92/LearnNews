@@ -1,4 +1,4 @@
-package com.example.demouser.learnews;
+package com.appchee.learnews;
 
 import android.app.Activity;
 import android.os.Bundle;
