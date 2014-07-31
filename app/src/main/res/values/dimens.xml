@@ -6,8 +6,9 @@
     <dimen name="icon_margin_size">10dp</dimen>
     <dimen name="menu_vertical_margin">70dp</dimen>
     <dimen name="app_name_menu">40sp</dimen>
+    <dimen name="answer_length">100sp</dimen>
+    <dimen name="question_length">100sp</dimen>
+    <dimen name="link_length">100sp</dimen>
 
-    <dimen name="menu_vertical_margin">70dp</dimen>
-    <dimen name="app_name_menu">40sp</dimen>
 
 </resources>

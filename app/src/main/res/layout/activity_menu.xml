@@ -31,7 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/new_game_menu_button"/>
+        android:layout_below="@+id/new_game_menu_button"
+        android:onClick="addQuestionsMenuButtonClicked"/>
 
     <Button
         android:id="@+id/your_stories_menu_button"
@@ -41,5 +42,31 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/add_questions_menu_button"/>
 
+    <Button
+        android:id="@+id/sound_menu_button"
+        android:text="@string/sound_menu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/app_name_menu"
+        />
+
+    <Button
+        android:id="@+id/bookmarks_menu_button"
+        android:text="@string/bookmarks_menu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/sound_menu_button"
+        />
+
+    <Button
+        android:id="@+id/achievements_menu_button"
+        android:text="@string/achievements_menu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/bookmarks_menu_button"
+        />
 
 </RelativeLayout>
