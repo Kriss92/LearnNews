@@ -56,8 +56,8 @@ public class MenuActivity extends Activity {
     }
 
     public void newGameMenuButtonClicked(View view) {
-//        Intent intent = new Intent(this, GameActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
 
     }
 
@@ -67,9 +67,9 @@ public class MenuActivity extends Activity {
 
     }
 
-    public void YourStoriesMenuButtonClicked(View view) {
-//        Intent intent = new Intent(this, YourStoriesActivity.class);
-//        startActivity(intent);
+    public void SavedStoriesMenuButtonClicked(View view) {
+        Intent intent = new Intent(this, SavedStoriesActivity.class);
+        startActivity(intent);
 
     }
 

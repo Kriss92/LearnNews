@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_size">
 
 
     <ImageView
+        android:id="@+id/story_source_ic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/story_source_ic"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/icon_margin_size"/>
+        android:layout_alignParentTop="true" />
+    <TextView
+        android:id="@+id/story_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/story_source_ic"
+        android:layout_alignTop="@id/story_source_ic" />
     <TextView
         android:id="@+id/story_headline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/story_source_ic"
-        android:layout_alignTop="@id/story_source_ic"/>
-    <TextView
-        android:id="@+id/story_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/story_headline"/>
+        android:layout_alignBottom="@id/story_source_ic" />
 
 </RelativeLayout>

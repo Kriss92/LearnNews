@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/quiz_question_fragment"
+        android:name="com.appchee.learnews.QuizQuestionFragment"
+        />
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/correct_ans_fragment"
+        android:name="com.appchee.learnews.CorrectAnswerFragment"/>
+
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/wrong_ans_fragment"
+        android:name="com.appchee.learnews.WrongAnswerFragment"/>
+
+    <!--
+    <fragment
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/category_fragment"
+    android:name="com.appchee.learnews.QuizQuestionFragment"/>
+    -->
+
+</RelativeLayout>

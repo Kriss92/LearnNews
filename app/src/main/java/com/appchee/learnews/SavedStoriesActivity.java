@@ -5,19 +5,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ReadLaterActivity extends Activity {
+public class SavedStoriesActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_read_later);
+        setContentView(R.layout.activity_saved_stories);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.read_later, menu);
+        getMenuInflater().inflate(R.menu.saved_stories, menu);
         return true;
     }
 

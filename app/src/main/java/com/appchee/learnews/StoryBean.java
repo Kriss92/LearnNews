@@ -5,9 +5,9 @@ import android.media.Image;
 import java.util.Date;
 
 public class StoryBean {
-    private String title;
-    private Date date;
-    private Image siteIcon;
+    private String title; // story headline
+    private Date date; // date when the story was saved
+    private String siteIconUrl; // icon of the story source
 
     public String getTitle() {
         return title;
@@ -25,11 +25,11 @@ public class StoryBean {
         this.date = date;
     }
 
-    public Image getSiteIcon() {
-        return siteIcon;
+    public String getSiteIconUrl() {
+        return siteIconUrl;
     }
 
-    public void setSiteIcon(Image siteIcon) {
-        this.siteIcon = siteIcon;
+    public void setSiteIconUrl(String url) {
+        this.siteIconUrl = url;
     }
 }

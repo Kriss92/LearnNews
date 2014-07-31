@@ -1,23 +1,19 @@
 package com.appchee.learnews;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ReadLaterFragment extends Fragment {
+public class SavedStoriesFragment extends Fragment {
 
     private ListView mList;
     private StoryListAdapter mAdapter;
@@ -33,7 +29,7 @@ public class ReadLaterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.read_later_fragment, null);
+        View view = inflater.inflate(R.layout.saved_stories_fragment, null);
 
         StoryListAdapter adapter = new StoryListAdapter();
         mList = (ListView) view.findViewById(R.id.saved_stories_list);
@@ -74,14 +70,39 @@ public class ReadLaterFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return null;
+            View view;
+            StoryViewHolder holder;
+            if (null == convertView) {
+                // create a new view
+                LayoutInflater inflater = LayoutInflater.from(getActivity());
+                view = inflater.inflate(R.layout.story_item, null);
+
+                // create a ViewHolder
+                holder = new StoryViewHolder();
+                holder.title = (TextView) view.findViewById(R.id.story_headline);
+                holder.date = (TextView) view.findViewById(R.id.story_date);
+                holder.icon = (ImageView) view.findViewById(R.id.story_source_ic);
+                view.setTag(holder);
+            }
+            else {
+                view = convertView;
+                holder = (StoryViewHolder) view.getTag();
+            }
+
+            StoryBean current = mStories[position];
+            holder.title.setText(current.getTitle());
+            holder.date.setText(current.getDate().toString());
+            holder.icon.setImageURI(Uri.parse(current.getSiteIconUrl()));
+
+            // TODO: Image downloading.
+            return view;
         }
     };
 
     private class StoryViewHolder {
         public TextView title;
         public TextView date;
-        public Image icon;
+        public ImageView icon;
     };
 
 };
