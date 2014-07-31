@@ -6,4 +6,8 @@
     <dimen name="icon_margin_size">10dp</dimen>
     <dimen name="menu_vertical_margin">70dp</dimen>
     <dimen name="app_name_menu">40sp</dimen>
+
+    <dimen name="menu_vertical_margin">70dp</dimen>
+    <dimen name="app_name_menu">40sp</dimen>
+
 </resources>
