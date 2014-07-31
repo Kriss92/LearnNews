@@ -26,6 +26,9 @@
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu" >
         </activity>
+        <activity
+            android:name=".SavedStoriesActivity"
+            android:label= "@string/saved_stories_activity_label" />
     </application>
 
 </manifest>

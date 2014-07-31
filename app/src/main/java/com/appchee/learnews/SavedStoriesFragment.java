@@ -13,11 +13,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.sql.Date;
+import java.util.Arrays;
+import java.util.List;
+
 public class SavedStoriesFragment extends Fragment {
 
     private ListView mList;
     private StoryListAdapter mAdapter;
-    private StoryBean[] mStories;
+    private List<StoryBean> mStories = createFakeStoryBeans();
 
 
     @Override
@@ -52,20 +56,17 @@ public class SavedStoriesFragment extends Fragment {
 
         @Override
         public int getCount() {
-            // TODO
-            return -1;
+            return mStories.size();
         }
 
         @Override
         public Object getItem(int position) {
-            // TODO:
-            return null;
+            return mStories.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            //TODO:
-            return -1;
+            return position;
         }
 
         @Override
@@ -89,20 +90,39 @@ public class SavedStoriesFragment extends Fragment {
                 holder = (StoryViewHolder) view.getTag();
             }
 
-            StoryBean current = mStories[position];
+            StoryBean current = mStories.get(position);
             holder.title.setText(current.getTitle());
             holder.date.setText(current.getDate().toString());
-            holder.icon.setImageURI(Uri.parse(current.getSiteIconUrl()));
+            holder.icon.setImageDrawable(getResources().getDrawable(R.drawable.bbc));
 
-            // TODO: Image downloading.
             return view;
         }
-    };
+    }
 
     private class StoryViewHolder {
         public TextView title;
         public TextView date;
         public ImageView icon;
-    };
+    }
 
-};
+    private List<StoryBean> createFakeStoryBeans() {
+        StoryBean[] stories = new StoryBean[3];
+        stories[0] = new StoryBean();
+        stories[0].setTitle("MLA plane shot down in Ukraine");
+        stories[0].setDate(Date.valueOf("2014-03-27"));
+        stories[0].setNewsIconId(5);
+
+        stories[1] = new StoryBean();
+        stories[1].setTitle("Results of the EU vote");
+        stories[1].setDate(Date.valueOf("2014-02-22"));
+        stories[1].setNewsIconId(2);
+
+        stories[2] = new StoryBean();
+        stories[2].setTitle("A woman had a baby");
+        stories[2].setDate(Date.valueOf("2012-02-02"));
+        stories[2].setNewsIconId(3);
+
+        return Arrays.asList(stories);
+    }
+
+}

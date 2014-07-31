@@ -4,13 +4,22 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class SavedStoriesActivity extends Activity {
+import java.sql.Date;
+
+public class SavedStoriesActivity extends Activity
+{
+    View mStoriesFragment;
+    View mCategoryFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_stories);
+
+        mStoriesFragment = (View) findViewById(R.id.saved_stories_fragment);
+        mCategoryFragment = (View) findViewById(R.id.category_drawer_content);
     }
 
 
@@ -32,4 +41,5 @@ public class SavedStoriesActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

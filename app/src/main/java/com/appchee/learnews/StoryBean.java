@@ -7,7 +7,7 @@ import java.util.Date;
 public class StoryBean {
     private String title; // story headline
     private Date date; // date when the story was saved
-    private String siteIconUrl; // icon of the story source
+    private int mNewsIconId; // icon of the story source
 
     public String getTitle() {
         return title;
@@ -25,11 +25,11 @@ public class StoryBean {
         this.date = date;
     }
 
-    public String getSiteIconUrl() {
-        return siteIconUrl;
+    public int getNewsIconId() {
+        return mNewsIconId;
     }
 
-    public void setSiteIconUrl(String url) {
-        this.siteIconUrl = url;
+    public void setNewsIconId(int id) {
+        this.mNewsIconId = id;
     }
 }
