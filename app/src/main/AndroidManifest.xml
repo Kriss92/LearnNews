@@ -17,8 +17,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MyActivity"
-            android:label="@string/title_activity_my" >
+            android:name=".ReadLaterActivity"
+            android:label="@string/title_activity_read_later" >
         </activity>
         <activity
             android:name=".MenuActivity"
