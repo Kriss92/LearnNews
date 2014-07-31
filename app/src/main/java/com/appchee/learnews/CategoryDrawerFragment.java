@@ -18,7 +18,6 @@ public class CategoryDrawerFragment extends Fragment {
         @Override
         public void onClick(View v) {
             String category = (String) v.getTag();
-            
         }
     };
 
