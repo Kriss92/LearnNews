@@ -1,27 +1,23 @@
 package com.appchee.learnews;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.appchee.learnews.R;
-
-public class MenuActivity extends Activity {
+public class SavedStoriesActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_saved_stories);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.saved_stories, menu);
         return true;
     }
 
@@ -36,23 +32,4 @@ public class MenuActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void newGameMenuButtonClicked(View view) {
-        Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
-
-    }
-
-    public void addQuestionsMenuButtonClicked(View view) {
-//        Intent intent = new Intent(this, AddQuestionsActivity.class);
-//        startActivity(intent);
-
-    }
-
-    public void SavedStoriesMenuButtonClicked(View view) {
-        Intent intent = new Intent(this, SavedStoriesActivity.class);
-        startActivity(intent);
-
-    }
-
 }

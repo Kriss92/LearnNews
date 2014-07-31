@@ -19,6 +19,8 @@
         <activity
             android:name=".GameActivity"
             android:label="@string/title_activity_game" >
+            android:name=".SavedStoriesActivity"
+            android:label="@string/title_activity_read_later" >
         </activity>
         <activity
             android:name=".MenuActivity"
