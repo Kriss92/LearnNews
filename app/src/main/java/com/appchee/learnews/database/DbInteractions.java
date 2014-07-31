@@ -6,18 +6,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.appchee.learnews.beans.AnswerBean;
+import com.appchee.learnews.beans.QuestionBean;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //TODO:
 public class DbInteractions {
 
     private LearNewsDbHelper mDbHelper;
 
-
-    private static final String GET_QUESTION_QUERY = "select * from Questions where id = ?";
-//
-//    private static final String GET_ANSWER_QUERY = "select * from Answers where questionId = ?";
-//
-//    private static final String ADD_QUESTION_QUERY = "insert into  Questions (question, answerId, URL, category) values (?, ?, ?, ?) ";
-//
 //    private static final String ADD_ANSWER_QUERY = "insert into Answers(questionId, answer, correct) values (?, ?, ?) ";
 
 
@@ -32,23 +31,46 @@ public class DbInteractions {
 //    interactionsHelper.getQuestion(0);
 
 
-    public void addQuestion() {
-        //TODO
-//       mDbHelper.getWritableDatabase().execSQL(ADD_QUESTION_QUERY, new String[]{"QUESTION", "1", "HTTP://TEST.TT", "SOME"});
-//        Integer id = cursor.getInt(0);
-//        addAnswer(id, "Answer", 1);
+    private static class AddQuestionsQuery {
+        private static final String SQL = "insert into  Questions (question, answerId, URL, category) " +
+                " values (?, ?, ?, ?) ";
+        private  static final String Last_ID_SQL = "SELECT id from Questions order by id DESC limit 1";
+        public static final int QUESTION_INDEX = 0;
+        public static final int ANSWER_ID_INDEX = 1;
+        public static final int URL_INDEX = 2;
+        public static final int CATEGORY_INDEX = 2;
+    }
+    public void addQuestion(QuestionBean question) {
 
         ContentValues values = new ContentValues();
-        values.put("question", "What is your name?");
-        values.put("answerId", "1");
-        Long result = mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.QUESTIONS_TABLE, null, values);
-        Log.d("PFFFFFF", "RESULT " + result.toString());
+        values.put("question", question.getQuestion());
+        values.put("answerId", question.getCorrectAnswer());
+        values.put("URL", question.getNewsURL());
+        values.put("category", question.getCategory());
+        mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.QUESTIONS_TABLE, null, values);
+
+        getAnswers(question);
     }
 
+    private void getAnswers(QuestionBean question) {
+        Cursor questionCursor = mDbHelper.getReadableDatabase().query(
+                LearNewsDbHelper.QUESTIONS_TABLE, new String[] {"id"},
+                null,  null, null, null, "id DESC", "1");
+        questionCursor.moveToFirst();
+        Integer questionId = questionCursor.getInt(0);
 
-    private void addAnswer(Integer questionId, String answer, Integer correct) {
-        //TODO:
-     //   Cursor cursor = mDbHelper.getWritableDatabase().rawQuery(ADD_ANSWER_QUERY, new String[] {questionId.toString(), answer, correct.toString()});
+        for (AnswerBean answer : question.getAnswers()) {
+            answer.setQuestionId(questionId);
+            addAnswer(answer);
+        }
+    }
+
+    private void addAnswer(AnswerBean answer) {
+        ContentValues values = new ContentValues();
+        values.put("questionId", answer.getQuestionId());
+        values.put("answer", answer.getAnswer());
+        values.put("correct", answer.getCorrect());
+        mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.ANSWERS_TABLE, null, values);
     }
 
     public void questionAnswered() {
@@ -59,24 +81,59 @@ public class DbInteractions {
 
     }
 
-    private static class QuestionsQuery {
-        public static final String[] PROJECTION = {"id", "question", "answerId", "URL", "category" };
+    private static class AnswersQuery {
+        public static final String[] PROJECTION = {"id", "answer","correct"};
+        public static final int ID_INDEX = 0;
+        public static final int ANSWER_INDEX = 1;
+        public static final int CORRECT_INDEX = 2;
+    }
+    public List<AnswerBean> getAnswers(Integer queationId) {
+        Cursor answersCursor = mDbHelper.getReadableDatabase().query(
+                LearNewsDbHelper.ANSWERS_TABLE, AnswersQuery.PROJECTION, "questionId = ?", new String[] {queationId.toString()}, null, null, null, null);
+        List<AnswerBean> result = new ArrayList<AnswerBean>();
+
+        while (answersCursor.moveToNext()) {
+            Log.d("test", answersCursor.getString(AnswersQuery.ID_INDEX));
+            AnswerBean answer = new AnswerBean();
+            answer.setId(answersCursor.getInt(AnswersQuery.ID_INDEX));
+            answer.setAnswer(answersCursor.getString(AnswersQuery.ANSWER_INDEX));
+            answer.setCorrect(answersCursor.getInt(AnswersQuery.CORRECT_INDEX));
+            result.add(answer);
+        }
+        return result;
+    }
+
+    private static class GetQuestionsQuery {
+        public static final String[] PROJECTION = {"id", "question","URL", "category" };
         public static final int ID_INDEX = 0;
         public static final int QUESTION_INDEX = 1;
-        public static final int ANSWER_ID_INDEX = 2;
-        public static final int URL_INDEX = 3;
-        public static final int CATEGORY_INDEX = 4;
+ //       public static final int ANSWER_ID_INDEX = 2;
+        public static final int URL_INDEX = 2;
+        public static final int CATEGORY_INDEX = 3;
     }
-    public void getQuestion(Integer questionId) {
+    public QuestionBean getQuestion(Integer questionId) {
 
         Cursor questionCursor = mDbHelper.getReadableDatabase().query(
-                LearNewsDbHelper.QUESTIONS_TABLE, new String[] {"id", "question", "answerId", "URL", "category" }, "id = " + questionId.toString(),  new String[]{}, null, null, null, null);
+                LearNewsDbHelper.QUESTIONS_TABLE, GetQuestionsQuery.PROJECTION,
+                        "id = " + questionId.toString(),  new String[]{}, null, null, null, null);
 
-        while (questionCursor.moveToNext()) {
-            Log.d("test", questionCursor.getString(QuestionsQuery.QUESTION_INDEX));
-        }
+        questionCursor.moveToNext();
+        Log.d("test", questionCursor.getString(GetQuestionsQuery.QUESTION_INDEX));
 
-        SQLiteDatabase sth = mDbHelper.getReadableDatabase();
+        Integer id = questionCursor.getInt(GetQuestionsQuery.ID_INDEX);
+        List<AnswerBean> answers = getAnswers(id);
+        String question = questionCursor.getString(GetQuestionsQuery.QUESTION_INDEX);
+        String url = questionCursor.getString(GetQuestionsQuery.URL_INDEX);
+        String category = questionCursor.getString(GetQuestionsQuery.CATEGORY_INDEX);
 
+        QuestionBean result = new QuestionBean(id, question, answers, url,  category);
+        return result;
+    }
+
+    public List<String> getSavedURLS(String userId) {
+        List<String> result = new ArrayList<String>();
+        //TODO:
+
+        return result;
     }
 }
