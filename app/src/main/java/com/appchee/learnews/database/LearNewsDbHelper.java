@@ -6,34 +6,38 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class LearNewsDbHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "LearNews";
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "LearNews";
+
+    public static String QUESTIONS_TABLE = "Questions";
+    public static String ANSWERS_TABLE = "Answers";
+    public static String INTERACTIONS_TABLE = "Interactions";
 
     private static final String QUESTIONS_TABLE_CREATE =
-            "CREATE TABLE Questions (" +
+            "CREATE TABLE " +  QUESTIONS_TABLE + " (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "question TEXT" +
-                    "answerId INTEGER" +
-                    "URL TEXT" +
+                    "question TEXT, " +
+                    "answerId INTEGER, " +
+                    "URL TEXT, " +
                     "category TEXT" +
             ");";
 
     private static final String ANSWERS_TABLE_CREATE =
-            "CREATE TABLE Answers (" +
+            "CREATE TABLE " + ANSWERS_TABLE + " (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "questionId INTEGER references Questions(id)" +
-                    "answer TEXT" +
+                    "questionId INTEGER references Questions(id), " +
+                    "answer TEXT, " +
                     "correct INTEGER" +
                     ");";
 
     private static final String INTERACTIONS_TABLE_CREATE =
-            "CREATE TABLE Interactions (" +
+            "CREATE TABLE " + INTERACTIONS_TABLE + " (" +
                     "userId INTEGER, " +
-                    "questionId INTEGER references Questions(id)" +
-                    "correctNums INTEGER" +
-                    "wrongs INTEGER" +
-                    "reported INTEGER" +
-                    "favorite INTEGER" +
+                    "questionId INTEGER references Questions(id), " +
+                    "correctNums INTEGER, " +
+                    "wrongs INTEGER, " +
+                    "reported INTEGER, " +
+                    "favorite INTEGER, " +
                     "time INTEGER" + //number of seconds since 1970-01-01 00:00:00 UTC
                     ");";
 
@@ -52,15 +56,22 @@ public class LearNewsDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+
         db.beginTransaction();
 
-        db.execSQL(QUESTIONS_TABLE_CREATE);
-        db.execSQL(ANSWERS_TABLE_CREATE);
-        db.execSQL(INTERACTIONS_TABLE_CREATE);
-        db.execSQL(INTERACTIONS_CREATE_INDEX);
-//        db.execSQL(QUESTIONS_CREATE_FOREIGN_KEY);
+        try {
 
-        db.endTransaction();
+            db.execSQL(QUESTIONS_TABLE_CREATE);
+            db.execSQL(ANSWERS_TABLE_CREATE);
+            db.execSQL(INTERACTIONS_TABLE_CREATE);
+//        db.execSQL(INTERACTIONS_CREATE_INDEX);
+//        db.execSQL(QUESTIONS_CREATE_FOREIGN_KEY);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+
+        }
     }
 
     @Override
