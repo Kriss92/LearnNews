@@ -16,7 +16,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/story_source_ic"
-        android:layout_below="@id/story_headline"
         android:layout_alignTop="@id/story_source_ic" />
     <TextView
         android:id="@+id/story_headline"
@@ -24,6 +23,5 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/story_source_ic"
         android:layout_alignBottom="@id/story_source_ic" />
-
 
 </RelativeLayout>

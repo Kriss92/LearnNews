@@ -35,7 +35,6 @@ public class QuizQuestionFragment extends Fragment {
         View v=inflater.inflate(R.layout.fragment_quiz_question, container, false);
 
         mSubmitCorrectAns= (Button) v.findViewById(R.id.submit_ans_button);
-        mSubmitWrongAns= (Button) v.findViewById(R.id.submit_ans_button_delete);
         //Generate Question
 
         //Wait for user
