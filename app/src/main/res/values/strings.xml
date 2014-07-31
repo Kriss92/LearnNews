@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">LearNews</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="correct_answer_fragment">Correct Question Fragment</string>
+    <string name="wrong_answer_fragment">Wrong Question Fragment</string>
+    <string name="quiz_question_fragment">Quit Question Fragment</string>
+    <string name="title_activity_game">GameActivity</string>
     <string name="saved_stories">Saved Stories</string>
     <string name="title_activity_read_later">Saved Stories</string>
 
     <string name="new_game_menu_button">New Game</string>
     <string name="add_questions_menu_button">Add Questions</string>
     <string name="your_stories_menu_button">Saved Stories</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_my">MyActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="categories_title">Categories</string>
 

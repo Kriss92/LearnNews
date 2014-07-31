@@ -38,8 +38,8 @@ public class MenuActivity extends Activity {
     }
 
     public void newGameMenuButtonClicked(View view) {
-//        Intent intent = new Intent(this, GameActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
 
     }
 

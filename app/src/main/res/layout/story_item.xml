@@ -24,5 +24,4 @@
         android:layout_toRightOf="@id/story_source_ic"
         android:layout_alignBottom="@id/story_source_ic" />
 
-
 </RelativeLayout>
