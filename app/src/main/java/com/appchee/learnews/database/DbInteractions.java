@@ -1,4 +1,4 @@
-package com.appchee.learnews.com.appchee.learnews.database;
+package com.appchee.learnews.database;
 
 import android.database.Cursor;
 
