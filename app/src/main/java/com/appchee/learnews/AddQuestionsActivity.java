@@ -114,7 +114,7 @@ public class AddQuestionsActivity extends Activity {
                 return;
             }
 
-            EditText urlEditText = (EditText) findViewById(R.id.add_questions_text);
+            EditText urlEditText = (EditText) findViewById(R.id.link_text);
             url = urlEditText.getText().toString();
             if(url.isEmpty()) {
                 startDialogForIncompleteData();
