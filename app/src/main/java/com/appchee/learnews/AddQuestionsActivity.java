@@ -3,6 +3,7 @@ package com.appchee.learnews;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -115,6 +116,10 @@ public class AddQuestionsActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void nextButtonClicked(View view){
+
+    }
+
     public void answerButtonClicked(View view) {
         Log.d("Here we are", "We didn't crash 0");
         int index = getButtonIndex(view.getTag().toString());
@@ -194,8 +199,10 @@ public class AddQuestionsActivity extends Activity {
 
         Button submitButton = (Button) view;
         submitButton.setBackgroundColor(Color.GREEN);
-        //Send information to the database: question, index, answers, url
-        Log.d("Kriss tag:", "Data done");
+
+        Intent refresh = new Intent(this, AddQuestionsActivity.class);
+        finish();
+        startActivity(refresh);
         }
 
     private void makeToastForInvalidQuestion(String message) {
