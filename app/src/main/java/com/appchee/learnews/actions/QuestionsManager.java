@@ -36,6 +36,10 @@ public class QuestionsManager {
         return dbHelper.getQuestionByNumber(nextQuestionNum);
     }
 
+    public void reportQuestion(QuestionBean question) {
+
+    }
+
     public Double answerQuestion(QuestionBean question, boolean correct) {
         //Update corrects/incorrects count
         //return percentage correct
