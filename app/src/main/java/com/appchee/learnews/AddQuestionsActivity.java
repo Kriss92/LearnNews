@@ -75,9 +75,14 @@ public class AddQuestionsActivity extends Activity {
         //TODO: fix, make coding better, avoid duplication
         buttons = new RadioButton[4];
         buttons[0] = (RadioButton) findViewById(R.id.button_a);
+        buttons[0].setButtonDrawable(R.drawable.radio_button);
         buttons[1] = (RadioButton) findViewById(R.id.button_b);
+        buttons[1].setButtonDrawable(R.drawable.radio_button);
         buttons[2] = (RadioButton) findViewById(R.id.button_c);
+        buttons[2].setButtonDrawable(R.drawable.radio_button);
         buttons[3] = (RadioButton) findViewById(R.id.button_d);
+        buttons[3].setButtonDrawable(R.drawable.radio_button);
+
 
         answerViews = new EditText[4];
         answerViews[0] = (EditText) findViewById(R.id.answer_a);

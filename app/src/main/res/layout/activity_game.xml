@@ -24,7 +24,7 @@
 
                 <ImageView
                     android:id="@+id/q_img"
-                    android:src="@drawable/ic_launcher"
+                    android:src="@drawable/learnews_logo"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:layout_alignParentLeft="true"
