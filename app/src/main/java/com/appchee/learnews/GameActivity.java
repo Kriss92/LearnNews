@@ -97,8 +97,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     @Override
     public void onContinueButtonListener() {
-        setNextQuestionView();
-        setNextQuestionViewContent();
+        setNextQuestion();
     }
     @Override
     public void onSaveStoryButtonListener() {
