@@ -24,7 +24,6 @@ public class QuestionsManager {
     }
 
     public QuestionBean getNextQuestion() {
-        QuestionBean result = null;
         DbInteractions dbHelper = new DbInteractions(mContext);
 
         Long numQueries = DatabaseUtils.queryNumEntries(dbHelper.getDBHelper().getReadableDatabase(),
@@ -34,14 +33,11 @@ public class QuestionsManager {
 
         Log.d("Question num", "All queries " + numQueries
                 + " Num: " + nextQuestionNum.toString());
-        dbHelper.getQuestionByNumber(nextQuestionNum);
-
-        return result;
+        return dbHelper.getQuestionByNumber(nextQuestionNum);
     }
 
     public Double answerQuestion(QuestionBean question, boolean correct) {
         //Update corrects/incorrects count
-
         //return percentage correct
         return 0.0;
     }
