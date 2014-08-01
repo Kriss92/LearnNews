@@ -12,7 +12,6 @@ import com.appchee.learnews.beans.QuestionBean;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO:
 public class DbInteractions {
 
     private final LearNewsDbHelper mDbHelper;

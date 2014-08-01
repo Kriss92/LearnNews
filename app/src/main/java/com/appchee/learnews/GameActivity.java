@@ -24,6 +24,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     public int mCorrectAnswer=1;
     public List<String> mAnswers = new ArrayList<String>();
+    TextView mCategory;
     TextView mCurrQuestion;
     QuestionsManager mManager;
     QuestionBean mCurrentQuestionBean;
@@ -40,6 +41,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mWrongAnsFragment= (WrongAnswerFragment) getFragmentManager().findFragmentById(R.id.wrong_ans_fragment);
         mCorrectAnsFragment=  (CorrectAnswerFragment) getFragmentManager().findFragmentById(R.id.correct_ans_fragment);
         mCurrQuestion= (TextView) findViewById(R.id.q_text);
+        mCategory = (TextView) findViewById(R.id.q_category);
         mManager = new QuestionsManager(getApplicationContext());
         setNextQuestion();
     }
@@ -116,6 +118,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     public void setNextQuestion() {
         mCurrentQuestionBean = mManager.getNextQuestion();
         mManager.updateInteraction(mCurrentQuestionBean);
+        mCategory.setText(mCurrentQuestionBean.getCategory());
 
         setNextQuestionView();
         setNextQuestionViewContent();
