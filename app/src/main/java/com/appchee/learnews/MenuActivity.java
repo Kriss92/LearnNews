@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.appchee.learnews.R;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.zip.Inflater;
 
@@ -46,7 +48,6 @@ public class MenuActivity extends Activity {
                 startBackgroundDialog();
                 break;
             case R.id.action_about:
-
                 return true;
         }
         return super.onOptionsItemSelected(item);
