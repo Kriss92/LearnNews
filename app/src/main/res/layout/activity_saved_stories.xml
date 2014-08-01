@@ -21,7 +21,6 @@
         android:handle="@+id/category_drawer_handle"
         android:content="@+id/category_drawer_content"
         android:rotation="180"
-        android:bottomOffset="50dp"
         >
 
         <ImageView
