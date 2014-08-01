@@ -73,16 +73,14 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         return super.onOptionsItemSelected(item);
     }
 
-
-
-
     // Interfaces Implementations
     @Override
     public void onAnswerSubmittedListener(int answerSelected) {
         
         if (mCorrectAnswer == answerSelected) {
             Double correctPercentage = mManager.answerQuestion(mCurrentQuestionBean, true);
-            mCorrectAnsFragment.populate(mAnswers.get(answerSelected), correctPercentage);
+            mCorrectAnsFragment.populate( mAnswers.get(answerSelected) , correctPercentage.intValue());
+
             setCorrectAnswerView();
             //generate answer view in fragment
         } else {
@@ -107,7 +105,8 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     }
     @Override
     public void onSaveStoryButtonListener() {
-        Log.d("Rony", "Saving Story....");
+        Log.d("Rony", "Saving Story...." + mCurrentQuestionBean.getNewsURL());
+        mManager.saveStrory(mCurrentQuestionBean);
 ;    }
 
     @Override

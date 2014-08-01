@@ -37,7 +37,7 @@ public class LearNewsDbHelper extends SQLiteOpenHelper {
                     "correct INTEGER default 0, " +
                     "incorrect INTEGER default 0, " +
                     "reported INTEGER default 0, " +
-                    "favorite INTEGER default 0, " +
+                    "favorite TEXT, " +
                     "time INTEGER" + //number of seconds since 1970-01-01 00:00:00 UTC
                     ");";
 

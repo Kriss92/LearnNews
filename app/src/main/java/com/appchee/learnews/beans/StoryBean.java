@@ -1,4 +1,4 @@
-package com.appchee.learnews;
+package com.appchee.learnews.beans;
 
 import android.media.Image;
 import android.net.Uri;
