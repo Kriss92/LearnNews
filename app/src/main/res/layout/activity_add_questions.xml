@@ -1,3 +1,7 @@
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -45,7 +49,6 @@
         android:layout_height="wrap_content"
         android:onClick="answerButtonClicked"
         android:layout_below="@id/answers"
-        android:src="@drawable/radio_button"
         android:tag="A"
         android:shadowColor="@color/text"/>
 
@@ -65,7 +68,6 @@
         android:layout_height="wrap_content"
         android:onClick="answerButtonClicked"
         android:layout_below="@id/answer_a"
-        android:src="@drawable/radio_button"
         android:tag="B"/>
 
 
@@ -83,7 +85,6 @@
         android:layout_height="wrap_content"
         android:onClick="answerButtonClicked"
         android:layout_below="@id/answer_b"
-        android:src="@drawable/radio_button"
         android:tag="C"/>
 
     <EditText
@@ -102,7 +103,6 @@
         android:layout_height="wrap_content"
         android:onClick="answerButtonClicked"
         android:layout_below="@+id/answer_c"
-        android:src="@drawable/radio_button"
         android:tag="D"/>
 
     <EditText
@@ -152,3 +152,4 @@
         />
 
 </RelativeLayout>
+</ScrollView>
