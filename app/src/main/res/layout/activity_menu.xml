@@ -28,10 +28,8 @@
         android:text="@string/new_game_menu_button"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-
         android:layout_width="270dp"
         android:layout_height="60dp"
-        android:background="@drawable/buttonshape"
         android:shadowColor="#A8A8A8"
         android:shadowDx="0"
         android:shadowDy="0"
@@ -46,10 +44,8 @@
         android:text="@string/add_questions_menu_button"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-
         android:layout_width="270dp"
         android:layout_height="60dp"
-        android:background="@drawable/buttonshape"
         android:shadowColor="#A8A8A8"
         android:shadowDx="0"
         android:shadowDy="0"
@@ -64,10 +60,8 @@
         android:text="@string/your_stories_menu_button"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-
         android:layout_width="270dp"
         android:layout_height="60dp"
-        android:background="@drawable/buttonshape"
         android:shadowColor="#A8A8A8"
         android:shadowDx="0"
         android:shadowDy="0"
@@ -77,6 +71,14 @@
         android:layout_alignLeft="@id/add_questions_menu_button"
         android:onClick="SavedStoriesMenuButtonClicked"/>
 
+    <Button
+        android:id="@+id/sound_menu_button"
+        android:text="@string/sound_menu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/app_name_menu"
+        />
 
     <Button
         android:id="@+id/bookmarks_menu_button"
@@ -94,5 +96,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/bookmarks_menu_button"
         />
+
+
 
 </RelativeLayout>

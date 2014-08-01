@@ -6,7 +6,8 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:background="@drawable/background">
 
         <LinearLayout
             android:id="@+id/upper_game_bar"
@@ -15,18 +16,30 @@
             android:orientation="vertical">
 
             <!--  Upper Bar: category, icon and date-->
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/category_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:id="@+id/q_img"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"/>
 
                 <!--  category and date-->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_toRightOf="@+id/q_img"
+                    android:layout_alignBottom="@id/q_img"
+                    android:layout_marginLeft="20dp" >
 
                     <TextView
                         android:id="@+id/q_category"
@@ -43,22 +56,14 @@
                         android:layout_height="wrap_content"
                         android:text="00/00/0000"
                         android:textSize="25sp"
-                        android:paddingLeft="10dp"
                         android:gravity="center"/>
 
 
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/q_img"
-                    android:src="@drawable/ic_launcher"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    android:paddingRight="10dp"
-                    android:layout_weight="1"/>
 
-            </LinearLayout>
+
+            </RelativeLayout>
 
             <!-- Question -->
             <TextView
@@ -66,13 +71,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="Question 1: bla bla bla bla bla bla bla bla?"
-                android:textSize="25sp"
+                android:text="Bla bla bla bla bla bla bla bla?"
+                android:textSize="32sp"
                 android:paddingTop="20dp"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
-                android:background="@android:color/white"
-                android:gravity="center_horizontal"/>
+                android:paddingBottom="20dp"
+                android:gravity="left"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/border"/>
 
         </LinearLayout>
 
@@ -138,7 +145,7 @@
                 >
 
                 <RatingBar
-                    android:id="@+id/wrong_raiting_bar"
+                    android:id="@+id/raiting_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|bottom"
@@ -146,11 +153,12 @@
 
 
                 <Button
-                    android:id="@+id/wrong_report_button"
+                    android:id="@+id/report_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/report_button"
                     android:layout_gravity="center_vertical"
+                    android:onClick="onReport"
                     />
 
             </LinearLayout>
