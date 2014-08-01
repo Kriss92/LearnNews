@@ -1,5 +1,7 @@
 package com.appchee.learnews;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 import com.appchee.learnews.R;
 
@@ -22,6 +26,25 @@ public class MenuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        View.OnTouchListener touchListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    v.animate().setDuration(200).scaleX(0.75f).scaleY(0.75f);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    v.animate().scaleX(1.0f).scaleY(1.0f);
+                }
+                return false;
+            }
+        };
+
+        Button newGameButton = (Button) findViewById(R.id.new_game_menu_button);
+        newGameButton.setOnTouchListener(touchListener);
+        Button addQuestionButton = (Button) findViewById(R.id.add_questions_menu_button);
+        addQuestionButton.setOnTouchListener(touchListener);
+        Button savedStoriesButton = (Button) findViewById(R.id.your_stories_menu_button);
+        savedStoriesButton.setOnTouchListener(touchListener);
     }
 
 
