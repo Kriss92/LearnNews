@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -63,13 +64,24 @@ public class QuizQuestionFragment extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     v.animate().setDuration(200).scaleX(0.75f).scaleY(0.75f);
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    v.animate().scaleX(1.0f).scaleY(1.0f);
                 }
                 return false;
             }
         };
         mSkipButton.setOnTouchListener(touchListener);
+
+        View.OnTouchListener answerListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    v.animate().setDuration(100).scaleX(0.8f).scaleY(0.8f);
+                }
+                return false;
+            }
+        };
+        for (int i = 0; i < mAnswers.size(); i++) {
+            mAnswers.get(i).setOnTouchListener(answerListener);
+        }
         return v;
     }
 
@@ -107,7 +119,6 @@ public class QuizQuestionFragment extends Fragment {
     public interface QuestionCallback {
         public void onAnswerSubmittedListener(int selectedAns);
         public void onSkipButtonListener();
-
     }
 
     public void populate(List<String> answers){
@@ -127,7 +138,9 @@ public class QuizQuestionFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Log.d("Id = ", ((Integer)mIndex).toString());
+            v.animate().setDuration(300).scaleX(3.0f).scaleY(3.0f);
             onAnswerPressed(mIndex);
+
         }
     }
 
