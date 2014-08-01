@@ -6,16 +6,15 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
-import com.appchee.learnews.R;
+import android.widget.TextView;
 
 
 public class CorrectAnswerFragment extends Fragment {
 
-    private ContinueCallback mListener;
-    private Button mContButton;
-
+    private CorrectCallback mListener;
+    private TextView mCorrectAnsText;
+    private TextView mComplimentText;
+    private TextView mStatisticsText;
 
 
     public CorrectAnswerFragment() {
@@ -32,29 +31,21 @@ public class CorrectAnswerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_correct_answer, container, false);
-        mContButton= (Button) v.findViewById(R.id.correct_cont_button);
 
-        mContButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onButtonPressed();
-            }
-        });
+        //Initialize
+        mCorrectAnsText = (TextView) v.findViewById(R.id.ans_correct);
+        mComplimentText= (TextView) v.findViewById(R.id.ans_compliment_text);
+        mStatisticsText= (TextView) v.findViewById(R.id.ans_statistics);
 
         return v;
     }
 
-    public void onButtonPressed() {
-        if (mListener != null) {
-            mListener.onContinueSubmitted();
-        }
-    }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (ContinueCallback) activity;
+            mListener = (CorrectCallback) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -67,15 +58,15 @@ public class CorrectAnswerFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    public interface CorrectCallback {
+    }
+
+    public void populate(String chosenAnswer, int precentage){
+        mCorrectAnsText.setText(chosenAnswer);
+        mComplimentText.setText("Good Job"); //TODO: randomize
+        String text= precentage+" Got it right";
+        mStatisticsText.setText(text);
+
+    }
 
 }

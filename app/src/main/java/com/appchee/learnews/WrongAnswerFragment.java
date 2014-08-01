@@ -7,12 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 
-public class WrongAnswerFragment extends Fragment {
+public class WrongAnswerFragment extends Fragment implements QuizQuestionFragment.QuestionCallback {
 
-    private ContinueCallback mListener;
-    private Button mContButton;
+    private WrongCallback mListener;
+    private TextView mWrongAnsText;
+    private TextView mCorrectAnsText;
+    private TextView mComplimentText;
 
 
     public WrongAnswerFragment() {
@@ -29,29 +32,21 @@ public class WrongAnswerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_wrong_answer, container, false);
-        mContButton= (Button) v.findViewById(R.id.wrong_cont_button);
 
-        mContButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onButtonPressed();
-            }
-        });
+        //Initialize
+        mCorrectAnsText= (TextView) v.findViewById(R.id.wrong_ans_correct);
+        mWrongAnsText= (TextView) v.findViewById(R.id.wrong_ans_wrong);
+        mComplimentText= (TextView) v.findViewById(R.id.wrong_compliment_text);
 
         return v;
     }
 
-    public void onButtonPressed() {
-        if (mListener != null) {
-            mListener.onContinueSubmitted();
-        }
-    }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (ContinueCallback) activity;
+            mListener = (WrongCallback) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -64,4 +59,19 @@ public class WrongAnswerFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onAnswerSubmittedListener(int selectedAns) {
+
+    }
+
+    public interface WrongCallback {
+    }
+
+    public void populate(String chosenAnswer, String correctAnswer){
+        mCorrectAnsText.setText(correctAnswer);
+        mWrongAnsText.setText(chosenAnswer);
+        mComplimentText.setText("Oh No!"); //TODO randomize
+
+
+    }
 }

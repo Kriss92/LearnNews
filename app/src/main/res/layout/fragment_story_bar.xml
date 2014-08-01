@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.appchee.learnews.StoryBarFragment">
+
+        <Button
+            android:id="@+id/cont_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="continue"
+            android:layout_alignParentBottom="true"
+            android:gravity="center|center_vertical"
+            />
+
+        <!-- Story Bar -->
+        <LinearLayout
+            android:id="@+id/story_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_above="@+id/cont_button"
+            >
+
+
+            <ImageButton
+                android:id="@+id/newsite_img"
+                android:src="@drawable/ic_launcher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingRight="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/article_headline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="Headline- this is the headline Heafsdfsdfsdfdline- this is the headline"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textAlignment="center"/>
+
+            <ImageButton
+                android:id="@+id/save_story_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_launcher"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/send_story_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_launcher"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+

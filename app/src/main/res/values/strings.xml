@@ -11,6 +11,10 @@
     <string name="title_activity_game">GameActivity</string>
     <string name="saved_stories">Saved Stories</string>
     <string name="title_activity_read_later">Saved Stories</string>
+
+    <string name="report_button">Report!</string>
+
+
     <string name="new_game_menu_button">New Game</string>
     <string name="add_questions_menu_button">Add Questions</string>
     <string name="your_stories_menu_button">Saved Stories</string>

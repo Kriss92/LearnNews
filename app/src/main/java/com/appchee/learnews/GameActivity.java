@@ -1,16 +1,24 @@
 package com.appchee.learnews;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
-public class GameActivity extends Activity implements QuizQuestionFragment.QuestionCallback, ContinueCallback {
+public class GameActivity extends Activity implements QuizQuestionFragment.QuestionCallback, StoryBarFragment.StoryBarCallback, CorrectAnswerFragment.CorrectCallback, WrongAnswerFragment.WrongCallback {
 
-    View mQuestionFragment;
-    View mCorrectAnsFragment;
-    View mWrongAnsFragment;
+    CorrectAnswerFragment mCorrectAnsFragment;
+    WrongAnswerFragment mWrongAnsFragment;
+    QuizQuestionFragment mQuizQuestionFragment;
+
+    public int mCorrectAnswer=1;
+    public String[] mAnswers= {"aa","bb", "cc", "dd"};
+    public int mCorrectPrecentage=100;
+    TextView mCurrQuestion;
 
 
     @Override
@@ -18,16 +26,13 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //Initatializing:
-        mQuestionFragment= (View) findViewById(R.id.quiz_question_fragment);
-        mWrongAnsFragment= (View) findViewById(R.id.correct_ans_fragment); //TODO
-        mCorrectAnsFragment= (View) findViewById(R.id.wrong_ans_fragment); //TODO
+        //Initializing:
+        mQuizQuestionFragment= (QuizQuestionFragment) getFragmentManager().findFragmentById(R.id.quiz_question_fragment);
+        mWrongAnsFragment= (WrongAnswerFragment) getFragmentManager().findFragmentById(R.id.wrong_ans_fragment);
+        mCorrectAnsFragment=  (CorrectAnswerFragment) getFragmentManager().findFragmentById(R.id.correct_ans_fragment);
+        mCurrQuestion= (TextView) findViewById(R.id.q_text);
 
-        mQuestionFragment.setVisibility(View.VISIBLE);
-        mCorrectAnsFragment.setVisibility(View.INVISIBLE);
-        mWrongAnsFragment.setVisibility(View.INVISIBLE);
-
-
+        setNextQuestionView();
     }
 
 
@@ -48,39 +53,74 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     }
 
 
+
+
+    // Interfaces Implementations
     @Override
-    public void onAnswerSubmittedListener(boolean isCorrect) {
-        if (true == isCorrect) {
+    public void onAnswerSubmittedListener(int answerSelected) {
+        if (mCorrectAnswer == answerSelected) {
             setCorrectAnswerView();
+            mCorrectAnsFragment.populate( mAnswers[answerSelected] , mCorrectPrecentage);
+            //generate answer view in fragment
         } else {
             setWrongAnswerView();
+            mWrongAnsFragment.populate( mAnswers[answerSelected], mAnswers[mCorrectAnswer]);
+            //generate answer view in fragment
         }
+        //generating story fragment
     }
 
     @Override
-    public void onContinueSubmitted() {
+    public void onContinueButtonListener() {
         setNextQuestionView();
+        setNextQuestionViewContent();
+        //generate question
+    }
+    @Override
+    public void onSaveStoryButtonListener() {
+        Log.d("Rony", "Saving Story....");
+;    }
+
+    @Override
+    public void onSendStoryButtonListener() {
+        Log.d("Rony", "Sending Story....");
+
     }
 
 
+    public void setNextQuestionViewContent() {
+        mCurrQuestion.setText("New Question!!!!!!????");
+        mQuizQuestionFragment.populate(new String[] {"A","B","C","D"});
+    }
+
+    //methods:
     public void setNextQuestionView() {
-        mQuestionFragment.setVisibility(View.VISIBLE);
-        mCorrectAnsFragment.setVisibility(View.INVISIBLE);
-        mWrongAnsFragment.setVisibility(View.INVISIBLE);
+        mQuizQuestionFragment.getView().setVisibility(View.VISIBLE);
+        mCorrectAnsFragment.getView().setVisibility(View.GONE);
+        mWrongAnsFragment.getView().setVisibility(View.GONE);
     }
+
+    public void setNextQuestionVars() {
+        //mCorrectPrecentage...
+    }
+
+    public void setCorrectAnswerView() {
+        mQuizQuestionFragment.getView().setVisibility(View.GONE);
+        mCorrectAnsFragment.getView().setVisibility(View.VISIBLE);
+        mWrongAnsFragment.getView().setVisibility(View.GONE);
+
+
+    }
+
 
     public void setWrongAnswerView() {
-        mQuestionFragment.setVisibility(View.INVISIBLE);
-        mCorrectAnsFragment.setVisibility(View.INVISIBLE);
-        mWrongAnsFragment.setVisibility(View.VISIBLE);
-    }
-    public void setCorrectAnswerView() {
-        mQuestionFragment.setVisibility(View.INVISIBLE);
-        mCorrectAnsFragment.setVisibility(View.VISIBLE);
-        mWrongAnsFragment.setVisibility(View.INVISIBLE);
-    }
+        mQuizQuestionFragment.getView().setVisibility(View.GONE);
+        mCorrectAnsFragment.getView().setVisibility(View.GONE);
+        mWrongAnsFragment.getView().setVisibility(View.VISIBLE);
 
-
+    }
+    public void setWrongAnswerViewContent() {
+    }
 
 
 }
