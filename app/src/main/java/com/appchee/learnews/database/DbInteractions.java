@@ -138,9 +138,9 @@ public class DbInteractions {
         }
         ContentValues values = new ContentValues();
         if (correct) {
-            values.put("correct", cursor.getInt(InteractionsQuery.CORRECT_INDEX + 1));
+            values.put("correct", cursor.getInt(InteractionsQuery.CORRECT_INDEX) + 1);
         } else {
-            values.put("incorrect", InteractionsQuery.INCORRECT_INDEX + 1);
+            values.put("incorrect", cursor.getInt(InteractionsQuery.INCORRECT_INDEX) + 1 );
         }
         mDbHelper.getWritableDatabase().update(LearNewsDbHelper.INTERACTIONS_TABLE, values,
 //                "questionId = ? and userId = ?",  new String[] {question.getId().toString(), LoginActivity.mCurrentUserId});

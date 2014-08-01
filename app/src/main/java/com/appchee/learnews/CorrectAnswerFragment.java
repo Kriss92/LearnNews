@@ -67,10 +67,10 @@ public class CorrectAnswerFragment extends Fragment {
     public interface CorrectCallback {
     }
 
-    public void populate(String chosenAnswer, int precentage){
+    public void populate(String chosenAnswer, double precentage){
         mCorrectAnsText.setText(chosenAnswer);
         mComplimentText.setText(getComment());
-        String text= precentage+" Got it right";
+        String text= precentage + "% Got it right";
         mStatisticsText.setText(text);
     }
 
