@@ -234,11 +234,10 @@ public class AddQuestionsActivity extends Activity {
         toast.show();
     }
 
-    private void saveQuestion(String category, List<AnswerBean> answerBeans, String question, String url )
+    public void saveQuestion(String category, List<AnswerBean> answerBeans, String question, String url)
             throws ValidationException {
 
         Log.d("Add Question", "Try to save");
-
         QuestionBean questionBean = new QuestionBean();
         questionBean.setCategory(category);
         questionBean.setAnswers(answerBeans);

@@ -16,10 +16,15 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-
 import com.appchee.learnews.R;
+import com.appchee.learnews.beans.AnswerBean;
+import com.appchee.learnews.beans.QuestionBean;
+import com.appchee.learnews.validation.ValidationException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.appchee.learnews.AddQuestionsActivity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.Inflater;
 
 public class MenuActivity extends Activity {
@@ -86,6 +91,99 @@ public class MenuActivity extends Activity {
     public void SavedStoriesMenuButtonClicked(View view) {
         Intent intent = new Intent(this, SavedStoriesActivity.class);
         startActivity(intent);
+    }
+
+    public void InitializeDB(){
+        String[] categories= getResources().getStringArray(R.array.categories);
+        {
+            List<AnswerBean> answerBeans1 = new ArrayList<AnswerBean>();
+            AnswerBean ans1 = new AnswerBean("United States", false);
+            answerBeans1.add(ans1);
+            AnswerBean ans2 = new AnswerBean("United Kingdom", false);
+            answerBeans1.add(ans2);
+            AnswerBean ans3 = new AnswerBean("France", false);
+            answerBeans1.add(ans3);
+            AnswerBean ans4 = new AnswerBean("Egypt", true);
+            answerBeans1.add(ans4);
+        }
+
+        QuestionBean questionBean1=new QuestionBean();
+        questionBean1.setQuestion("Who is negotiating the ceasefire between the Israeli and the Palestinitan delgeation?");
+        questionBean1.setCategory(categories[1]);
+        questionBean1.setNewsURL("http://www.bbc.com/news/world-middle-east-28603599");
+
+        List<AnswerBean> answerBeans2 = new ArrayList<AnswerBean>();
+        {   AnswerBean ans1 = new AnswerBean("Email users", false);
+            answerBeans2.add(ans1);
+            AnswerBean ans2 = new AnswerBean("Social network users", false);
+            answerBeans2.add(ans2);
+            AnswerBean ans3 = new AnswerBean("Big concerns", false);
+            answerBeans2.add(ans3);
+            AnswerBean ans4 = new AnswerBean("Government", true);
+            answerBeans2.add(ans4);
+        }
+
+        QuestionBean questionBean2=new QuestionBean();
+        questionBean2.setQuestion("The new Internet law in Russia sets restrictions on:");
+        questionBean2.setCategory(categories[3]);
+        questionBean2.setNewsURL("http://www.bbc.com/news/technology-28583669");
+
+
+        List<AnswerBean> answerBeans3 = new ArrayList<AnswerBean>();
+        {
+            AnswerBean ans1 = new AnswerBean("Cats", false);
+            answerBeans3.add(ans1);
+            AnswerBean ans2 = new AnswerBean("Scarecrows", false);
+            answerBeans3.add(ans2);
+            AnswerBean ans3 = new AnswerBean("Mimes", false);
+            answerBeans3.add(ans3);
+            AnswerBean ans4 = new AnswerBean("Beginning opera singers", true);
+            answerBeans3.add(ans4);
+        }
+
+        QuestionBean questionBean3=new QuestionBean();
+        questionBean3.setQuestion("What did India hire to scare monkeys?");
+        questionBean3.setCategory(categories[6]);
+        questionBean3.setNewsURL("http://www.bbc.com/news/28599470");
+
+        List<AnswerBean> answerBeans4 = new ArrayList<AnswerBean>();
+        {
+            AnswerBean ans1 = new AnswerBean("Shiffra Haim Cohen", false);
+            answerBeans4.add(ans1);
+            AnswerBean ans2 = new AnswerBean("Yochewed Mazal Tzur", false);
+            answerBeans4.add(ans2);
+            AnswerBean ans3 = new AnswerBean("Meriam Yahia Ibrahim", false);
+            answerBeans4.add(ans3);
+            AnswerBean ans4 = new AnswerBean("Uma Sara Mesada", true);
+            answerBeans4.add(ans4);
+        }
+
+        QuestionBean questionBean4=new QuestionBean();
+        questionBean4.setQuestion("What was the name of the woman sentence for apostasy in Sudan?");
+        questionBean4.setCategory(categories[1]);
+        questionBean4.setNewsURL("http://www.bbc.com/news/world-us-canada-28596412");
+
+        List<AnswerBean> answerBeans5 = new ArrayList<AnswerBean>();
+        {
+            AnswerBean ans1 = new AnswerBean("Jamaica", false);
+            AnswerBean ans2 = new AnswerBean("Kenya", false);
+            answerBeans5.add(ans2);
+            AnswerBean ans3 = new AnswerBean("Botswana", false);
+            answerBeans5.add(ans3);
+            AnswerBean ans4 = new AnswerBean(" the UK", true);
+            answerBeans5.add(ans4);
+        }
+
+        QuestionBean questionBean5=new QuestionBean();
+        questionBean5.setQuestion("The new winner of the 800 m race in the Commonwealth Games comes from:");
+        questionBean5.setCategory(categories[7]);
+        questionBean5.setNewsURL("http://www.bbc.com/sport/0/commonwealth-games/28595270");
+
+
+
+
+
+
     }
 
 }

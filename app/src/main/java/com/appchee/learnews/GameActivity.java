@@ -51,6 +51,9 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         setNextQuestion();
     }
 
+
+
+
     public void onReport(View view) {
         mManager.reportQuestion(mCurrentQuestionBean);
         onSkipButtonListener();
@@ -185,4 +188,5 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
             }
         }
     }
+
 }
