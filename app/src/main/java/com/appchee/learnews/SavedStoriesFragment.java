@@ -81,7 +81,7 @@ public class SavedStoriesFragment extends Fragment {
                 // create a ViewHolder
                 holder = new StoryViewHolder();
                 holder.title = (TextView) view.findViewById(R.id.story_headline);
-                holder.date = (TextView) view.findViewById(R.id.story_date);
+                holder.title.setTextColor(R.color.text);
                 holder.icon = (ImageView) view.findViewById(R.id.story_source_ic);
                 view.setTag(holder);
             }
@@ -92,7 +92,6 @@ public class SavedStoriesFragment extends Fragment {
 
             StoryBean current = mStories.get(position);
             holder.title.setText(current.getTitle());
-            holder.date.setText(current.getDate().toString());
             holder.icon.setImageDrawable(getResources().getDrawable(R.drawable.bbc));
 
             return view;
@@ -101,7 +100,6 @@ public class SavedStoriesFragment extends Fragment {
 
     private class StoryViewHolder {
         public TextView title;
-        public TextView date;
         public ImageView icon;
     }
 

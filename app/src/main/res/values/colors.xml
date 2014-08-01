@@ -5,4 +5,5 @@
     <color name="header">#303A75</color>
     <color name="text">#2828B5</color>
     <color name="question_background">#80B0FF</color>
+    <color name="hint">#4D89C9</color>
 </resources>
