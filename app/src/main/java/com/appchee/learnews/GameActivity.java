@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appchee.learnews.actions.QuestionsManager;
 import com.appchee.learnews.beans.AnswerBean;
@@ -110,6 +111,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     public void onSaveStoryButtonListener() {
         Log.d("Rony", "Saving Story...." + mCurrentQuestionBean.getNewsURL());
         mManager.saveStrory(mCurrentQuestionBean);
+        Toast.makeText(this, "Story saved.", Toast.LENGTH_LONG).show();
 ;    }
 
     @Override
