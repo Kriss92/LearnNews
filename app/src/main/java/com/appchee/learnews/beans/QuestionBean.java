@@ -1,5 +1,7 @@
 package com.appchee.learnews.beans;
 
+import android.util.Log;
+
 import com.appchee.learnews.validation.UnsafeContentValidator;
 import com.appchee.learnews.validation.UrlValidator;
 import com.appchee.learnews.validation.ValidationException;

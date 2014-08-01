@@ -138,7 +138,7 @@
                 >
 
                 <RatingBar
-                    android:id="@+id/wrong_raiting_bar"
+                    android:id="@+id/raiting_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|bottom"
@@ -146,16 +146,17 @@
 
 
                 <Button
-                    android:id="@+id/wrong_report_button"
+                    android:id="@+id/report_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/report_button"
                     android:layout_gravity="center_vertical"
+                    android:onClick="onReport"
                     />
 
             </LinearLayout>
 
-        
+
         <SlidingDrawer
             android:id="@+id/categories_drawer"
             android:layout_width="300dp"

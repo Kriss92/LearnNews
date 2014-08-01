@@ -9,6 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.appchee.learnews.actions.QuestionsManager;
+import com.appchee.learnews.beans.AnswerBean;
+import com.appchee.learnews.beans.QuestionBean;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameActivity extends Activity implements QuizQuestionFragment.QuestionCallback, StoryBarFragment.StoryBarCallback, CorrectAnswerFragment.CorrectCallback, WrongAnswerFragment.WrongCallback, CategoryDrawerFragment.CategoryCallback {
 
     CorrectAnswerFragment mCorrectAnsFragment;
@@ -16,9 +23,12 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     QuizQuestionFragment mQuizQuestionFragment;
 
     public int mCorrectAnswer=1;
-    public String[] mAnswers= {"aa","bb", "cc", "dd"};
+    public List<String> mAnswers = new ArrayList<String>();
     public int mCorrectPrecentage=100;
     TextView mCurrQuestion;
+    QuestionsManager mManager;
+    QuestionBean mCurrentQuestionBean;
+
 
 
     @Override
@@ -31,8 +41,13 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mWrongAnsFragment= (WrongAnswerFragment) getFragmentManager().findFragmentById(R.id.wrong_ans_fragment);
         mCorrectAnsFragment=  (CorrectAnswerFragment) getFragmentManager().findFragmentById(R.id.correct_ans_fragment);
         mCurrQuestion= (TextView) findViewById(R.id.q_text);
+        mManager = new QuestionsManager(getApplicationContext());
+        setNextQuestion();
+    }
 
-        setNextQuestionView();
+    public void onReport(View view) {
+        mManager.reportQuestion(mCurrentQuestionBean);
+        onSkipButtonListener();
     }
 
 
@@ -58,23 +73,30 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     // Interfaces Implementations
     @Override
     public void onAnswerSubmittedListener(int answerSelected) {
+        
         if (mCorrectAnswer == answerSelected) {
+            mCorrectAnsFragment.populate( mAnswers.get(answerSelected) , mCorrectPrecentage);
             setCorrectAnswerView();
-            mCorrectAnsFragment.populate( mAnswers[answerSelected] , mCorrectPrecentage);
             //generate answer view in fragment
         } else {
+             mWrongAnsFragment.populate( mAnswers.get(answerSelected), mAnswers.get(mCorrectAnswer));
             setWrongAnswerView();
-            mWrongAnsFragment.populate( mAnswers[answerSelected], mAnswers[mCorrectAnswer]);
+
             //generate answer view in fragment
         }
         //generating story fragment
     }
 
     @Override
+    public void onSkipButtonListener() {
+        onContinueButtonListener();
+        //TODO: Update DataBase
+    }
+
+    @Override
     public void onContinueButtonListener() {
         setNextQuestionView();
         setNextQuestionViewContent();
-        //generate question
     }
     @Override
     public void onSaveStoryButtonListener() {
@@ -88,20 +110,34 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     }
 
 
-    public void setNextQuestionViewContent() {
-        mCurrQuestion.setText("New Question!!!!!!????");
-        mQuizQuestionFragment.populate(new String[] {"A","B","C","D"});
+    //methods:
+
+    public void setNextQuestion() {
+        mCurrentQuestionBean = mManager.getNextQuestion();
+
+        setNextQuestionView();
+        setNextQuestionViewContent();
     }
 
-    //methods:
+    public void setNextQuestionViewContent() {
+
+        mCurrQuestion.setText(mCurrentQuestionBean.getQuestion());
+        mAnswers.clear();
+        List<String> answers = new ArrayList<String>();
+        for (AnswerBean answer : mCurrentQuestionBean.getAnswers()) {
+            answers.add(answer.getAnswer());
+            mAnswers.add(answer.getAnswer());
+        }
+        // mAnswers = answers;
+        Log.d("Before we crash ", " num answers " + answers.size());
+        mCorrectAnswer = mCurrentQuestionBean.getCorrectAnswer();
+        mQuizQuestionFragment.populate(answers);
+    }
+
     public void setNextQuestionView() {
         mQuizQuestionFragment.getView().setVisibility(View.VISIBLE);
         mCorrectAnsFragment.getView().setVisibility(View.GONE);
         mWrongAnsFragment.getView().setVisibility(View.GONE);
-    }
-
-    public void setNextQuestionVars() {
-        //mCorrectPrecentage...
     }
 
     public void setCorrectAnswerView() {
@@ -118,8 +154,6 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mCorrectAnsFragment.getView().setVisibility(View.GONE);
         mWrongAnsFragment.getView().setVisibility(View.VISIBLE);
 
-    }
-    public void setWrongAnswerViewContent() {
     }
 
 

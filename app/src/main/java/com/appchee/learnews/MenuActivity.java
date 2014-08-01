@@ -44,25 +44,10 @@ public class MenuActivity extends Activity {
             case R.id.action_sign_out:
                 //Sign user out
                 break;
-            case R.id.action_change_background:
-                startBackgroundDialog();
-                break;
             case R.id.action_about:
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void startBackgroundDialog() {
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle(R.string.change_background_dialog_question);
-        alertDialog.setIcon(R.drawable.ic_launcher);
-
-        LayoutInflater inflater = (LayoutInflater) getSystemService
-                (Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(R.layout.dialog_change_background_color, null);
-        alertDialog.setView(v);
-        alertDialog.show();
     }
 
     public void newGameMenuButtonClicked(View view) {

@@ -17,31 +17,33 @@ public class QuestionsManager {
 
     private Context mContext;
     private Random mRandom;
+    DbInteractions mDbHelper;
 
     public QuestionsManager(Context context) {
         mContext = context;
         mRandom = new Random();
+        mDbHelper = new DbInteractions(mContext);
     }
 
     public QuestionBean getNextQuestion() {
-        QuestionBean result = null;
-        DbInteractions dbHelper = new DbInteractions(mContext);
 
-        Long numQueries = DatabaseUtils.queryNumEntries(dbHelper.getDBHelper().getReadableDatabase(),
+
+        Long numQueries = DatabaseUtils.queryNumEntries(mDbHelper.getDBHelper().getReadableDatabase(),
                 LearNewsDbHelper.QUESTIONS_TABLE, null);
 
         Integer nextQuestionNum =  mRandom.nextInt(numQueries.intValue());
 
         Log.d("Question num", "All queries " + numQueries
                 + " Num: " + nextQuestionNum.toString());
-        dbHelper.getQuestionByNumber(nextQuestionNum);
+        return mDbHelper.getQuestionByNumber(nextQuestionNum);
+    }
 
-        return result;
+    public void reportQuestion(QuestionBean question) {
+        mDbHelper.deleteQuestion(question);
     }
 
     public Double answerQuestion(QuestionBean question, boolean correct) {
         //Update corrects/incorrects count
-
         //return percentage correct
         return 0.0;
     }

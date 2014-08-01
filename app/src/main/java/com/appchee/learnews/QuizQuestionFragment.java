@@ -7,17 +7,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class QuizQuestionFragment extends Fragment {
 
     private QuestionCallback mListener;
-    private TextView mAnswer0;
-    private TextView mAnswer1;
-    private TextView mAnswer2;
-    private TextView mAnswer3;
-
+    private Button mSkipButton;
+    private List<TextView> mAnswers;
 
     public QuizQuestionFragment() {
         // Required empty public constructor
@@ -35,43 +36,35 @@ public class QuizQuestionFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_quiz_question, container, false);
-        mAnswer0 = (TextView) v.findViewById(R.id.q_answer0);
-        mAnswer1 = (TextView) v.findViewById(R.id.q_answer1);
-        mAnswer2 = (TextView) v.findViewById(R.id.q_answer2);
-        mAnswer3 = (TextView) v.findViewById(R.id.q_answer3);
+        mSkipButton= (Button) v.findViewById(R.id.skip_button);
+        mAnswers = new ArrayList<TextView>();
+        mAnswers.add((TextView) v.findViewById(R.id.q_answer0));
+        mAnswers.add((TextView) v.findViewById(R.id.q_answer1));
+        mAnswers.add((TextView) v.findViewById(R.id.q_answer2));
+        mAnswers.add((TextView) v.findViewById(R.id.q_answer3));
 
 
         //Generate Question and answers
 
-
+        //On skip
+        mSkipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSkipPressed();
+            }
+        });
         //On selected Answer
-        mAnswer0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onAnswerPressed(0);
-            }
-        });
-        mAnswer1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onAnswerPressed(1);
-            }
-        });
-        mAnswer2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onAnswerPressed(2);
-            }
-        });
-        mAnswer3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onAnswerPressed(3);
-            }
-        });
-
-
+        for(int i = 0; i < mAnswers.size(); i++) {
+            mAnswers.get(i).setOnClickListener(new AnswersOnClickListener(i));
+        }
         return v;
+    }
+
+    public void onSkipPressed() {
+        if (mListener != null) {
+            mListener.onSkipButtonListener();
+            Log.d("Rony", "Skip!");
+        }
     }
 
     public void onAnswerPressed(int selectedAns) {
@@ -100,15 +93,29 @@ public class QuizQuestionFragment extends Fragment {
 
     public interface QuestionCallback {
         public void onAnswerSubmittedListener(int selectedAns);
+        public void onSkipButtonListener();
 
     }
 
-    public void populate(String[] answers){
-        mAnswer0.setText(answers[0]);
-        mAnswer1.setText(answers[1]);
-        mAnswer2.setText(answers[2]);
-        mAnswer3.setText(answers[3]);
+    public void populate(List<String> answers){
+        for(int i = 0; i < answers.size(); i++) {
+            mAnswers.get(i).setText(answers.get(i));
+        }
     }
 
+    private class AnswersOnClickListener implements View.OnClickListener {
+
+        int mIndex = 0;
+
+        public AnswersOnClickListener(int index) {
+            mIndex = index;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Log.d("Id = ", ((Integer)mIndex).toString());
+            onAnswerPressed(mIndex);
+        }
+    }
 
 }

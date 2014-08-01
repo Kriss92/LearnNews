@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Random;
+
 
 public class CorrectAnswerFragment extends Fragment {
 
@@ -15,6 +17,10 @@ public class CorrectAnswerFragment extends Fragment {
     private TextView mCorrectAnsText;
     private TextView mComplimentText;
     private TextView mStatisticsText;
+
+
+
+    String[] compliments= {};
 
 
     public CorrectAnswerFragment() {
@@ -63,10 +69,15 @@ public class CorrectAnswerFragment extends Fragment {
 
     public void populate(String chosenAnswer, int precentage){
         mCorrectAnsText.setText(chosenAnswer);
-        mComplimentText.setText("Good Job"); //TODO: randomize
+        mComplimentText.setText(getComment());
         String text= precentage+" Got it right";
         mStatisticsText.setText(text);
-
     }
 
+    private String getComment() {
+        Random rand = new Random();
+        String[] comments = getResources().getStringArray(R.array.correct_comments);
+        int i = rand.nextInt(comments.length);
+        return comments[i];
+    }
 }
