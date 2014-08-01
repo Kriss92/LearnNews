@@ -9,15 +9,11 @@
     tools:context="com.appchee.learnews.LoginActivity"
     android:id="@+id/login_layout">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         />
 
 </RelativeLayout>

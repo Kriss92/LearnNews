@@ -21,7 +21,8 @@
         android:id="@+id/saved_stories_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/saved_stories_title">
+        android:layout_below="@id/saved_stories_title"
+        android:paddingLeft="60dp">
     </ListView>
 
 </RelativeLayout>

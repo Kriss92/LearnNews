@@ -72,31 +72,13 @@
         android:onClick="SavedStoriesMenuButtonClicked"/>
 
     <Button
-        android:id="@+id/sound_menu_button"
-        android:text="@string/sound_menu_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/app_name_menu"
-        />
-
-    <Button
         android:id="@+id/bookmarks_menu_button"
         android:text="@string/bookmarks_menu_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         />
-
-    <Button
-        android:id="@+id/achievements_menu_button"
-        android:text="@string/achievements_menu_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/bookmarks_menu_button"
-        />
-
 
 
 </RelativeLayout>
