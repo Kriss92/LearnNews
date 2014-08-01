@@ -31,6 +31,9 @@ public class QuestionsManager {
         Long numQueries = DatabaseUtils.queryNumEntries(mDbHelper.getDBHelper().getReadableDatabase(),
                 LearNewsDbHelper.QUESTIONS_TABLE, null);
 
+        if (numQueries < 1) {
+            return new QuestionBean();
+        }
         Integer nextQuestionNum =  mRandom.nextInt(numQueries.intValue());
 
         Log.d("Question num", "All queries " + numQueries
