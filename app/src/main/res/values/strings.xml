@@ -38,20 +38,19 @@
     <string name="background_color_4">Gray</string>
     <string name="background_color_5">Red</string>
     <string-array name="correct_comments">
-        <item>Good job!</item>
-        <item>Correct!</item>
-        <item>You are right!</item>
-        <item>Nice!</item>
-        <item>That\'s right!</item>
-        <item>Good!</item>
-        <item>Amazing!</item>
-        <item>You\'re better then Google!</item>
-        <item>Wonderful!</item>
-        <item>Oh yeah</item>
-        <item>You</item>
+        <item>"Good job!"</item>
+        <item>"Correct!"</item>
+        <item>"You are right!"</item>
+        <item>"Nice!"</item>
+        <item>"That\'s right!"</item>
+        <item>"Good!"</item>
+        <item>"Amazing!"</item>
+        <item>"You\'re better then Google!"</item>
+        <item>"Wonderful!"</item>
+        <item>"Oh yeah!"</item>
     </string-array>
     <string-array name="wrong_comments">
-       <item>"Oh No!"</item>>
+       <item>"Oh No!"</item>
        <item>"Try again next time..."</item>
        <item>"Nope..."</item>
        <item>"That\'s wrong..."</item>
@@ -59,5 +58,15 @@
        <item>"Really\?!"</item>
        <item>"Why don\'t you google it?"</item>
        <item>"No Way!"</item>
+    </string-array>
+
+    <string-array name="categories">
+        <item>"Economy"</item>
+        <item>"Politics"</item>
+        <item>"Science"</item>
+        <item>"Tech"</item>
+        <item>"Entertainment"</item>
+        <item>"Health"</item>
+        <item>"Travel"</item>
     </string-array>
 </resources>

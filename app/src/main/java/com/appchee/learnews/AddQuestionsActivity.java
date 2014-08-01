@@ -11,9 +11,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.appchee.learnews.R;
@@ -29,12 +33,14 @@ import java.util.List;
 public class AddQuestionsActivity extends Activity {
 
     RadioButton[] buttons;
+    Spinner spinner;
     RadioButton selectedButton;
     String newQuestionAsked;
     EditText[] answerViews;
     String[] answers;
     String question;
     String url;
+    String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,9 @@ public class AddQuestionsActivity extends Activity {
 
     private void initialiseButtons()
     {
+        initializeSpinner();
+
+
         //TODO: fix, make coding better, avoid duplication
         buttons = new RadioButton[4];
         buttons[0] = (RadioButton) findViewById(R.id.button_a);
@@ -58,6 +67,32 @@ public class AddQuestionsActivity extends Activity {
         answerViews[1] = (EditText) findViewById(R.id.answer_b);
         answerViews[2] = (EditText) findViewById(R.id.answer_c);
         answerViews[3] = (EditText) findViewById(R.id.answer_d);
+    }
+
+    private void initializeSpinner() {
+        spinner = (Spinner) findViewById(R.id.category_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.categories, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                category= getResources().getStringArray(R.array.categories)[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 
     @Override
@@ -151,7 +186,7 @@ public class AddQuestionsActivity extends Activity {
         }
 
         try {
-            saveQuestion("Europe", answerBeans, question, url);
+            saveQuestion(category , answerBeans, question, url);
         } catch (ValidationException e) {
             //TODO: use e.getMessage()
             Log.d("Offence", e.getMessage());
