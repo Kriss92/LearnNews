@@ -116,6 +116,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     public void setNextQuestion() {
         mCurrentQuestionBean = mManager.getNextQuestion();
+        mManager.updateInteraction(mCurrentQuestionBean);
 
         setNextQuestionView();
         setNextQuestionViewContent();
