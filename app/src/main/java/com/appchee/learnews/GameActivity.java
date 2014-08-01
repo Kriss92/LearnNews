@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appchee.learnews.actions.QuestionsManager;
@@ -24,6 +25,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     public int mCorrectAnswer=1;
     public List<String> mAnswers = new ArrayList<String>();
+    ImageView mCategoryPic;
     TextView mCategory;
     TextView mCurrQuestion;
     QuestionsManager mManager;
@@ -42,6 +44,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mCorrectAnsFragment=  (CorrectAnswerFragment) getFragmentManager().findFragmentById(R.id.correct_ans_fragment);
         mCurrQuestion= (TextView) findViewById(R.id.q_text);
         mCategory = (TextView) findViewById(R.id.q_category);
+        mCategoryPic= (ImageView) findViewById(R.id.q_img);
         mManager = new QuestionsManager(getApplicationContext());
         setNextQuestion();
     }
@@ -77,7 +80,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         
         if (mCorrectAnswer == answerSelected) {
             Double correctPercentage = mManager.answerQuestion(mCurrentQuestionBean, true);
-            mCorrectAnsFragment.populate( mAnswers.get(answerSelected) , correctPercentage);
+            mCorrectAnsFragment.populate(mAnswers.get(answerSelected), correctPercentage);
             setCorrectAnswerView();
             //generate answer view in fragment
         } else {
@@ -118,7 +121,10 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     public void setNextQuestion() {
         mCurrentQuestionBean = mManager.getNextQuestion();
         mManager.updateInteraction(mCurrentQuestionBean);
-        mCategory.setText(mCurrentQuestionBean.getCategory());
+        String category=mCurrentQuestionBean.getCategory();
+        mCategory.setText(category);
+        setCategoryImage(category);
+
 
         setNextQuestionView();
         setNextQuestionViewContent();
@@ -165,5 +171,16 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     @Override
     public void onCategoriesSelected(String[] categories) {
 
+    }
+
+    public void setCategoryImage(String cat) {
+        Log.d("Rony", "Picture Change");
+        String[] categories= getResources().getStringArray(R.array.categories);
+        for (String c: categories) {
+            if (c.equals(cat)) {
+                int img= getResources().getIdentifier(c.toLowerCase(), "drawble" , getPackageName() );
+                mCategoryPic.setImageResource(img);
+            }
+        }
     }
 }
