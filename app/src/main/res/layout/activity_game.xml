@@ -155,7 +155,7 @@
 
             </LinearLayout>
 
-        
+
         <SlidingDrawer
             android:id="@+id/categories_drawer"
             android:layout_width="300dp"

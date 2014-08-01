@@ -2,14 +2,19 @@ package com.appchee.learnews;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.appchee.learnews.R;
+
+import java.util.zip.Inflater;
 
 public class MenuActivity extends Activity {
 
@@ -37,10 +42,6 @@ public class MenuActivity extends Activity {
             case R.id.action_sign_out:
                 //Sign user out
                 break;
-            case R.id.action_change_background:
-                Log.d("Something", "Something something background change");
-                startBackgroundDialog();
-                break;
             case R.id.action_about:
 
                 return true;
@@ -48,29 +49,19 @@ public class MenuActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void startBackgroundDialog() {
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle(R.string.change_background_dialog_question);
-        alertDialog.setIcon(R.drawable.ic_launcher);
-        alertDialog.show();
-    }
-
     public void newGameMenuButtonClicked(View view) {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
-
     }
 
     public void addQuestionsMenuButtonClicked(View view) {
         Intent intent = new Intent(this, AddQuestionsActivity.class);
         startActivity(intent);
-
     }
 
     public void SavedStoriesMenuButtonClicked(View view) {
         Intent intent = new Intent(this, SavedStoriesActivity.class);
         startActivity(intent);
-
     }
 
 }

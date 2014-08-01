@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Random;
+
 
 public class WrongAnswerFragment extends Fragment implements QuizQuestionFragment.QuestionCallback {
 
@@ -70,8 +72,15 @@ public class WrongAnswerFragment extends Fragment implements QuizQuestionFragmen
     public void populate(String chosenAnswer, String correctAnswer){
         mCorrectAnsText.setText(correctAnswer);
         mWrongAnsText.setText(chosenAnswer);
-        mComplimentText.setText("Oh No!"); //TODO randomize
+        mComplimentText.setText(getComment());
 
 
+    }
+
+    private String getComment(){
+        Random rand=new Random();
+        String[] comments= getResources().getStringArray(R.array.wrong_comments);
+        int i = rand.nextInt(comments.length);
+        return comments[i];
     }
 }
