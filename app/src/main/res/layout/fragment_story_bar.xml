@@ -27,7 +27,7 @@
                 android:id="@+id/newsite_img"
                 android:src="@drawable/bbc"
                 android:layout_width="60sp"
-                android:layout_height="wrap_content"
+                android:layout_height="60sp"
                 android:paddingRight="10dp"/>
 
             <TextView
