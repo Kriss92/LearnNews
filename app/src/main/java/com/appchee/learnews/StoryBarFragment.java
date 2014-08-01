@@ -69,6 +69,13 @@ public class StoryBarFragment extends Fragment {
             }
         });
 
+        mNewsSiteImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         return v;
     }
 

@@ -1,18 +1,23 @@
 package com.appchee.learnews;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
@@ -78,12 +83,25 @@ public class SavedStoriesFragment extends Fragment {
                 LayoutInflater inflater = LayoutInflater.from(getActivity());
                 view = inflater.inflate(R.layout.story_item, null);
 
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Uri uri = (Uri) v.getTag();
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                            startActivity(intent);
+                        }
+                    }
+                });
+
                 // create a ViewHolder
                 holder = new StoryViewHolder();
                 holder.title = (TextView) view.findViewById(R.id.story_headline);
-                holder.title.setTextColor(R.color.text);
+                holder.title.setTextColor(getResources().getColor(R.color.text));
                 holder.icon = (ImageView) view.findViewById(R.id.story_source_ic);
                 view.setTag(holder);
+
+                holder.title.setMovementMethod(LinkMovementMethod.getInstance());
             }
             else {
                 view = convertView;
@@ -93,6 +111,7 @@ public class SavedStoriesFragment extends Fragment {
             StoryBean current = mStories.get(position);
             holder.title.setText(current.getTitle());
             holder.icon.setImageDrawable(getResources().getDrawable(R.drawable.bbc));
+            view.setTag(current.getUri());
 
             return view;
         }
@@ -109,6 +128,7 @@ public class SavedStoriesFragment extends Fragment {
         stories[0].setTitle("MLA plane shot down in Ukraine");
         stories[0].setDate(Date.valueOf("2014-03-27"));
         stories[0].setNewsIconId(5);
+        stories[0].setUri(Uri.parse("http://www.bbc.com/news/world-europe-28357880"));
 
         stories[1] = new StoryBean();
         stories[1].setTitle("Results of the EU vote");
