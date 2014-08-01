@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -50,6 +51,20 @@ public class AddQuestionsActivity extends Activity {
         setContentView(R.layout.activity_add_questions);
 
         initialiseButtons();
+
+        View.OnTouchListener touchListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    v.animate().setDuration(200).scaleX(0.75f).scaleY(0.75f);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    v.animate().scaleX(1.0f).scaleY(1.0f);
+                }
+                return false;
+            }
+        };
+        Button submitButton = (Button) findViewById(R.id.submit);
+        submitButton.setOnTouchListener(touchListener);
     }
 
     private void initialiseButtons()
