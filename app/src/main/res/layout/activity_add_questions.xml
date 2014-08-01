@@ -6,29 +6,39 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
     tools:context="com.appchee.learnews.AddQuestionsActivity">
-
 
     <Spinner
         android:id="@+id/category_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
     </Spinner>
-
     <EditText
         android:id="@+id/add_questions_text"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/category_spinner"
-        android:layout_width="@dimen/question_length"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@color/text"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:hint="Your Question"
+        android:textColorHint="#ffffff"/>
 
     <TextView
         android:id="@+id/answers"
         android:text="@string/answers"
         android:layout_below="@+id/add_questions_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="20dp"
+        android:textColor="@color/text"/>
 
     <RadioButton android:id="@+id/button_a"
         android:layout_width="wrap_content"
@@ -36,7 +46,8 @@
         android:onClick="answerButtonClicked"
         android:layout_below="@id/answers"
         android:src="@drawable/radio_button"
-        android:tag="A"/>
+        android:tag="A"
+        android:shadowColor="@color/text"/>
 
     <EditText
         android:id="@+id/answer_a"
@@ -45,6 +56,7 @@
         android:layout_toRightOf="@+id/button_a"
         android:layout_alignBottom="@id/button_a"
         android:tag="A"
+        android:textColor="@color/text"
         />
 
 
@@ -63,7 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/button_b"
         android:layout_alignBottom="@id/button_b"
-        android:tag="B"/>
+        android:tag="B"
+        android:textColor="@color/text"/>
 
     <RadioButton android:id="@+id/button_c"
         android:layout_width="wrap_content"
@@ -80,6 +93,7 @@
         android:layout_toRightOf="@+id/button_c"
         android:layout_alignBottom="@id/button_c"
         android:tag="C"
+        android:textColor="@color/text"
         />
 
     <RadioButton
@@ -107,21 +121,33 @@
         android:layout_below="@id/answer_d"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_d"
+        android:textSize="20dp"
+        android:textColor="@color/text"
         android:layout_centerHorizontal="true"/>
     <EditText
         android:id="@+id/link_text"
         android:layout_below="@+id/link_title"
-        android:layout_width="@dimen/link_length"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:hint="Add link"
+        android:textColorHint="#ffffff"/>
 
     <Button
         android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_below="@id/link_text"
         android:text="@string/submit_button"
         android:layout_centerHorizontal="true"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_marginBottom="40dp"
         android:onClick="submitButtonClicked"
         />
 

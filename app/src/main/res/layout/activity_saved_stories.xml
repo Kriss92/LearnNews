@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    tools:context="com.appchee.learnews.SavedStoriesActivity">
+    tools:context="com.appchee.learnews.SavedStoriesActivity"
+    android:background="@drawable/background">
 
     <fragment android:name="com.appchee.learnews.SavedStoriesFragment"
         android:id="@+id/saved_stories_fragment"
@@ -27,6 +28,7 @@
             android:src="@drawable/ic_open_drawer"
             android:layout_width="@dimen/handle_width"
             android:layout_height="@dimen/handle_height"
+
             android:rotation="180"/>
 
         <FrameLayout
