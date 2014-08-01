@@ -19,19 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="5"
             android:layout_above="@+id/cont_button"
             >
 
 
             <ImageView
                 android:id="@+id/newsite_img"
-                android:src="@drawable/ic_launcher"
-                android:layout_width="wrap_content"
+                android:src="@drawable/bbc"
+                android:layout_width="60sp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingRight="10dp"
-                android:layout_weight="1"/>
+                android:paddingRight="10dp"/>
 
             <TextView
                 android:id="@+id/article_headline"
@@ -39,23 +36,21 @@
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:text="Headline- this is the headline Heafsdfsdfsdfdline- this is the headline"
-                android:layout_weight="3"
+                android:layout_weight="10"
                 android:gravity="center"
                 android:textAlignment="center"/>
 
             <ImageView
                 android:id="@+id/save_story_button"
-                android:layout_width="wrap_content"
+                android:layout_width="60sp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/save"
-                android:layout_weight="1"/>
+                android:src="@drawable/save"/>
 
             <ImageView
                 android:id="@+id/send_story_button"
-                android:layout_width="wrap_content"
+                android:layout_width="60sp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/mail"
-                android:layout_weight="1"/>
+                android:src="@drawable/mail"/>
 
         </LinearLayout>
 
