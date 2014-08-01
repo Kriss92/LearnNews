@@ -2,8 +2,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.appchee.learnews.QuizQuestionFragment"
-            android:background="@android:color/holo_blue_light">
+            tools:context="com.appchee.learnews.QuizQuestionFragment">
 
 
                 <!-- Answers -->
@@ -16,44 +15,49 @@
 
                     <TextView
                         android:id="@+id/q_answer0"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25dp"
+                        android:textSize="30dp"
                         android:text="Answer1"
-                        android:gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:layout_gravity="center"
                         android:layout_weight="1"/>
                     <TextView
                         android:id="@+id/q_answer1"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25dp"
+                        android:textSize="30dp"
                         android:text="Answer2"
-                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
                         android:layout_weight="1"/>
                     <TextView
                         android:id="@+id/q_answer2"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25dp"
+                        android:textSize="30dp"
+                        android:layout_marginTop="15dp"
                         android:text="Answer3"
-                        android:gravity="center"
+                        android:layout_gravity="center"
                         android:layout_weight="1"/>
                     <TextView
                         android:id="@+id/q_answer3"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25dp"
+                        android:textSize="30dp"
+                        android:layout_marginTop="15dp"
                         android:text="Answer4"
-                        android:gravity="center"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
                         />
 
                 <Button
                     android:id="@+id/skip_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
                     android:text="skip"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="50dp"
                     />
 
                 </LinearLayout>
