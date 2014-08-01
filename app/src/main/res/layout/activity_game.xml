@@ -8,7 +8,6 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         tools:context=".MainActivity">
 
-
         <LinearLayout
             android:id="@+id/upper_game_bar"
             android:layout_width="match_parent"
@@ -156,14 +155,38 @@
 
             </LinearLayout>
 
+        
+        <SlidingDrawer
+            android:id="@+id/categories_drawer"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
 
+            android:orientation="horizontal"
+            android:handle="@+id/category_drawer_handle"
+            android:content="@+id/category_drawer_content"
+            android:rotation="180"
+            >
 
-        <!--
-        <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/category_fragment"
-        android:name="com.appchee.learnews.QuizQuestionFragment"/>
-        -->
+            <ImageView
+                android:id="@+id/category_drawer_handle"
+                android:src="@drawable/ic_open_drawer"
+                android:layout_width="@dimen/handle_width"
+                android:layout_height="@dimen/handle_height"
+                android:rotation="180"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@id/category_drawer_content"
+                android:rotation="180">
+
+                <fragment android:name="com.appchee.learnews.CategoryDrawerFragment"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    />
+            </FrameLayout>
+        </SlidingDrawer>
 
     </RelativeLayout>

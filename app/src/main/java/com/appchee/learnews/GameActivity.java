@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-public class GameActivity extends Activity implements QuizQuestionFragment.QuestionCallback, StoryBarFragment.StoryBarCallback, CorrectAnswerFragment.CorrectCallback, WrongAnswerFragment.WrongCallback {
+public class GameActivity extends Activity implements QuizQuestionFragment.QuestionCallback, StoryBarFragment.StoryBarCallback, CorrectAnswerFragment.CorrectCallback, WrongAnswerFragment.WrongCallback, CategoryDrawerFragment.CategoryCallback {
 
     CorrectAnswerFragment mCorrectAnsFragment;
     WrongAnswerFragment mWrongAnsFragment;
@@ -123,4 +123,8 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     }
 
 
+    @Override
+    public void onCategoriesSelected(String[] categories) {
+
+    }
 }
