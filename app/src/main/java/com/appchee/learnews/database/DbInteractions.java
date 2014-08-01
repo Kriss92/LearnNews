@@ -156,6 +156,7 @@ public class DbInteractions {
     public void deleteQuestion(QuestionBean questionBean) {
         mDbHelper.getWritableDatabase().delete(LearNewsDbHelper.QUESTIONS_TABLE,
                 "id = ?", new String[] {questionBean.getId().toString()});
+        Log.d("DbInteractions", "Question was deleted");
     }
 
     public LearNewsDbHelper getDBHelper() {

@@ -27,6 +27,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     public int mCorrectPrecentage=100;
     TextView mCurrQuestion;
     QuestionsManager mManager;
+    QuestionBean mCurrentQuestionBean;
 
 
 
@@ -42,6 +43,11 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mCurrQuestion= (TextView) findViewById(R.id.q_text);
         mManager = new QuestionsManager(getApplicationContext());
         setNextQuestion();
+    }
+
+    public void onReport(View view) {
+        mManager.reportQuestion(mCurrentQuestionBean);
+        onSkipButtonListener();
     }
 
 
@@ -107,23 +113,24 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     //methods:
 
     public void setNextQuestion() {
+        mCurrentQuestionBean = mManager.getNextQuestion();
+
         setNextQuestionView();
         setNextQuestionViewContent();
     }
 
     public void setNextQuestionViewContent() {
-        QuestionBean question = mManager.getNextQuestion();
 
-        mCurrQuestion.setText(question.getQuestion());
+        mCurrQuestion.setText(mCurrentQuestionBean.getQuestion());
         mAnswers.clear();
         List<String> answers = new ArrayList<String>();
-        for (AnswerBean answer : question.getAnswers()) {
+        for (AnswerBean answer : mCurrentQuestionBean.getAnswers()) {
             answers.add(answer.getAnswer());
             mAnswers.add(answer.getAnswer());
         }
         // mAnswers = answers;
         Log.d("Before we crash ", " num answers " + answers.size());
-        mCorrectAnswer = question.getCorrectAnswer();
+        mCorrectAnswer = mCurrentQuestionBean.getCorrectAnswer();
         mQuizQuestionFragment.populate(answers);
     }
 
