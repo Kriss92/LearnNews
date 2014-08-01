@@ -80,8 +80,7 @@
                 android:paddingLeft="20dp"
                 android:paddingBottom="20dp"
                 android:gravity="left"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/border"/>
+                android:layout_marginTop="40dp" />
 
         </LinearLayout>
 

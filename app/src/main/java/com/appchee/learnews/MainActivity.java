@@ -17,7 +17,7 @@ public class MainActivity extends Activity {
         Intent intent;
         //if user is logged in
         //{
-          intent = new Intent(this, LoginActivity.class);
+          intent = new Intent(this, MenuActivity.class);
         //}
         //else
         //{
