@@ -11,6 +11,7 @@
 
 
             <RelativeLayout
+                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -44,20 +45,21 @@
                 android:id="@+id/ans_compliment_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dp"
-                android:text="Good job!"
+                android:textSize="50dp"
+                android:textStyle="bold"
                 android:gravity="center"
-                android:textColor="@color/text"
+                android:textColor="@color/common_action_bar_splitter"
                 android:layout_marginTop = "25dp"/>
 
             <TextView
+                android:layout_marginTop="20dp"
                 android:id="@+id/ans_statistics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dp"
+                android:textSize="30dp"
                 android:text="56% Got It Right!"
-                android:gravity="center"
-                android:textColor="@color/text"
+                android:gravity="bottom|center_horizontal"
+                android:textColor="@color/unselected_category"
                 android:layout_margin="15dp"/>
 
 
