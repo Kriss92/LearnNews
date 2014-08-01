@@ -1,15 +1,66 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/correct_ans_view"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.appchee.learnews.CorrectAnswerFragment"
-    android:background="@android:color/holo_green_light">
+    android:background="@android:color/holo_green_light"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/correct_cont_button"
-        android:layout_width="wrap_content"
+        <!-- Answers -->
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                >
+
+                <ImageView
+                    android:id="@+id/correct_vi_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:id="@+id/ans_correct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30dp"
+                    android:text="Correct Answer"
+                    android:layout_toRightOf="@+id/correct_vi_img"
+                    android:layout_centerVertical="true"
+                    />
+
+                </RelativeLayout>
+
+            <TextView
+                android:id="@+id/ans_compliment_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:text="Good job!"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/ans_statistics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:text="56% Got It Right!"
+                android:gravity="center"/>
+
+
+    <!-- Story Bar -->
+    <fragment
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="continue game"/>
+        android:name="com.appchee.learnews.StoryBarFragment"
+        android:layout_alignParentBottom="true"
+        tools:layout="@layout/fragment_story_bar"/>
 
-</FrameLayout>
+</LinearLayout>
+
+

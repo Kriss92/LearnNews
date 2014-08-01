@@ -3,19 +3,21 @@ package com.appchee.learnews;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
-
+import android.widget.TextView;
 
 
 public class QuizQuestionFragment extends Fragment {
 
     private QuestionCallback mListener;
-    private Button mSubmitCorrectAns;
-    private Button mSubmitWrongAns;
+    private TextView mAnswer0;
+    private TextView mAnswer1;
+    private TextView mAnswer2;
+    private TextView mAnswer3;
+
 
     public QuizQuestionFragment() {
         // Required empty public constructor
@@ -33,22 +35,38 @@ public class QuizQuestionFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_quiz_question, container, false);
+        mAnswer0 = (TextView) v.findViewById(R.id.q_answer0);
+        mAnswer1 = (TextView) v.findViewById(R.id.q_answer1);
+        mAnswer2 = (TextView) v.findViewById(R.id.q_answer2);
+        mAnswer3 = (TextView) v.findViewById(R.id.q_answer3);
 
-        mSubmitCorrectAns= (Button) v.findViewById(R.id.submit_ans_button);
-        //Generate Question
 
-        //Wait for user
-        mSubmitCorrectAns.setOnClickListener(new View.OnClickListener() {
+        //Generate Question and answers
+
+
+        //On selected Answer
+        mAnswer0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onButtonPressed(true);
+                onAnswerPressed(0);
             }
         });
-
-        mSubmitWrongAns.setOnClickListener(new View.OnClickListener() {
+        mAnswer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onButtonPressed(false);
+                onAnswerPressed(1);
+            }
+        });
+        mAnswer2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAnswerPressed(2);
+            }
+        });
+        mAnswer3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAnswerPressed(3);
             }
         });
 
@@ -56,9 +74,10 @@ public class QuizQuestionFragment extends Fragment {
         return v;
     }
 
-    public void onButtonPressed(boolean isCorrect) {
+    public void onAnswerPressed(int selectedAns) {
         if (mListener != null) {
-            mListener.onAnswerSubmittedListener(isCorrect);
+            mListener.onAnswerSubmittedListener(selectedAns);
+            Log.d("Rony", "AnswerPressed");
         }
     }
 
@@ -80,7 +99,16 @@ public class QuizQuestionFragment extends Fragment {
     }
 
     public interface QuestionCallback {
-        public void onAnswerSubmittedListener(boolean isCorrect);
+        public void onAnswerSubmittedListener(int selectedAns);
+
     }
+
+    public void populate(String[] answers){
+        mAnswer0.setText(answers[0]);
+        mAnswer1.setText(answers[1]);
+        mAnswer2.setText(answers[2]);
+        mAnswer3.setText(answers[3]);
+    }
+
 
 }

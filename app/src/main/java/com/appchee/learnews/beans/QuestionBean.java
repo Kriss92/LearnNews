@@ -1,5 +1,9 @@
 package com.appchee.learnews.beans;
 
+import com.appchee.learnews.validation.UnsafeContentValidator;
+import com.appchee.learnews.validation.UrlValidator;
+import com.appchee.learnews.validation.ValidationException;
+
 import java.util.List;
 
 /**
@@ -9,69 +13,79 @@ public class QuestionBean {
 
    // public static enum categories = {};
 
-    Integer id;
-    String question;
-    String category;
-    List<AnswerBean> answers;
-    String newsURL;
+    Integer mId;
+    String mQuestion;
+    String mCategory;
+    List<AnswerBean> mAnswers;
+    String mNewsURL;
 
     public QuestionBean() { }
 
     public QuestionBean(Integer id, String question, List<AnswerBean> answers, String newsURL, String category) {
-        this.newsURL = newsURL;
-        this.id = id;
-        this.question = question;
-        this.category = category;
-        this.answers = answers;
+        this.mNewsURL = newsURL;
+        this.mId = id;
+        this.mQuestion = question;
+        this.mCategory = category;
+        this.mAnswers = answers;
     }
 
     public Integer getId() {
-        return id;
+        return mId;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public String getQuestion() {
-        return question;
+        return mQuestion;
     }
 
     public void setQuestion(String question) {
-        this.question = question;
+        this.mQuestion = question;
     }
 
     public String getCategory() {
-        return category;
+        return mCategory;
     }
 
     public void setCategory(String category) {
-        this.category = category;
+        this.mCategory = category;
     }
 
     public List<AnswerBean> getAnswers() {
-        return answers;
+        return mAnswers;
     }
 
     public void setAnswers(List<AnswerBean> answers) {
-        this.answers = answers;
+        this.mAnswers = answers;
     }
 
 
     public String getNewsURL() {
-        return newsURL;
+        return mNewsURL;
     }
 
     public void setNewsURL(String newsURL) {
-        this.newsURL = newsURL;
+        this.mNewsURL = newsURL;
     }
 
     public Integer getCorrectAnswer() {
-        for (int i = 0; i < answers.size(); i++) {
-            if (answers.get(i).getCorrect()) {
+        for (int i = 0; i < mAnswers.size(); i++) {
+            if (mAnswers.get(i).getCorrect()) {
                 return i;
             }
         }
         return 0;
+    }
+
+    public void validate() throws ValidationException {
+        UnsafeContentValidator validator = new UnsafeContentValidator();
+        validator.validate(mQuestion);
+        for(AnswerBean answer : mAnswers) {
+            validator.validate(answer.getAnswer());
+        }
+
+        new UrlValidator().validate(mNewsURL);
     }
 }

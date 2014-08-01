@@ -2,15 +2,26 @@ package com.appchee.learnews;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class SavedStoriesActivity extends Activity {
+import java.sql.Date;
+import java.util.Arrays;
+
+public class SavedStoriesActivity extends Activity implements CategoryDrawerFragment.CategoryCallback
+{
+    View mStoriesFragment;
+    View mCategoryFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_stories);
+
+        mStoriesFragment = (View) findViewById(R.id.saved_stories_fragment);
+        mCategoryFragment = (View) findViewById(R.id.category_drawer_content);
     }
 
 
@@ -31,5 +42,10 @@ public class SavedStoriesActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCategoriesSelected(String[] categories) {
+        Log.d("MyLog", "Categories selected" + Arrays.toString(categories));
     }
 }

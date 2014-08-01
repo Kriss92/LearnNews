@@ -27,9 +27,10 @@
             android:label="@string/title_activity_menu" >
         </activity>
         <activity
+            android:name=".SavedStoriesActivity"
+            android:label= "@string/saved_stories_activity_label" />
             android:name=".AddQuestions"
-            android:label="@string/title_activity_add_questions" >
-        </activity>
+            android:label="@string/title_activity_add_questions" />
         <activity
             android:name=".AddQuestionsActivity"
             android:label="@string/title_activity_add_questions" >

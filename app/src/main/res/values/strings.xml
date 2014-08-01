@@ -3,6 +3,7 @@
     <string name="app_name">LearNews</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="correct_answer_fragment">Correct Question Fragment</string>
     <string name="wrong_answer_fragment">Wrong Question Fragment</string>
@@ -10,10 +11,16 @@
     <string name="title_activity_game">GameActivity</string>
     <string name="saved_stories">Saved Stories</string>
     <string name="title_activity_read_later">Saved Stories</string>
+
+    <string name="report_button">Report!</string>
+
+
     <string name="new_game_menu_button">New Game</string>
     <string name="add_questions_menu_button">Add Questions</string>
-    <string name="your_stories_menu_button">Your Stories</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_stories_menu_button">Saved Stories</string>
+    <string name="categories_title">Categories</string>
+    <string name="saved_stories_activity_label">SavedStoriesActivity</string>
+
     <string name="sound_menu_button">Sound</string>
     <string name="bookmarks_menu_button">Bookmarks</string>
     <string name="achievements_menu_button">Achievements</string>
@@ -34,6 +41,7 @@
     <string name="background_color_3">Yellow</string>
     <string name="background_color_4">Gray</string>
     <string name="background_color_5">Red</string>
+
 
 
 

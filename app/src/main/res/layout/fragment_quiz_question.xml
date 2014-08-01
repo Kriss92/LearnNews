@@ -1,78 +1,62 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.appchee.learnews.QuizQuestionFragment"
-    android:background="@android:color/holo_blue_light">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="15">
-
-        <LinearLayout
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="4"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            tools:context="com.appchee.learnews.QuizQuestionFragment"
+            android:background="@android:color/holo_blue_light">
 
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="3">
+                <!-- Answers -->
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Category"
-                    android:gravity="center"
-                    android:textSize="50dp"
-                    android:paddingLeft="10dp"/>
+                    android:orientation="vertical"
+                    android:weightSum="5">
 
-                <TextView
-                    android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/q_answer0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="Answer1"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/q_answer1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="Answer2"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/q_answer2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="Answer3"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/q_answer3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="Answer4"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        />
+
+                <Button
+                    android:id="@+id/skip_button"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00/00/0000"
-                    android:textSize="25dp"
-                    android:paddingLeft="10dp"
-                    android:gravity="center"/>
+                    android:text="skip"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+                </LinearLayout>
 
 
-            </LinearLayout>
-
-            <ImageView
-                android:src="@drawable/ic_launcher"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:paddingRight="10dp"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Question 1: bla bla bla bla bla bla bla bla?"
-            android:textSize="25dp"
-            android:paddingTop="20dp"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
-            android:background="@android:color/white"
-            android:gravity="center_horizontal"/>
-
-
-        <Button
-            android:id="@+id/submit_ans_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="submit answer"
-            android:layout_gravity="center_horizontal"
-            />
-
-    </LinearLayout>
-</FrameLayout>
+        </FrameLayout>
