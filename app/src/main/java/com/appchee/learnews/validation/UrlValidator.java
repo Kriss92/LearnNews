@@ -23,7 +23,7 @@ public class UrlValidator implements Validator {
             for (String site : safeUrls) {
                 if(site.equalsIgnoreCase(parts[0])) {
                     invalid = false;
-                } else if (site.length() > 1 && site.equalsIgnoreCase(parts[1])) {
+                } else if (parts.length > 1 && site.equalsIgnoreCase(parts[1])) {
                     invalid = false;
                 }
             }
