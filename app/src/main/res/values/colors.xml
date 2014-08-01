@@ -4,6 +4,7 @@
     <color name="selected_category">#5C5E5E</color>
     <color name="header">#303A75</color>
     <color name="text">#2828B5</color>
+    <color name="q_page">#FFFFFF</color>
     <color name="question_background">#80B0FF</color>
     <color name="hint">#4D89C9</color>
 </resources>
