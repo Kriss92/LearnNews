@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="selected_category">#f00000</color>
-    <color name="unselected_category">#f0f00f</color>
+    <color name="unselected_category">#292929</color>
+    <color name="selected_category">#5C5E5E</color>
+    <color name="header">#303A75</color>
+    <color name="text">#2828B5</color>
+    <color name="question_background">#80B0FF</color>
 </resources>
