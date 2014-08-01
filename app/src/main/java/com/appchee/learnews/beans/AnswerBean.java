@@ -5,40 +5,40 @@ package com.appchee.learnews.beans;
  */
 public class AnswerBean {
 
-    Integer id;
-    Integer questionId;
-    String answer;
-    Boolean correct;
+    Integer mId;
+    Integer mQuestionId;
+    String mAnswer;
+    Boolean mCorrect = false;
 
     public AnswerBean() {}
 
     public AnswerBean(String answer, Boolean correct) {
-        this.answer = answer;
-        this.correct = correct;
+        this.mAnswer = answer;
+        this.mCorrect = correct;
     }
 
     public Integer getQuestionId() {
-        return questionId;
+        return mQuestionId;
     }
 
     public void setQuestionId(Integer questionId) {
-        this.questionId = questionId;
+        this.mQuestionId = questionId;
     }
 
     public String getAnswer() {
-        return answer;
+        return mAnswer;
     }
 
     public void setAnswer(String answer) {
-        this.answer = answer;
+        this.mAnswer = answer;
     }
 
     public Boolean getCorrect() {
-        return correct;
+        return mCorrect;
     }
 
     public void setCorrect(Boolean correct) {
-        this.correct = correct;
+        this.mCorrect = correct;
     }
 
     public void setCorrect(Integer correct) {
@@ -50,10 +50,10 @@ public class AnswerBean {
 
     public Integer getId() {
 
-        return id;
+        return mId;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.mId = id;
     }
 }

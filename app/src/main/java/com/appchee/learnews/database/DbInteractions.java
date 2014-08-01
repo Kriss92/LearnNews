@@ -3,7 +3,6 @@ package com.appchee.learnews.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.appchee.learnews.beans.AnswerBean;
@@ -15,7 +14,7 @@ import java.util.List;
 //TODO:
 public class DbInteractions {
 
-    private LearNewsDbHelper mDbHelper;
+    private final LearNewsDbHelper mDbHelper;
 
 //    private static final String ADD_ANSWER_QUERY = "insert into Answers(questionId, answer, correct) values (?, ?, ?) ";
 
@@ -49,10 +48,11 @@ public class DbInteractions {
         values.put("category", question.getCategory());
         mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.QUESTIONS_TABLE, null, values);
 
-        getAnswers(question);
+        Log.d("DB saved", "Saved question");
+        addAnswers(question);
     }
 
-    private void getAnswers(QuestionBean question) {
+    private void addAnswers(QuestionBean question) {
         Cursor questionCursor = mDbHelper.getReadableDatabase().query(
                 LearNewsDbHelper.QUESTIONS_TABLE, new String[] {"id"},
                 null,  null, null, null, "id DESC", "1");
@@ -71,6 +71,7 @@ public class DbInteractions {
         values.put("answer", answer.getAnswer());
         values.put("correct", answer.getCorrect());
         mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.ANSWERS_TABLE, null, values);
+        Log.d("DB saved", "Saved answer");
     }
 
     public void questionAnswered() {
@@ -120,6 +121,21 @@ public class DbInteractions {
         questionCursor.moveToNext();
         Log.d("test", questionCursor.getString(GetQuestionsQuery.QUESTION_INDEX));
 
+        return buildQuestion(questionCursor);
+    }
+
+    public QuestionBean getQuestionByNumber(Integer questionNumber) {
+
+        Cursor questionCursor = mDbHelper.getReadableDatabase().query(
+                LearNewsDbHelper.QUESTIONS_TABLE, GetQuestionsQuery.PROJECTION,
+                null,  null, null, null, null, null);
+
+        questionCursor.move(questionNumber + 1);
+        return buildQuestion(questionCursor);
+
+    }
+
+    public QuestionBean buildQuestion(Cursor questionCursor ) {
         Integer id = questionCursor.getInt(GetQuestionsQuery.ID_INDEX);
         List<AnswerBean> answers = getAnswers(id);
         String question = questionCursor.getString(GetQuestionsQuery.QUESTION_INDEX);
@@ -135,5 +151,9 @@ public class DbInteractions {
         //TODO:
 
         return result;
+    }
+
+    public LearNewsDbHelper getDBHelper() {
+        return mDbHelper;
     }
 }

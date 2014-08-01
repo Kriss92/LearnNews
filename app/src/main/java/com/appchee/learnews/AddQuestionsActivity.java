@@ -15,6 +15,14 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.appchee.learnews.R;
+import com.appchee.learnews.actions.QuestionsManager;
+import com.appchee.learnews.beans.AnswerBean;
+import com.appchee.learnews.beans.QuestionBean;
+import com.appchee.learnews.database.DbInteractions;
+import com.appchee.learnews.validation.ValidationException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddQuestionsActivity extends Activity {
 
@@ -94,18 +102,26 @@ public class AddQuestionsActivity extends Activity {
     }
 
     public void submitButtonClicked(View view) {
+
+        Log.d("Add Question", "Submit button is clicked");
         if(selectedButton != null) {
             int buttonIndex = getButtonIndex(selectedButton.getTag().toString());
 
+            List<AnswerBean> answerBeans = new ArrayList<AnswerBean>(4);
+
             answers = new String[4];
             int i;
-            for(i = 0; i <4; i++) {
+            for(i = 0; i < 4; i++) {
                 answers[i] = answerViews[i].getText().toString();
+                //Log.d("answer", "Answer " + answers[i]);
                 if(answers[i].isEmpty()) {
                     startDialogForIncompleteData();
                     return;
+                } else {
+                    answerBeans.add(new AnswerBean(answers[i], false));
                 }
             }
+            answerBeans.get(buttonIndex).setCorrect(true);
 
             EditText questionEditText = (EditText) findViewById(R.id.add_questions_text);
             question = questionEditText.getText().toString();
@@ -121,17 +137,40 @@ public class AddQuestionsActivity extends Activity {
                 return;
             }
 
+            try {
+                saveQuestion("Europe", answerBeans, question, url);
+            } catch (ValidationException e) {
+                //TODO: use e.getMessage()
+                Log.d("Offence", e.getMessage());
+                startDialogForIncompleteData();
+                return;
+            }
+
             Button submitButton = (Button) view;
             submitButton.setBackgroundColor(Color.GREEN);
             //Send information to the database: question, index, answers, url
             Log.d("Kriss tag:", "Data done");
-
         }
         else
         {
 //            TODO: AlertDialog alertDialog = new AlertDialog.Builder.;
             // Create dialog for incomplete form
         }
+    }
+
+    private void saveQuestion(String category, List<AnswerBean> answerBeans, String question, String url )
+            throws ValidationException {
+
+        Log.d("Add Question", "Try to save");
+
+        QuestionBean questionBean = new QuestionBean();
+        questionBean.setCategory(category);
+        questionBean.setAnswers(answerBeans);
+        questionBean.setQuestion(question);
+        questionBean.setNewsURL(url);
+
+        questionBean.validate();
+        new DbInteractions(this.getApplicationContext()).addQuestion(questionBean);
     }
 
     private void startDialogForIncompleteData() {
