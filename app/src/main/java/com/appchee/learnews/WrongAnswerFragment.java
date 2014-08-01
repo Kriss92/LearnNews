@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.Random;
 
 
-public class WrongAnswerFragment extends Fragment implements QuizQuestionFragment.QuestionCallback {
+public class WrongAnswerFragment extends Fragment {
 
     private WrongCallback mListener;
     private TextView mWrongAnsText;
@@ -59,11 +59,6 @@ public class WrongAnswerFragment extends Fragment implements QuizQuestionFragmen
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onAnswerSubmittedListener(int selectedAns) {
-
     }
 
     public interface WrongCallback {

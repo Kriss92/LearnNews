@@ -82,10 +82,15 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     }
 
     @Override
+    public void onSkipButtonListener() {
+        onContinueButtonListener();
+        //TODO: Update DataBase
+    }
+
+    @Override
     public void onContinueButtonListener() {
         setNextQuestionView();
         setNextQuestionViewContent();
-        //generate question
     }
     @Override
     public void onSaveStoryButtonListener() {
@@ -128,10 +133,6 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mWrongAnsFragment.getView().setVisibility(View.GONE);
     }
 
-    public void setNextQuestionVars() {
-        //mCorrectPrecentage...
-    }
-
     public void setCorrectAnswerView() {
         mQuizQuestionFragment.getView().setVisibility(View.GONE);
         mCorrectAnsFragment.getView().setVisibility(View.VISIBLE);
@@ -146,8 +147,6 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mCorrectAnsFragment.getView().setVisibility(View.GONE);
         mWrongAnsFragment.getView().setVisibility(View.VISIBLE);
 
-    }
-    public void setWrongAnswerViewContent() {
     }
 
 

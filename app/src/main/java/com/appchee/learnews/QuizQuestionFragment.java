@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 public class QuizQuestionFragment extends Fragment {
 
     private QuestionCallback mListener;
+    private Button mSkipButton;
     private List<TextView> mAnswers;
 
     public QuizQuestionFragment() {
@@ -34,6 +36,7 @@ public class QuizQuestionFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_quiz_question, container, false);
+        mSkipButton= (Button) v.findViewById(R.id.skip_button);
         mAnswers = new ArrayList<TextView>();
         mAnswers.add((TextView) v.findViewById(R.id.q_answer0));
         mAnswers.add((TextView) v.findViewById(R.id.q_answer1));
@@ -43,12 +46,25 @@ public class QuizQuestionFragment extends Fragment {
 
         //Generate Question and answers
 
-
+        //On skip
+        mSkipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSkipPressed();
+            }
+        });
         //On selected Answer
         for(int i = 0; i < mAnswers.size(); i++) {
             mAnswers.get(i).setOnClickListener(new AnswersOnClickListener(i));
         }
         return v;
+    }
+
+    public void onSkipPressed() {
+        if (mListener != null) {
+            mListener.onSkipButtonListener();
+            Log.d("Rony", "Skip!");
+        }
     }
 
     public void onAnswerPressed(int selectedAns) {
@@ -77,6 +93,7 @@ public class QuizQuestionFragment extends Fragment {
 
     public interface QuestionCallback {
         public void onAnswerSubmittedListener(int selectedAns);
+        public void onSkipButtonListener();
 
     }
 

@@ -38,7 +38,6 @@ public class QuestionsManager {
 
     public Double answerQuestion(QuestionBean question, boolean correct) {
         //Update corrects/incorrects count
-
         //return percentage correct
         return 0.0;
     }
