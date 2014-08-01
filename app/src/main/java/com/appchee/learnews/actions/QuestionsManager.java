@@ -50,9 +50,15 @@ public class QuestionsManager {
         return mDbHelper.Interactions(question);
     }
 
+    public void saveStrory(QuestionBean mCurrentQuestionBean) {
+        mDbHelper.saveStory(mCurrentQuestionBean);
+    }
+
     public void updateInteraction(QuestionBean question) {
         mDbHelper.createInteraction(question);
     }
+
+
 
     //TODO:
     // validation using unsafe words

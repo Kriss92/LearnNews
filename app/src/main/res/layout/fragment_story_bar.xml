@@ -34,11 +34,12 @@
                 android:id="@+id/article_headline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="24dp"
                 android:text="Headline- this is the headline Heafsdfsdfsdfdline- this is the headline"
                 android:layout_weight="10"
                 android:gravity="center"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textColor="@color/text"/>
 
             <ImageView
                 android:id="@+id/save_story_button"
