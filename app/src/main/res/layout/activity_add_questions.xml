@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:onClick="answerButtonClicked"
             android:layout_below="@id/answers"
+            android:drawableStart="@drawable/radio_button"
             android:tag="A"/>
 
         <EditText
@@ -54,6 +55,7 @@
             android:layout_height="wrap_content"
             android:onClick="answerButtonClicked"
             android:layout_below="@id/answer_a"
+            android:drawableStart="@drawable/radio_button"
             android:tag="B"/>
 
 
@@ -70,6 +72,7 @@
             android:layout_height="wrap_content"
             android:onClick="answerButtonClicked"
             android:layout_below="@id/answer_b"
+            android:drawableStart="@drawable/radio_button"
             android:tag="C"/>
 
         <EditText
@@ -87,6 +90,7 @@
             android:layout_height="wrap_content"
             android:onClick="answerButtonClicked"
             android:layout_below="@+id/answer_c"
+            android:drawableStart="@drawable/radio_button"
             android:tag="D"/>
 
         <EditText
