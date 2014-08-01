@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,6 +130,7 @@ public class SavedStoriesFragment extends Fragment {
     private List<StoryBean> readStories() {
         mStories.clear();
         List<StoryBean> fetched = new DbInteractions(getActivity().getApplicationContext()).readSavedStories();
+        Log.d("Saved stories", "We read " + fetched.size());
         for (StoryBean story : fetched) {
             mStories.add(story);
         }

@@ -141,7 +141,7 @@ public class DbInteractions {
         mDbHelper.getWritableDatabase().update(LearNewsDbHelper.INTERACTIONS_TABLE, values,
 //                "questionId = ? and userId = ?",  new String[] {question.getId().toString(), LoginActivity.mCurrentUserId});
                 "questionId = ?",  new String[] {question.getId().toString()});
-
+        Log.d("Interaction", "Interaction Updated");
     }
 
     public void saveStory(QuestionBean question) {
@@ -159,13 +159,17 @@ public class DbInteractions {
 
         Cursor cursor = mDbHelper.getReadableDatabase().query(
                 LearNewsDbHelper.INTERACTIONS_TABLE, new String[] {"favorite"},
-                "favorite != null",  null, null, null, null, null);
+                null,  null, null, null, null, null);
 
         while(cursor.moveToNext()) {
-            StoryBean bean = new StoryBean();
-            bean.setTitle(cursor.getString(0));
-            bean.setNewsIconId(2);
-            stories.add(bean);
+            String title = cursor.getString(0);
+            Log.d("Strory URL", title);
+            if (title != null && title.length() > 0) {
+                StoryBean bean = new StoryBean();
+                bean.setTitle(title);
+                bean.setNewsIconId(2);
+                stories.add(bean);
+            }
         }
 
 
