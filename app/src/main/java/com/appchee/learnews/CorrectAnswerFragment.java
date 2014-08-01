@@ -76,7 +76,7 @@ public class CorrectAnswerFragment extends Fragment {
 
     private String getComment() {
         Random rand = new Random();
-        String[] comments = getResources().getStringArray(R.array.wrong_comments);
+        String[] comments = getResources().getStringArray(R.array.correct_comments);
         int i = rand.nextInt(comments.length);
         return comments[i];
     }
