@@ -174,12 +174,13 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     }
 
-    public void setCategoryImage(String cat) {
-        Log.d("Rony", "Picture Change");
+    public void setCategoryImage(String category) {
+        Log.d("test", "Picture Change");
         String[] categories= getResources().getStringArray(R.array.categories);
         for (String c: categories) {
-            if (c.equals(cat)) {
-                int img= getResources().getIdentifier(c.toLowerCase(), "drawble" , getPackageName() );
+            if (c.equals(category)) {
+                Log.d("test", c.toLowerCase());
+                int img= getResources().getIdentifier(c.toLowerCase(), "drawable" , getPackageName() );
                 mCategoryPic.setImageResource(img);
             }
         }
