@@ -76,10 +76,12 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         
         if (mCorrectAnswer == answerSelected) {
             mCorrectAnsFragment.populate( mAnswers.get(answerSelected) , mCorrectPrecentage);
+            mManager.answerQuestion(mCurrentQuestionBean, true);
             setCorrectAnswerView();
             //generate answer view in fragment
         } else {
              mWrongAnsFragment.populate( mAnswers.get(answerSelected), mAnswers.get(mCorrectAnswer));
+            mManager.answerQuestion(mCurrentQuestionBean, true);
             setWrongAnswerView();
 
             //generate answer view in fragment
