@@ -120,6 +120,15 @@ public class DbInteractions {
         return buildQuestion(questionCursor);
     }
 
+
+    private static class UpdateInteractionsQuery {
+        public static final String[] PROJECTION = {};
+        public static final int ID_INDEX = 0;
+        public static final int QUESTION_INDEX = 1;
+        //       public static final int ANSWER_ID_INDEX = 2;
+        public static final int URL_INDEX = 2;
+        public static final int CATEGORY_INDEX = 3;
+    }
     public void updateInteractions(QuestionBean question, boolean correct) {
        // mDbHelper.getWritableDatabase().update(LearNewsDbHelper.QUESTIONS_TABLE)
 

@@ -31,7 +31,7 @@ public class LoginActivity  extends Activity implements
     private boolean mIntentInProgress;
 
     private GoogleApiClient mGoogleApiClient;
-    private String mCurrentUserId;
+    public static String mCurrentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
