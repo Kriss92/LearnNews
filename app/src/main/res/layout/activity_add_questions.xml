@@ -1,124 +1,127 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.appchee.learnews.AddQuestionsActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.appchee.learnews.AddQuestionsActivity">
+
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+        </Spinner>
+
+        <EditText
+            android:id="@+id/add_questions_text"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/category_spinner"
+            android:layout_width="@dimen/question_length"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/answers"
+            android:text="@string/answers"
+            android:layout_below="@+id/add_questions_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton android:id="@+id/button_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="answerButtonClicked"
+            android:layout_below="@id/answers"
+            android:tag="A"/>
+
+        <EditText
+            android:id="@+id/answer_a"
+            android:layout_width="@dimen/answer_length"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/button_a"
+            android:layout_alignBottom="@id/button_a"
+            android:tag="A"
+            />
 
 
-    <Spinner
-        android:id="@+id/category_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
-    </Spinner>
-
-    <EditText
-        android:id="@+id/add_questions_text"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/category_spinner"
-        android:layout_width="@dimen/question_length"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/answers"
-        android:text="@string/answers"
-        android:layout_below="@+id/add_questions_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <RadioButton android:id="@+id/button_a"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="answerButtonClicked"
-        android:layout_below="@id/answers"
-        android:tag="A"/>
-
-    <EditText
-        android:id="@+id/answer_a"
-        android:layout_width="@dimen/answer_length"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/button_a"
-        android:layout_alignBottom="@id/button_a"
-        android:tag="A"
-        />
+        <RadioButton android:id="@+id/button_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="answerButtonClicked"
+            android:layout_below="@id/answer_a"
+            android:tag="B"/>
 
 
-    <RadioButton android:id="@+id/button_b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="answerButtonClicked"
-        android:layout_below="@id/answer_a"
-        android:tag="B"/>
+        <EditText
+            android:id="@+id/answer_b"
+            android:layout_width="@dimen/answer_length"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/button_b"
+            android:layout_alignBottom="@id/button_b"
+            android:tag="B"/>
+
+        <RadioButton android:id="@+id/button_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="answerButtonClicked"
+            android:layout_below="@id/answer_b"
+            android:tag="C"/>
+
+        <EditText
+            android:id="@+id/answer_c"
+            android:layout_width="@dimen/answer_length"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/button_c"
+            android:layout_alignBottom="@id/button_c"
+            android:tag="C"
+            />
+
+        <RadioButton
+            android:id="@+id/button_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="answerButtonClicked"
+            android:layout_below="@+id/answer_c"
+            android:tag="D"/>
+
+        <EditText
+            android:id="@+id/answer_d"
+            android:layout_width="@dimen/answer_length"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/button_d"
+            android:layout_alignBottom="@id/button_d"
+            android:tag="D"
+            />
 
 
-    <EditText
-        android:id="@+id/answer_b"
-        android:layout_width="@dimen/answer_length"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/button_b"
-        android:layout_alignBottom="@id/button_b"
-        android:tag="B"/>
+        <TextView
+            android:id="@+id/link_title"
+            android:text="@string/link_title"
+            android:layout_below="@id/answer_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+        <EditText
+            android:id="@+id/link_text"
+            android:layout_below="@+id/link_title"
+            android:layout_width="@dimen/link_length"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
 
-    <RadioButton android:id="@+id/button_c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="answerButtonClicked"
-        android:layout_below="@id/answer_b"
-        android:tag="C"/>
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/link_text"
+            android:text="@string/submit_button"
+            android:layout_centerHorizontal="true"
+            android:onClick="submitButtonClicked"
+            />
 
-    <EditText
-        android:id="@+id/answer_c"
-        android:layout_width="@dimen/answer_length"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/button_c"
-        android:layout_alignBottom="@id/button_c"
-        android:tag="C"
-        />
-
-    <RadioButton
-        android:id="@+id/button_d"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="answerButtonClicked"
-        android:layout_below="@+id/answer_c"
-        android:tag="D"/>
-
-    <EditText
-        android:id="@+id/answer_d"
-        android:layout_width="@dimen/answer_length"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/button_d"
-        android:layout_alignBottom="@id/button_d"
-        android:tag="D"
-        />
-
-
-    <TextView
-        android:id="@+id/link_title"
-        android:text="@string/link_title"
-        android:layout_below="@id/answer_d"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"/>
-    <EditText
-        android:id="@+id/link_text"
-        android:layout_below="@+id/link_title"
-        android:layout_width="@dimen/link_length"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"/>
-
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/link_text"
-        android:text="@string/submit_button"
-        android:layout_centerHorizontal="true"
-        android:onClick="submitButtonClicked"
-        />
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
