@@ -6,15 +6,17 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_green_light">
+    android:background="@drawable/drawer_background">
 
     <TextView
         android:id="@+id/category_drawer_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/categories_title"
-        android:textSize="34sp"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+        android:textSize="30sp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:gravity="center"
+        android:textColor="@color/header"/>
 
     <LinearLayout
         android:id="@+id/categories_list"

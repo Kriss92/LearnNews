@@ -155,7 +155,9 @@ public class CategoryDrawerFragment extends Fragment {
         }
         public void setSelected(boolean isSelected) {
             this.isSelected = isSelected;
-            mView.setBackgroundColor(isSelected ? Color.GREEN : Color.RED);
+
+
+            mView.setBackgroundColor(isSelected ? getResources().getColor(R.color.selected_category) : getResources().getColor(R.color.unselected_category));
         }
     }
 

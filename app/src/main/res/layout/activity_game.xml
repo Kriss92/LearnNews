@@ -51,15 +51,6 @@
                         android:textColor="@color/header"
                         android:paddingLeft="10dp"/>
 
-                    <TextView
-                        android:id="@+id/q_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="00/00/0000"
-                        android:textSize="25sp"
-                        android:textColor="@color/header"
-                        android:gravity="center"/>
-
 
                 </LinearLayout>
 
@@ -75,6 +66,8 @@
                 android:layout_weight="3"
                 android:text="Bla bla bla bla bla bla bla bla?"
                 android:textSize="32sp"
+                android:textColor="@color/text"
+                android:background="@color/question_background"
                 android:paddingTop="20dp"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
