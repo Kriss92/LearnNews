@@ -43,9 +43,12 @@ public class QuestionsManager {
     }
 
     public Double answerQuestion(QuestionBean question, boolean correct) {
-        //Update corrects/incorrects count
-        //return percentage correct
-        return 0.0;
+        mDbHelper.updateInteractions(question, correct);
+        return mDbHelper.Interactions(question);
+    }
+
+    public void updateInteraction(QuestionBean question) {
+        mDbHelper.createInteraction(question);
     }
 
     //TODO:

@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+
                 <ImageView
                     android:id="@+id/x_img"
                     android:layout_width="wrap_content"
@@ -60,7 +61,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="35dp"
                     android:text="Correct Answer"
-                    android:layout_toRightOf="@+id/wrong_vi_img"
                     android:layout_margin="15dp"
                     android:textColor="@color/text"
                     android:textStyle="bold" />

@@ -24,7 +24,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     public int mCorrectAnswer=1;
     public List<String> mAnswers = new ArrayList<String>();
-    public int mCorrectPrecentage=100;
+    TextView mCategory;
     TextView mCurrQuestion;
     QuestionsManager mManager;
     QuestionBean mCurrentQuestionBean;
@@ -41,6 +41,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mWrongAnsFragment= (WrongAnswerFragment) getFragmentManager().findFragmentById(R.id.wrong_ans_fragment);
         mCorrectAnsFragment=  (CorrectAnswerFragment) getFragmentManager().findFragmentById(R.id.correct_ans_fragment);
         mCurrQuestion= (TextView) findViewById(R.id.q_text);
+        mCategory = (TextView) findViewById(R.id.q_category);
         mManager = new QuestionsManager(getApplicationContext());
         setNextQuestion();
     }
@@ -75,13 +76,13 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     public void onAnswerSubmittedListener(int answerSelected) {
         
         if (mCorrectAnswer == answerSelected) {
-            mCorrectAnsFragment.populate( mAnswers.get(answerSelected) , mCorrectPrecentage);
-            mManager.answerQuestion(mCurrentQuestionBean, true);
+            Double correctPercentage = mManager.answerQuestion(mCurrentQuestionBean, true);
+            mCorrectAnsFragment.populate( mAnswers.get(answerSelected) , correctPercentage);
             setCorrectAnswerView();
             //generate answer view in fragment
         } else {
              mWrongAnsFragment.populate( mAnswers.get(answerSelected), mAnswers.get(mCorrectAnswer));
-            mManager.answerQuestion(mCurrentQuestionBean, true);
+             mManager.answerQuestion(mCurrentQuestionBean, false);
             setWrongAnswerView();
 
             //generate answer view in fragment
@@ -115,6 +116,8 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     public void setNextQuestion() {
         mCurrentQuestionBean = mManager.getNextQuestion();
+        mManager.updateInteraction(mCurrentQuestionBean);
+        mCategory.setText(mCurrentQuestionBean.getCategory());
 
         setNextQuestionView();
         setNextQuestionViewContent();
