@@ -14,13 +14,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/app_name_menu"/>
+        android:textSize="@dimen/app_name_menu"
+        android:paddingBottom="40dp"
+        android:typeface="serif"
+        android:textStyle="bold|italic" />
 
     <Button
         android:id="@+id/new_game_menu_button"
         android:text="@string/new_game_menu_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/app_name_menu"
         android:onClick="newGameMenuButtonClicked"/>
@@ -28,19 +38,33 @@
     <Button
         android:id="@+id/add_questions_menu_button"
         android:text="@string/add_questions_menu_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
         android:layout_below="@+id/new_game_menu_button"
+        android:layout_alignLeft="@id/new_game_menu_button"
         android:onClick="addQuestionsMenuButtonClicked"/>
 
     <Button
         android:id="@+id/your_stories_menu_button"
         android:text="@string/your_stories_menu_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
         android:layout_below="@+id/add_questions_menu_button"
+        android:layout_alignLeft="@id/add_questions_menu_button"
         android:onClick="SavedStoriesMenuButtonClicked"/>
 
     <Button
