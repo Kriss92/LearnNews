@@ -27,5 +27,16 @@
     <string name="link_title">Please paste a link from a reliable source to your new story:</string>
     <string name="link_text">http://www.bbc.com/sport/football/world-cup/2014</string>
     <string name="submit_button">Submit</string>
+    <string name="complete_all_fields">Please complete all fields!</string>
+    <string name="select_correct_answer">Please select a correct answer!</string>
+    <string name="background_color_1">White</string>
+    <string name="background_color_2">Blue</string>
+    <string name="background_color_3">Yellow</string>
+    <string name="background_color_4">Gray</string>
+    <string name="background_color_5">Red</string>
+
+
+
+
 
 </resources>

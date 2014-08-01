@@ -2,6 +2,7 @@ package com.appchee.learnews;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.appchee.learnews.R;
 
@@ -94,48 +96,58 @@ public class AddQuestionsActivity extends Activity {
     }
 
     public void submitButtonClicked(View view) {
+
+        EditText questionEditText = (EditText) findViewById(R.id.add_questions_text);
+        question = questionEditText.getText().toString();
+        if(question.isEmpty()) {
+            startToastForIncompleteData(R.string.complete_all_fields);
+            questionEditText.setBackgroundColor(Color.RED);
+            return;
+        }
+        questionEditText.setBackgroundColor(Color.WHITE);
+
+
+        answers = new String[4];
+        int i;
+        for(i = 0; i <4; i++) {
+            answers[i] = answerViews[i].getText().toString();
+            if(answers[i].isEmpty()) {
+                startToastForIncompleteData(R.string.complete_all_fields);
+                answerViews[i].setBackgroundColor(Color.RED);
+                return;
+            }
+            answerViews[i].setBackgroundColor(Color.WHITE);
+        }
+
+        EditText urlEditText = (EditText) findViewById(R.id.link_text);
+        url = urlEditText.getText().toString();
+        if(url.isEmpty()) {
+            startToastForIncompleteData(R.string.complete_all_fields);
+            urlEditText.setBackgroundColor(Color.RED);
+            return;
+        }
+        urlEditText.setBackgroundColor(Color.WHITE);
+
         if(selectedButton != null) {
             int buttonIndex = getButtonIndex(selectedButton.getTag().toString());
-
-            answers = new String[4];
-            int i;
-            for(i = 0; i <4; i++) {
-                answers[i] = answerViews[i].getText().toString();
-                if(answers[i].isEmpty()) {
-                    startDialogForIncompleteData();
-                    return;
-                }
-            }
-
-            EditText questionEditText = (EditText) findViewById(R.id.add_questions_text);
-            question = questionEditText.getText().toString();
-            if(question.isEmpty()) {
-                startDialogForIncompleteData();
-                return;
-            }
-
-            EditText urlEditText = (EditText) findViewById(R.id.link_text);
-            url = urlEditText.getText().toString();
-            if(url.isEmpty()) {
-                startDialogForIncompleteData();
-                return;
-            }
-
-            Button submitButton = (Button) view;
-            submitButton.setBackgroundColor(Color.GREEN);
-            //Send information to the database: question, index, answers, url
-            Log.d("Kriss tag:", "Data done");
-
+        } else {
+            startToastForIncompleteData(R.string.select_correct_answer);
+            return;
         }
-        else
-        {
-//            TODO: AlertDialog alertDialog = new AlertDialog.Builder.;
-            // Create dialog for incomplete form
-        }
+
+        Button submitButton = (Button) view;
+        submitButton.setBackgroundColor(Color.GREEN);
+        //Send information to the database: question, index, answers, url
+        Log.d("Kriss tag:", "Data done");
     }
 
-    private void startDialogForIncompleteData() {
+    private void startToastForIncompleteData(int message) {
+        Context context = getApplicationContext();
+        CharSequence text = getString(message);
+        int duration = Toast.LENGTH_SHORT;
 
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
 }
