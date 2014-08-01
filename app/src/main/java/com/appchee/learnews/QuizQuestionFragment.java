@@ -37,8 +37,8 @@ public class QuizQuestionFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View v=inflater.inflate(R.layout.fragment_quiz_question, container, false);
-        mSkipButton= (Button) v.findViewById(R.id.skip_button);
+        View v = inflater.inflate(R.layout.fragment_quiz_question, container, false);
+        mSkipButton = (Button) v.findViewById(R.id.skip_button);
         mAnswers = new ArrayList<TextView>();
         mAnswers.add((TextView) v.findViewById(R.id.q_answer0));
         mAnswers.add((TextView) v.findViewById(R.id.q_answer1));
@@ -56,7 +56,7 @@ public class QuizQuestionFragment extends Fragment {
             }
         });
         //On selected Answer
-        for(int i = 0; i < mAnswers.size(); i++) {
+        for (int i = 0; i < mAnswers.size(); i++) {
             mAnswers.get(i).setOnClickListener(new AnswersOnClickListener(i));
         }
         View.OnTouchListener touchListener = new View.OnTouchListener() {
@@ -70,18 +70,6 @@ public class QuizQuestionFragment extends Fragment {
         };
         mSkipButton.setOnTouchListener(touchListener);
 
-        View.OnTouchListener answerListener = new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    v.animate().setDuration(100).scaleX(0.8f).scaleY(0.8f);
-                }
-                return false;
-            }
-        };
-        for (int i = 0; i < mAnswers.size(); i++) {
-            mAnswers.get(i).setOnTouchListener(answerListener);
-        }
         return v;
     }
 
@@ -138,7 +126,6 @@ public class QuizQuestionFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Log.d("Id = ", ((Integer)mIndex).toString());
-            v.animate().setDuration(300).scaleX(3.0f).scaleY(3.0f);
             onAnswerPressed(mIndex);
 
         }
