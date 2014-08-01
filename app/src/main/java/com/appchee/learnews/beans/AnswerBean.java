@@ -1,5 +1,7 @@
 package com.appchee.learnews.beans;
 
+import android.util.Log;
+
 /**
  * Created by demouser on 7/31/14.
  */
@@ -42,10 +44,12 @@ public class AnswerBean {
     }
 
     public void setCorrect(Integer correct) {
+
         if (correct == 0) {
             setCorrect(false);
+        } else {
+            setCorrect(true);
         }
-        setCorrect(true);
     }
 
     public Integer getId() {

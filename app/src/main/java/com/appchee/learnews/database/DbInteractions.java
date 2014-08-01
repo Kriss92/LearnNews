@@ -48,7 +48,6 @@ public class DbInteractions {
         values.put("category", question.getCategory());
         mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.QUESTIONS_TABLE, null, values);
 
-        Log.d("DB saved", "Saved question");
         addAnswers(question);
     }
 
@@ -69,9 +68,9 @@ public class DbInteractions {
         ContentValues values = new ContentValues();
         values.put("questionId", answer.getQuestionId());
         values.put("answer", answer.getAnswer());
-        values.put("correct", answer.getCorrect());
+        int correct = answer.getCorrect() ? 1 : 0;
+        values.put("correct", correct);
         mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.ANSWERS_TABLE, null, values);
-        Log.d("DB saved", "Saved answer");
     }
 
     public void questionAnswered() {
@@ -99,6 +98,7 @@ public class DbInteractions {
             answer.setId(answersCursor.getInt(AnswersQuery.ID_INDEX));
             answer.setAnswer(answersCursor.getString(AnswersQuery.ANSWER_INDEX));
             answer.setCorrect(answersCursor.getInt(AnswersQuery.CORRECT_INDEX));
+            Log.d("????? Read answers", "Correct? " + answersCursor.getInt(AnswersQuery.CORRECT_INDEX));
             result.add(answer);
         }
         return result;
@@ -151,6 +151,12 @@ public class DbInteractions {
         //TODO:
 
         return result;
+    }
+
+    public void deleteQuestion(QuestionBean questionBean) {
+        mDbHelper.getWritableDatabase().delete(LearNewsDbHelper.QUESTIONS_TABLE,
+                "id = ?", new String[] {questionBean.getId().toString()});
+        Log.d("DbInteractions", "Question was deleted");
     }
 
     public LearNewsDbHelper getDBHelper() {

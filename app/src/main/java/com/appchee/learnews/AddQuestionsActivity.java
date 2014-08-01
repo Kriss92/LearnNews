@@ -22,6 +22,7 @@ import com.appchee.learnews.beans.AnswerBean;
 import com.appchee.learnews.beans.QuestionBean;
 import com.appchee.learnews.database.DbInteractions;
 import com.appchee.learnews.validation.ValidationException;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -186,6 +187,7 @@ public class AddQuestionsActivity extends Activity {
 
         questionBean.validate();
         new DbInteractions(this.getApplicationContext()).addQuestion(questionBean);
+
     }
 
 }
