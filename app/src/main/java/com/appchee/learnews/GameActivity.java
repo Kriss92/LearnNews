@@ -16,7 +16,9 @@ import com.appchee.learnews.beans.QuestionBean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameActivity extends Activity implements QuizQuestionFragment.QuestionCallback, StoryBarFragment.StoryBarCallback, CorrectAnswerFragment.CorrectCallback, WrongAnswerFragment.WrongCallback, CategoryDrawerFragment.CategoryCallback {
+public class GameActivity extends Activity implements QuizQuestionFragment.QuestionCallback,
+        StoryBarFragment.StoryBarCallback, CorrectAnswerFragment.CorrectCallback,
+        WrongAnswerFragment.WrongCallback, CategoryDrawerFragment.CategoryCallback {
 
     CorrectAnswerFragment mCorrectAnsFragment;
     WrongAnswerFragment mWrongAnsFragment;
