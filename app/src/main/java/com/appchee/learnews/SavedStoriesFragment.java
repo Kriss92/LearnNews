@@ -1,8 +1,6 @@
 package com.appchee.learnews;
 
 import android.app.Activity;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,7 +11,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.appchee.learnews.beans.StoryBean;
+import com.appchee.learnews.database.DbInteractions;
+
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class SavedStoriesFragment extends Fragment {
 
     private ListView mList;
     private StoryListAdapter mAdapter;
-    private List<StoryBean> mStories = createFakeStoryBeans();
+    private List<StoryBean> mStories = new ArrayList<StoryBean>();
 
 
     @Override
@@ -38,6 +40,7 @@ public class SavedStoriesFragment extends Fragment {
         StoryListAdapter adapter = new StoryListAdapter();
         mList = (ListView) view.findViewById(R.id.saved_stories_list);
         mList.setAdapter(adapter);
+        readStories();
         return view;
     }
 
@@ -102,6 +105,16 @@ public class SavedStoriesFragment extends Fragment {
         public TextView title;
         public ImageView icon;
     }
+
+    private List<StoryBean> readStories() {
+        mStories.clear();
+        List<StoryBean> fetched = new DbInteractions(getActivity().getApplicationContext()).readSavedStories();
+        for (StoryBean story : fetched) {
+            mStories.add(story);
+        }
+        return mStories;
+    }
+
 
     private List<StoryBean> createFakeStoryBeans() {
         StoryBean[] stories = new StoryBean[3];

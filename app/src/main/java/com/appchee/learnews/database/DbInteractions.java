@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.util.Log;
 
 import com.appchee.learnews.LoginActivity;
+import com.appchee.learnews.actions.NewsManager;
 import com.appchee.learnews.beans.AnswerBean;
 import com.appchee.learnews.beans.QuestionBean;
+import com.appchee.learnews.beans.StoryBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,19 +18,9 @@ public class DbInteractions {
 
     private final LearNewsDbHelper mDbHelper;
 
-//    private static final String ADD_ANSWER_QUERY = "insert into Answers(questionId, answer, correct) values (?, ?, ?) ";
-
-
     public DbInteractions(Context context) {
         mDbHelper = new LearNewsDbHelper(context);
     }
-
-
-//    DbInteractions interactionsHelper = new DbInteractions(this.getApplicationContext());
-//    interactionsHelper.questionAnswered();
-//    interactionsHelper.addQuestion();
-//    interactionsHelper.getQuestion(0);
-
 
     private static class AddQuestionsQuery {
         private static final String SQL = "insert into  Questions (question, answerId, URL, category) " +
@@ -141,12 +133,45 @@ public class DbInteractions {
         } else {
             values.put("incorrect", cursor.getInt(InteractionsQuery.INCORRECT_INDEX) + 1 );
         }
+        updateInteraction(question, values);
+
+    }
+
+    private void updateInteraction(QuestionBean question, ContentValues values) {
         mDbHelper.getWritableDatabase().update(LearNewsDbHelper.INTERACTIONS_TABLE, values,
 //                "questionId = ? and userId = ?",  new String[] {question.getId().toString(), LoginActivity.mCurrentUserId});
                 "questionId = ?",  new String[] {question.getId().toString()});
 
-
     }
+
+    public void saveStory(QuestionBean question) {
+        ContentValues values = new ContentValues();
+        try {
+            values.put("favorite", NewsManager.extractTitle(question.getNewsURL()));
+            updateInteraction(question, values);
+        } catch (Exception e) {
+            return;
+        }
+    }
+
+    public List<StoryBean> readSavedStories(){
+        List<StoryBean> stories = new ArrayList<StoryBean>();
+
+        Cursor cursor = mDbHelper.getReadableDatabase().query(
+                LearNewsDbHelper.INTERACTIONS_TABLE, new String[] {"favorite"},
+                "favorite != null",  null, null, null, null, null);
+
+        while(cursor.moveToNext()) {
+            StoryBean bean = new StoryBean();
+            bean.setTitle(cursor.getString(0));
+            bean.setNewsIconId(2);
+            stories.add(bean);
+        }
+
+
+        return stories;
+    }
+
 
     public double Interactions(QuestionBean question) {
         double correct = 0.0;
@@ -190,13 +215,6 @@ public class DbInteractions {
         String category = questionCursor.getString(GetQuestionsQuery.CATEGORY_INDEX);
 
         QuestionBean result = new QuestionBean(id, question, answers, url,  category);
-        return result;
-    }
-
-    public List<String> getSavedURLS(String userId) {
-        List<String> result = new ArrayList<String>();
-        //TODO:
-
         return result;
     }
 
