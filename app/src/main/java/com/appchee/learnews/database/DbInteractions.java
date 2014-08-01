@@ -114,10 +114,10 @@ public class DbInteractions {
     }
 
     public void createInteraction(QuestionBean question) {
-        Cursor cursor = getInteractionsCursor(question);
-        if (cursor.moveToNext()) {
-            return;
-        }
+//        Cursor cursor = getInteractionsCursor(question);
+//        if (cursor.moveToNext()) {
+//            return;
+//        }
 
         ContentValues values = new ContentValues();
         values.put("questionId", question.getId());
@@ -143,7 +143,9 @@ public class DbInteractions {
             values.put("incorrect", InteractionsQuery.INCORRECT_INDEX + 1);
         }
         mDbHelper.getWritableDatabase().update(LearNewsDbHelper.INTERACTIONS_TABLE, values,
-                "questionId = ?, userId = ?",  new String[] {question.getId().toString(), LoginActivity.mCurrentUserId});
+//                "questionId = ? and userId = ?",  new String[] {question.getId().toString(), LoginActivity.mCurrentUserId});
+                "questionId = ?",  new String[] {question.getId().toString()});
+
 
     }
 
@@ -151,7 +153,7 @@ public class DbInteractions {
         double correct = 0.0;
         double incorrect = 0.0;
         Cursor cursor = mDbHelper.getReadableDatabase().query(
-                LearNewsDbHelper.INTERACTIONS_TABLE, AnswersQuery.PROJECTION, "questionId = ?",
+                LearNewsDbHelper.INTERACTIONS_TABLE, InteractionsQuery.PROJECTION, "questionId = ?",
                 new String[] {question.getId().toString()}, null, null, null, null);
 
         while(cursor.moveToNext()) {
@@ -163,8 +165,11 @@ public class DbInteractions {
 
     private Cursor getInteractionsCursor(QuestionBean question) {
         return mDbHelper.getReadableDatabase().query(
-                LearNewsDbHelper.INTERACTIONS_TABLE, AnswersQuery.PROJECTION, "questionId = ?, userId = ?",
-                new String[] {question.getId().toString(), LoginActivity.mCurrentUserId}, null, null, null, null);
+                LearNewsDbHelper.INTERACTIONS_TABLE, InteractionsQuery.PROJECTION, "questionId = ?",
+                new String[] {question.getId().toString()}, null, null, null, null);
+
+//                LearNewsDbHelper.INTERACTIONS_TABLE, InteractionsQuery.PROJECTION, "questionId = ?, userId = ?",
+//                new String[] {question.getId().toString(), LoginActivity.mCurrentUserId}, null, null, null, null);
     }
 
     public QuestionBean getQuestionByNumber(Integer questionNumber) {
