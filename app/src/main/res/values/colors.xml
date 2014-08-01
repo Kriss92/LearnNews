@@ -2,4 +2,6 @@
 <resources>
     <color name="selected_category">#f00000</color>
     <color name="unselected_category">#f0f00f</color>
+    <color name="header">#4364A1</color>
+    <color name="text">#ffffff</color>
 </resources>

@@ -48,6 +48,7 @@
                         android:text="Category"
                         android:gravity="center"
                         android:textSize="50sp"
+                        android:textColor="@color/header"
                         android:paddingLeft="10dp"/>
 
                     <TextView
@@ -56,6 +57,7 @@
                         android:layout_height="wrap_content"
                         android:text="00/00/0000"
                         android:textSize="25sp"
+                        android:textColor="@color/header"
                         android:gravity="center"/>
 
 
