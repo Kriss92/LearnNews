@@ -83,5 +83,6 @@
         <item>"Entertainment"</item>
         <item>"Health"</item>
         <item>"Travel"</item>
+        <item>"Sport"</item>
     </string-array>
 </resources>
