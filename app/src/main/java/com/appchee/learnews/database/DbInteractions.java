@@ -77,9 +77,6 @@ public class DbInteractions {
 
     }
 
-    public void updateInteractions() {
-
-    }
 
     private static class AnswersQuery {
         public static final String[] PROJECTION = {"id", "answer","correct"};
@@ -98,7 +95,6 @@ public class DbInteractions {
             answer.setId(answersCursor.getInt(AnswersQuery.ID_INDEX));
             answer.setAnswer(answersCursor.getString(AnswersQuery.ANSWER_INDEX));
             answer.setCorrect(answersCursor.getInt(AnswersQuery.CORRECT_INDEX));
-            Log.d("????? Read answers", "Correct? " + answersCursor.getInt(AnswersQuery.CORRECT_INDEX));
             result.add(answer);
         }
         return result;
@@ -122,6 +118,21 @@ public class DbInteractions {
         Log.d("test", questionCursor.getString(GetQuestionsQuery.QUESTION_INDEX));
 
         return buildQuestion(questionCursor);
+    }
+
+
+    private static class UpdateInteractionsQuery {
+        public static final String[] PROJECTION = {};
+        public static final int ID_INDEX = 0;
+        public static final int QUESTION_INDEX = 1;
+        //       public static final int ANSWER_ID_INDEX = 2;
+        public static final int URL_INDEX = 2;
+        public static final int CATEGORY_INDEX = 3;
+    }
+    public void updateInteractions(QuestionBean question, boolean correct) {
+       // mDbHelper.getWritableDatabase().update(LearNewsDbHelper.QUESTIONS_TABLE)
+
+
     }
 
     public QuestionBean getQuestionByNumber(Integer questionNumber) {

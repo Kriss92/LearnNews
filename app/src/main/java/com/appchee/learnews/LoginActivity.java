@@ -31,6 +31,7 @@ public class LoginActivity  extends Activity implements
     private boolean mIntentInProgress;
 
     private GoogleApiClient mGoogleApiClient;
+    public static String mCurrentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,9 @@ public class LoginActivity  extends Activity implements
                 .addApi(Plus.API)
                 .addScope(Plus.SCOPE_PLUS_LOGIN)
                 .build();
+
+        mCurrentUserId = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient).getId();
+
     }
 
 
@@ -148,4 +152,6 @@ public class LoginActivity  extends Activity implements
         mSignInClicked = false;
         Toast.makeText(this, "User is connected!", Toast.LENGTH_LONG).show();
     }
+
+
 }

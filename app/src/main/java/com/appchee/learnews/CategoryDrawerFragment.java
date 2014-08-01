@@ -11,16 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDrawerFragment extends Fragment {
+
     private LinearLayout mLinearLayout;
-    private String[] mCategories = {"World", "UK", "Technology & Science", "Arts & Entertainment"};
-    private View[] mButtons = new View[mCategories.length];
+    private String[] mCategories;
+    //private String[] mCategories = {"World", "UK", "Technology & Science", "Arts & Entertainment"};
+    private View[] mButtons;
     private CategoryCallback mCallback;
+
+
     private View.OnClickListener mListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -84,7 +89,12 @@ public class CategoryDrawerFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_category_drawer, container, false);
 
+        mCategories= getResources().getStringArray(R.array.categories);
+        mButtons = new View[mCategories.length];
+
         mLinearLayout = (LinearLayout) view.findViewById(R.id.categories_list);
+
+
         for (int i = 0; i < mCategories.length; i++) {
             View categoryView= inflater.inflate(R.layout.category_button, mLinearLayout, false);
             Button categoryButton = (Button) categoryView.findViewById(R.id.category_button);
