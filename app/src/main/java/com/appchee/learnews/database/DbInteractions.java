@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.appchee.learnews.LoginActivity;
 import com.appchee.learnews.beans.AnswerBean;
 import com.appchee.learnews.beans.QuestionBean;
 
@@ -73,11 +74,6 @@ public class DbInteractions {
         mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.ANSWERS_TABLE, null, values);
     }
 
-    public void questionAnswered() {
-
-    }
-
-
     private static class AnswersQuery {
         public static final String[] PROJECTION = {"id", "answer","correct"};
         public static final int ID_INDEX = 0;
@@ -104,7 +100,6 @@ public class DbInteractions {
         public static final String[] PROJECTION = {"id", "question","URL", "category" };
         public static final int ID_INDEX = 0;
         public static final int QUESTION_INDEX = 1;
- //       public static final int ANSWER_ID_INDEX = 2;
         public static final int URL_INDEX = 2;
         public static final int CATEGORY_INDEX = 3;
     }
@@ -115,24 +110,66 @@ public class DbInteractions {
                         "id = " + questionId.toString(),  new String[]{}, null, null, null, null);
 
         questionCursor.moveToNext();
-        Log.d("test", questionCursor.getString(GetQuestionsQuery.QUESTION_INDEX));
-
         return buildQuestion(questionCursor);
     }
 
+    public void createInteraction(QuestionBean question) {
+//        Cursor cursor = getInteractionsCursor(question);
+//        if (cursor.moveToNext()) {
+//            return;
+//        }
 
-    private static class UpdateInteractionsQuery {
-        public static final String[] PROJECTION = {};
-        public static final int ID_INDEX = 0;
-        public static final int QUESTION_INDEX = 1;
-        //       public static final int ANSWER_ID_INDEX = 2;
-        public static final int URL_INDEX = 2;
-        public static final int CATEGORY_INDEX = 3;
+        ContentValues values = new ContentValues();
+        values.put("questionId", question.getId());
+        values.put("userId", LoginActivity.mCurrentUserId);
+        mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.INTERACTIONS_TABLE, null, values);
+    }
+
+    private static class InteractionsQuery {
+        public static final String[] PROJECTION = {"correct", "incorrect"};
+        public static final int CORRECT_INDEX = 0;
+        public static final int INCORRECT_INDEX = 1;
+
     }
     public void updateInteractions(QuestionBean question, boolean correct) {
-       // mDbHelper.getWritableDatabase().update(LearNewsDbHelper.QUESTIONS_TABLE)
+        Cursor cursor = getInteractionsCursor(question);
+        if (!cursor.moveToNext()) {
+            return;
+        }
+        ContentValues values = new ContentValues();
+        if (correct) {
+            values.put("correct", cursor.getInt(InteractionsQuery.CORRECT_INDEX + 1));
+        } else {
+            values.put("incorrect", InteractionsQuery.INCORRECT_INDEX + 1);
+        }
+        mDbHelper.getWritableDatabase().update(LearNewsDbHelper.INTERACTIONS_TABLE, values,
+//                "questionId = ? and userId = ?",  new String[] {question.getId().toString(), LoginActivity.mCurrentUserId});
+                "questionId = ?",  new String[] {question.getId().toString()});
 
 
+    }
+
+    public double Interactions(QuestionBean question) {
+        double correct = 0.0;
+        double incorrect = 0.0;
+        Cursor cursor = mDbHelper.getReadableDatabase().query(
+                LearNewsDbHelper.INTERACTIONS_TABLE, InteractionsQuery.PROJECTION, "questionId = ?",
+                new String[] {question.getId().toString()}, null, null, null, null);
+
+        while(cursor.moveToNext()) {
+            correct += cursor.getInt(InteractionsQuery.CORRECT_INDEX);
+            incorrect += cursor.getInt(InteractionsQuery.INCORRECT_INDEX);
+        }
+        return correct * 100 / (correct + incorrect);
+    }
+
+    private Cursor getInteractionsCursor(QuestionBean question) {
+        return mDbHelper.getReadableDatabase().query(
+                LearNewsDbHelper.INTERACTIONS_TABLE, InteractionsQuery.PROJECTION, "questionId = ?",
+                new String[] {question.getId().toString()}, null, null, null, null);
+
+//                LearNewsDbHelper.INTERACTIONS_TABLE, InteractionsQuery.PROJECTION, "questionId = ?, userId = ?",
+//                new String[] {question.getId().toString(), LoginActivity.mCurrentUserId}, null, null, null, null);
     }
 
     public QuestionBean getQuestionByNumber(Integer questionNumber) {
