@@ -28,6 +28,7 @@ public class UnsafeContentValidator implements Validator {
     public void validate(String text) throws ValidationException {
         Log.d("Validator", "Validate");
         for(String word : text.split("\\s+")) {
+            word = word.toLowerCase();
             if(offenciveSet.contains(word)) {
                 Log.d("word", word);
                 throw new ValidationException("Offencive word detected");

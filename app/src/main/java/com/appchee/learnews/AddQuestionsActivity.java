@@ -143,6 +143,7 @@ public class AddQuestionsActivity extends Activity {
                 //TODO: use e.getMessage()
                 Log.d("Offence", e.getMessage());
                 startDialogForIncompleteData();
+                return;
             }
 
             Button submitButton = (Button) view;

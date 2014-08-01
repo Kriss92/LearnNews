@@ -1,6 +1,7 @@
 package com.appchee.learnews.beans;
 
 import com.appchee.learnews.validation.UnsafeContentValidator;
+import com.appchee.learnews.validation.UrlValidator;
 import com.appchee.learnews.validation.ValidationException;
 
 import java.util.List;
@@ -84,5 +85,7 @@ public class QuestionBean {
         for(AnswerBean answer : mAnswers) {
             validator.validate(answer.getAnswer());
         }
+
+        new UrlValidator().validate(mNewsURL);
     }
 }
