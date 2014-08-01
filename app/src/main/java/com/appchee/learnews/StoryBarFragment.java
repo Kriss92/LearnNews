@@ -16,8 +16,8 @@ public class StoryBarFragment extends Fragment {
 
     private StoryBarCallback mListener;
     private Button mContinueButtom;
-    private ImageButton mSaveStoryButton;
-    private ImageButton mSendStoryButton;
+    private ImageView mSaveStoryButton;
+    private ImageView mSendStoryButton;
     private TextView mHeadlineText;
     private ImageView mNewsSiteImg;
 
@@ -42,8 +42,8 @@ public class StoryBarFragment extends Fragment {
 
         //initialize view members
         mContinueButtom= (Button) v.findViewById(R.id.cont_button);
-        mSaveStoryButton= (ImageButton) v.findViewById(R.id.save_story_button);
-        mSendStoryButton= (ImageButton) v.findViewById(R.id.send_story_button);
+        mSaveStoryButton= (ImageView) v.findViewById(R.id.save_story_button);
+        mSendStoryButton= (ImageView) v.findViewById(R.id.send_story_button);
         mHeadlineText= (TextView) v.findViewById(R.id.article_headline);
         mNewsSiteImg= (ImageView) v.findViewById(R.id.newsite_img);
 

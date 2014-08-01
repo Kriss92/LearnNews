@@ -18,7 +18,7 @@
                 android:id="@+id/wrong_vi_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/vi"
                 android:layout_centerVertical="true"
                 />
 
@@ -44,7 +44,7 @@
                 android:id="@+id/x_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/x"
                 android:layout_centerVertical="true"
                 />
 

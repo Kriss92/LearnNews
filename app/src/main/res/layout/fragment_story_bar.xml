@@ -24,7 +24,7 @@
             >
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/newsite_img"
                 android:src="@drawable/ic_launcher"
                 android:layout_width="wrap_content"
@@ -43,18 +43,18 @@
                 android:gravity="center"
                 android:textAlignment="center"/>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/save_story_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/save"
                 android:layout_weight="1"/>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/send_story_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/mail"
                 android:layout_weight="1"/>
 
         </LinearLayout>
