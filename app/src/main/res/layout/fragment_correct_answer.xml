@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.appchee.learnews.CorrectAnswerFragment"
-    android:background="@android:color/holo_green_light"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
         <!-- Answers -->
@@ -14,6 +14,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+
                 >
 
                 <ImageView
@@ -28,10 +29,13 @@
                     android:id="@+id/ans_correct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="30dp"
+                    android:textSize="35dp"
                     android:text="Correct Answer"
                     android:layout_toRightOf="@+id/correct_vi_img"
                     android:layout_centerVertical="true"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/text"
+                    android:textStyle="bold"
                     />
 
                 </RelativeLayout>
@@ -42,7 +46,9 @@
                 android:layout_height="wrap_content"
                 android:textSize="25dp"
                 android:text="Good job!"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="@color/text"
+                android:layout_marginTop = "25dp"/>
 
             <TextView
                 android:id="@+id/ans_statistics"
@@ -50,7 +56,9 @@
                 android:layout_height="wrap_content"
                 android:textSize="25dp"
                 android:text="56% Got It Right!"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="@color/text"
+                android:layout_margin="15dp"/>
 
 
     <!-- Story Bar -->

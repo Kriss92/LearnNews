@@ -4,69 +4,78 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.appchee.learnews.WrongAnswerFragment"
-        android:background="@android:color/holo_red_dark"
-        android:orientation="vertical">
+        android:background="@drawable/background"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <!-- Answers -->
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/rel_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            >
-
-            <ImageView
-                android:id="@+id/wrong_vi_img"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher"
-                android:layout_centerVertical="true"
-                />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/wrong_ans_correct"
+                <ImageView
+                    android:id="@+id/wrong_vi_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_centerVertical="true"
+                    android:baselineAlignBottom="true"
+                    />
+
+                <TextView
+                    android:id="@+id/wrong_ans_correct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="35dp"
+                    android:text="Correct Answer"
+                    android:baselineAlignBottom="true"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/text"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:text="Correct Answer"
-                android:layout_toRightOf="@+id/wrong_vi_img"
-                android:layout_centerVertical="true"
-                />
+                android:orientation="horizontal">
 
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/x_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_centerVertical="true"
+                    />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            >
+                <TextView
+                    android:id="@+id/wrong_ans_wrong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="35dp"
+                    android:text="Correct Answer"
+                    android:layout_toRightOf="@+id/wrong_vi_img"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/text"
+                    android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/x_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher"
-                android:layout_centerVertical="true"
-                />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/wrong_ans_wrong"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:text="Correct Answer"
-                android:layout_toRightOf="@+id/x_img"
-                android:layout_centerVertical="true"
-                />
-
-        </RelativeLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/wrong_compliment_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="25dp"
-            android:text="Good job!"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textColor="@color/text"/>
 
         <!-- Story Bar -->
         <fragment

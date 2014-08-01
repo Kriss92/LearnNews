@@ -2,7 +2,7 @@
 <resources>
     <color name="unselected_category">#292929</color>
     <color name="selected_category">#5C5E5E</color>
-    <color name="header">#4364A1</color>
-    <color name="text">#000000</color>
+    <color name="header">#303A75</color>
+    <color name="text">#2828B5</color>
     <color name="question_background">#80B0FF</color>
 </resources>
