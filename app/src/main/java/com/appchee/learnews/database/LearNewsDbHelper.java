@@ -4,6 +4,13 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.appchee.learnews.R;
+import com.appchee.learnews.beans.AnswerBean;
+import com.appchee.learnews.beans.QuestionBean;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class LearNewsDbHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
@@ -12,6 +19,7 @@ public class LearNewsDbHelper extends SQLiteOpenHelper {
     public static String QUESTIONS_TABLE = "Questions";
     public static String ANSWERS_TABLE = "Answers";
     public static String INTERACTIONS_TABLE = "Interactions";
+    private Context mContext;
 
     private static final String QUESTIONS_TABLE_CREATE =
             "CREATE TABLE " +  QUESTIONS_TABLE + " (" +
@@ -52,6 +60,7 @@ public class LearNewsDbHelper extends SQLiteOpenHelper {
 
     public LearNewsDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        mContext = context;
     }
 
     @Override
@@ -67,6 +76,7 @@ public class LearNewsDbHelper extends SQLiteOpenHelper {
             db.execSQL(INTERACTIONS_TABLE_CREATE);
 //        db.execSQL(INTERACTIONS_CREATE_INDEX);
 //        db.execSQL(QUESTIONS_CREATE_FOREIGN_KEY);
+
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
@@ -78,4 +88,5 @@ public class LearNewsDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
 }
