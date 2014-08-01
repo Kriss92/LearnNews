@@ -23,13 +23,12 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:paddingTop="15sp"
                     android:id="@+id/q_img"
                     android:src="@drawable/ic_launcher"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"/>
 
                 <!--  category and date-->
                 <LinearLayout
@@ -46,8 +45,8 @@
                         android:layout_height="wrap_content"
                         android:text="Category"
                         android:textSize="50sp"
-                        android:paddingBottom="10sp"
-                        android:paddingLeft="10dp"/>
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="15dp"/>
                 </LinearLayout>
 
 
@@ -158,19 +157,25 @@
             android:id="@+id/categories_drawer"
             android:layout_width="300dp"
             android:layout_height="match_parent"
-
             android:orientation="horizontal"
-            android:handle="@+id/category_drawer_handle"
+            android:handle="@+id/handle_layout"
             android:content="@+id/category_drawer_content"
             android:rotation="180"
             >
+            <LinearLayout
+                android:id="@id/handle_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <ImageView
+                <ImageView
                 android:id="@+id/category_drawer_handle"
                 android:src="@drawable/ic_open_drawer"
                 android:layout_width="@dimen/handle_width"
                 android:layout_height="@dimen/handle_height"
+                android:layout_marginTop="10dp"
                 android:rotation="180"/>
+            </LinearLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"

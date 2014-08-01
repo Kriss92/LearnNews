@@ -140,6 +140,7 @@ public class AddQuestionsActivity extends Activity {
         int index = getButtonIndex(view.getTag().toString());
         Log.d("Here", "Got to answer button");
         deselectAllOtherButtons(index);
+        ((RadioButton) view).setButtonDrawable(R.drawable.selected_radio_button);
         selectedButton = (RadioButton) view;
     }
 
@@ -154,6 +155,7 @@ public class AddQuestionsActivity extends Activity {
             //if it isn't the clicked button, make all the others unchecked
             if(i - buttonIndex != 0)
             {
+                buttons[i].setButtonDrawable(R.drawable.radio_button);
                 buttons[i].setChecked(false);
             }
         }

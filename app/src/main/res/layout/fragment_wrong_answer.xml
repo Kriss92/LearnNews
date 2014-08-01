@@ -10,6 +10,7 @@
 
         <!-- Answers -->
         <LinearLayout
+            android:layout_marginTop="30dp"
             android:id="@+id/rel_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,9 +73,11 @@
             android:id="@+id/wrong_compliment_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
+            android:textSize="40dp"
+            android:textStyle="bold"
             android:gravity="center"
-            android:textColor="@color/text"/>
+            android:textColor="@color/common_action_bar_splitter"
+            android:layout_marginTop="30dp"/>
 
         <!-- Story Bar -->
         <fragment
