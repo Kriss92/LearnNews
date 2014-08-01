@@ -189,10 +189,7 @@ public class AddQuestionsActivity extends Activity {
         try {
             saveQuestion(category , answerBeans, question, url);
         } catch (ValidationException e) {
-            //TODO: use e.getMessage()
-            Log.d("Offence", e.getMessage());
-            startToastForIncompleteData(R.string.complete_all_fields);
-            return;
+            makeToastForInvalidQuestion(e.getMessage());
         }
 
         Button submitButton = (Button) view;
@@ -201,6 +198,12 @@ public class AddQuestionsActivity extends Activity {
         Log.d("Kriss tag:", "Data done");
         }
 
+    private void makeToastForInvalidQuestion(String message) {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, message, duration);
+        toast.show();
+    }
     private void startToastForIncompleteData(int message) {
         Context context = getApplicationContext();
         CharSequence text = getString(message);
