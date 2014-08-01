@@ -2,13 +2,15 @@ package com.appchee.learnews;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import java.sql.Date;
+import java.util.Arrays;
 
-public class SavedStoriesActivity extends Activity
+public class SavedStoriesActivity extends Activity implements CategoryDrawerFragment.CategoryCallback
 {
     View mStoriesFragment;
     View mCategoryFragment;
@@ -42,4 +44,8 @@ public class SavedStoriesActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onCategoriesSelected(String[] categories) {
+        Log.d("MyLog", "Categories selected" + Arrays.toString(categories));
+    }
 }

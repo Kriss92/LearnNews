@@ -20,6 +20,19 @@
         android:id="@+id/categories_list"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/select_all_categories_button"
+            android:text="Select all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/unselect_all_categories_button"
+            android:text="Unselect all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+     </LinearLayout>
 
 </LinearLayout>
