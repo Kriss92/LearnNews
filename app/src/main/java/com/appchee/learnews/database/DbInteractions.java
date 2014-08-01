@@ -163,8 +163,8 @@ public class DbInteractions {
 
         while(cursor.moveToNext()) {
             String title = cursor.getString(0);
-            Log.d("Strory URL", title);
             if (title != null && title.length() > 0) {
+                Log.d("Strory URL", title);
                 StoryBean bean = new StoryBean();
                 bean.setTitle(title);
                 bean.setNewsIconId(2);
