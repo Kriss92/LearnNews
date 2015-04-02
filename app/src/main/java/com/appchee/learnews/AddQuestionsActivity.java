@@ -1,12 +1,9 @@
 package com.appchee.learnews;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,18 +14,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.appchee.learnews.R;
-import com.appchee.learnews.actions.QuestionsManager;
 import com.appchee.learnews.beans.AnswerBean;
 import com.appchee.learnews.beans.QuestionBean;
 import com.appchee.learnews.database.DbInteractions;
 import com.appchee.learnews.validation.ValidationException;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.appchee.learnews.backend.WebClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,8 +61,7 @@ public class AddQuestionsActivity extends Activity {
         submitButton.setOnTouchListener(touchListener);
     }
 
-    private void initialiseButtons()
-    {
+    private void initialiseButtons() {
         initializeSpinner();
 
 
@@ -106,7 +99,7 @@ public class AddQuestionsActivity extends Activity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                category= getResources().getStringArray(R.array.categories)[position];
+                category = getResources().getStringArray(R.array.categories)[position];
             }
 
             @Override
@@ -136,7 +129,7 @@ public class AddQuestionsActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void nextButtonClicked(View view){
+    public void nextButtonClicked(View view) {
 
     }
 
@@ -156,10 +149,9 @@ public class AddQuestionsActivity extends Activity {
 
     public void deselectAllOtherButtons(int buttonIndex) {
         int i;
-        for(i = 0; i < 4; i++) {
+        for (i = 0; i < 4; i++) {
             //if it isn't the clicked button, make all the others unchecked
-            if(i - buttonIndex != 0)
-            {
+            if (i - buttonIndex != 0) {
                 buttons[i].setButtonDrawable(R.drawable.radio_button);
                 buttons[i].setChecked(false);
             }
@@ -170,7 +162,7 @@ public class AddQuestionsActivity extends Activity {
 
         EditText questionEditText = (EditText) findViewById(R.id.add_questions_text);
         question = questionEditText.getText().toString();
-        if(question.isEmpty()) {
+        if (question.isEmpty()) {
             startToastForIncompleteData(R.string.complete_all_fields);
             questionEditText.setBackgroundColor(Color.RED);
             return;
@@ -183,10 +175,10 @@ public class AddQuestionsActivity extends Activity {
 
         answers = new String[4];
         int i;
-        for(i = 0; i < 4; i++) {
+        for (i = 0; i < 4; i++) {
             answers[i] = answerViews[i].getText().toString();
             //Log.d("answer", "Answer " + answers[i]);
-            if(answers[i].isEmpty()) {
+            if (answers[i].isEmpty()) {
                 startToastForIncompleteData(R.string.complete_all_fields);
                 answerViews[i].setBackgroundColor(Color.RED);
                 return;
@@ -198,15 +190,16 @@ public class AddQuestionsActivity extends Activity {
 
         EditText urlEditText = (EditText) findViewById(R.id.link_text);
         url = urlEditText.getText().toString();
-        if(url.isEmpty()) {
+        if (url.isEmpty()) {
             startToastForIncompleteData(R.string.complete_all_fields);
             urlEditText.setBackgroundColor(Color.RED);
             return;
         }
         urlEditText.setBackgroundColor(Color.WHITE);
 
-        if(selectedButton != null) {
-            int buttonIndex = getButtonIndex(selectedButton.getTag().toString());
+        int buttonIndex = 0;
+        if (selectedButton != null) {
+            buttonIndex = getButtonIndex(selectedButton.getTag().toString());
             answerBeans.get(buttonIndex).setCorrect(true);
         } else {
             startToastForIncompleteData(R.string.select_correct_answer);
@@ -214,7 +207,7 @@ public class AddQuestionsActivity extends Activity {
         }
 
         try {
-            saveQuestion(category , answerBeans, question, url);
+            saveQuestion(category, answerBeans, question, url, answers, buttonIndex);
         } catch (ValidationException e) {
             makeToastForInvalidQuestion(e.getMessage());
         }
@@ -225,7 +218,7 @@ public class AddQuestionsActivity extends Activity {
         Intent refresh = new Intent(this, AddQuestionsActivity.class);
         finish();
         startActivity(refresh);
-        }
+    }
 
     private void makeToastForInvalidQuestion(String message) {
         Context context = getApplicationContext();
@@ -233,6 +226,7 @@ public class AddQuestionsActivity extends Activity {
         Toast toast = Toast.makeText(context, message, duration);
         toast.show();
     }
+
     private void startToastForIncompleteData(int message) {
         Context context = getApplicationContext();
         CharSequence text = getString(message);
@@ -241,7 +235,7 @@ public class AddQuestionsActivity extends Activity {
         toast.show();
     }
 
-    public void saveQuestion(String category, List<AnswerBean> answerBeans, String question, String url)
+    public void saveQuestion(String category, List<AnswerBean> answerBeans, final String question, final String url, final String[] answers, final int buttonIndex)
             throws ValidationException {
 
         Log.d("Add Question", "Try to save");
@@ -254,6 +248,14 @@ public class AddQuestionsActivity extends Activity {
         questionBean.validate();
         new DbInteractions(this.getApplicationContext()).addQuestion(questionBean);
 
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                WebClient webc = new WebClient();
+                webc.addQuestion(question, answers, buttonIndex, url);
+            }
+        });
+        thread.start();
     }
 
 }
