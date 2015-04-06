@@ -29,7 +29,7 @@ public class QuestionsManager {
 
 
         Long numQueries = DatabaseUtils.queryNumEntries(mDbHelper.getDBHelper().getReadableDatabase(),
-                LearNewsDbHelper.QUESTIONS_TABLE, null);
+                LearNewsDbHelper.QUESTIONS_TABLE);
 
         if (numQueries < 1) {
             return new QuestionBean();
