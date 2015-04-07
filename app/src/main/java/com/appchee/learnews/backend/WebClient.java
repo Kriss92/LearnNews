@@ -1,8 +1,10 @@
 package com.appchee.learnews.backend;
 
-import android.os.Message;
 import android.util.JsonReader;
+import android.util.JsonToken;
 import android.util.Log;
+
+import com.google.android.gms.games.quest.Quest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,81 +41,87 @@ public class WebClient extends WebFunctions {
 
     }
 
+    public List<QuestionObject> syncQuestions() throws IOException {
+        String postParameters = "username=" + "Alex" + "&password=" + "pass";
+        String response = sendRequestPOST("syncQuestions.php", postParameters);
+        List<QuestionObject> result = new ArrayList<QuestionObject>();
 
-//    public List syncQuestions(InputStream in) throws IOException {
-//        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-//        try {
-//            return readMessagesArray(reader);
-//        }
-//            finally{
-//                reader.close();
-//            }
-//    }
+        JsonReader reader = new JsonReader(new StringReader(response));
+        reader.beginArray();
+        while(reader.hasNext()) {
+            result.add(readQuestionObject(reader));
+        }
+        reader.endArray();
 
-//    @Override
-//    public List<JSONObject> fetchEvents() {
-//        String postParameters = "userID=" + userID + "&password=" + pass;
-//        String response = sendRequestPOST("fetchEvents.php", postParameters);
-//        List<JSONObject> result = new ArrayList<JSONObject>();
-//        try {
-//            JsonReader reader = new JsonReader(new StringReader(response));
-//            JSONArray array = reader.beginArray();
-//            reader.beginArray();
-//            while (reader.hasNext()) {
-//                messages.add(readMessage(reader));
-//            }
-//            reader.endArray();
-//            return messages;
-//        } catch (JsonException ex) {
-//            return null;
-//        }
-//        if (result.size()>0){
-//            String time = result.get(result.size()-1).getString("time");
-//            postParameters = "userID=" + userID + "&password=" + pass + "&time=" + time;
-//            response = sendRequestPOST("deleteEvents.php", postParameters);
-//            if (response.equals("failure"))
-//                return null;
-//        }
-//        return result;
-//    }
-//
-//
-//    public List readMessagesArray(JsonReader reader) throws IOException {
-//        List messages = new ArrayList();
-//
-//        reader.beginArray();
-//        while (reader.hasNext()) {
-//            messages.add(readMessage(reader));
-//        }
-//        reader.endArray();
-//        return messages;
-//    }
-//
-//    public Message readMessage(JsonReader reader) throws IOException {
-//        long id = -1;
-//        String text = null;
-//        User user = null;
-//        List geo = null;
-//
-//        reader.beginObject();
-//        while (reader.hasNext()) {
-//            String name = reader.nextName();
-//            if (name.equals("id")) {
-//                id = reader.nextLong();
-//            } else if (name.equals("text")) {
-//                text = reader.nextString();
-//            } else if (name.equals("geo") && reader.peek() != JsonToken.NULL) {
-//                geo = readDoublesArray(reader);
-//            } else if (name.equals("user")) {
-//                user = readUser(reader);
-//            } else {
-//                reader.skipValue();
-//            }
-//        }
-//        reader.endObject();
-//        return new Message(id, text, user, geo);
-//    }
+        return result;
+    }
 
+    public QuestionObject readQuestionObject(JsonReader reader) throws IOException {
+
+        String Question = null;
+        String Answer1 = null;
+        String Answer2 = null;
+        String Answer3 = null;
+        String Answer4 = null;
+        int CorrectIndex = 0;
+        String NewsUrl = null;
+        int i;
+        String d;
+
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            Log.d("Name is", name);
+
+            if(reader.peek() != JsonToken.NULL) {
+                if (name.equals("question")) {
+                    Question = reader.nextString();
+                } else if (name.equals("answer1")) {
+                    Answer1 = reader.nextString();
+                } else if (name.equals("answer2")) {
+                    Answer2 = reader.nextString();
+                } else if (name.equals("answer3")) {
+                    Answer3 = reader.nextString();
+                } else if (name.equals("answer4")) {
+                    Answer4 = reader.nextString();
+                } else if (name.equals("correctindex")) {
+                    CorrectIndex = reader.nextInt();
+                } else if (name.equals("newsurl")) {
+                    NewsUrl = reader.nextString();
+                } else if (name.equals("questionid")) {
+                    i = reader.nextInt();
+                } else if (name.equals("dateadded")) {
+                    d = reader.nextString();
+                }
+            }
+        }
+        reader.endObject();
+        return new QuestionObject(Question, Answer1, Answer2, Answer3, Answer4, CorrectIndex, NewsUrl);
+    }
+
+    private class QuestionObject {
+
+        String Question = null;
+        String Answer1 = null;
+        String Answer2 = null;
+        String Answer3 = null;
+        String Answer4 = null;
+        int CorrectIndex = 0;
+        String NewsUrl = null;
+
+        public QuestionObject(String Question,String Answer1, String Answer2, String Answer3,
+                              String Answer4, int CorrectIndex, String NewsUrl) {
+
+            this.Question = Question;
+            this.Answer1 = Answer1;
+            this.Answer2 = Answer2;
+            this.Answer3 = Answer3;
+            this.Answer4 = Answer4;
+            this.CorrectIndex = CorrectIndex;
+            this.NewsUrl = NewsUrl;
+        }
+
+    }
 
 
 
