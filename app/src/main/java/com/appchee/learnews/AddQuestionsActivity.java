@@ -246,7 +246,7 @@ public class AddQuestionsActivity extends Activity {
         questionBean.setNewsURL(url);
 
         questionBean.validate();
-        new DbInteractions(this.getApplicationContext()).addQuestion(questionBean);
+        //new DbInteractions(this.getApplicationContext()).addQuestion(questionBean);
 
         Thread thread = new Thread(new Runnable() {
             @Override
