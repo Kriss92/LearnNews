@@ -25,6 +25,7 @@ import com.appchee.learnews.validation.ValidationException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.appchee.learnews.AddQuestionsActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
@@ -92,7 +93,11 @@ public class MenuActivity extends Activity {
             @Override
             public void run() {
                 WebClient webc = new WebClient();
-                //webc.syncQuestions();
+                try {
+                    webc.syncQuestions();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         thread.start();
