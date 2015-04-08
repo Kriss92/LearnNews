@@ -6,29 +6,40 @@ import com.appchee.learnews.validation.UnsafeContentValidator;
 import com.appchee.learnews.validation.UrlValidator;
 import com.appchee.learnews.validation.ValidationException;
 
+import java.sql.Timestamp;
 import java.util.List;
 
-/**
- * Created by demouser on 7/31/14.
- */
 public class QuestionBean {
 
-   // public static enum categories = {};
+    // public static enum categories = {};
 
     Integer mId;
     String mQuestion;
     String mCategory;
-    List<AnswerBean> mAnswers;
+    String mAnswer1;
+    String mAnswer2;
+    String mAnswer3;
+    String mAnswer4;
+    int mCorrectIndex;
     String mNewsURL;
+    String mDateAdded;
 
     public QuestionBean() { }
 
-    public QuestionBean(Integer id, String question, List<AnswerBean> answers, String newsURL, String category) {
+    public QuestionBean(Integer id, String question, String answer1, String answer2,
+                        String answer3, String answer4, int correctIndex, String newsURL,
+                        String category, String dateAdded) {
         this.mNewsURL = newsURL;
         this.mId = id;
         this.mQuestion = question;
         this.mCategory = category;
-        this.mAnswers = answers;
+        this.mAnswer1 = answer1;
+        this.mAnswer2 = answer2;
+        this.mAnswer3 = answer3;
+        this.mAnswer4 = answer4;
+        this.mCorrectIndex = correctIndex;
+        this.mNewsURL = newsURL;
+        this.mDateAdded = dateAdded;
     }
 
     public Integer getId() {
@@ -55,15 +66,6 @@ public class QuestionBean {
         this.mCategory = category;
     }
 
-    public List<AnswerBean> getAnswers() {
-        return mAnswers;
-    }
-
-    public void setAnswers(List<AnswerBean> answers) {
-        this.mAnswers = answers;
-    }
-
-
     public String getNewsURL() {
         return mNewsURL;
     }
@@ -72,22 +74,60 @@ public class QuestionBean {
         this.mNewsURL = newsURL;
     }
 
-    public Integer getCorrectAnswer() {
-        for (int i = 0; i < mAnswers.size(); i++) {
-            if (mAnswers.get(i).getCorrect()) {
-                return i;
-            }
-        }
-        return 0;
+    public String getAnswer1() {
+        return mAnswer1;
+    }
+
+    public void setAnswer1(String mAnswer1) {
+        this.mAnswer1 = mAnswer1;
+    }
+
+    public String getAnswer2() {
+        return mAnswer2;
+    }
+
+    public void setAnswer2(String mAnswer2) {
+        this.mAnswer2 = mAnswer2;
+    }
+
+    public String getAnswer3() {
+        return mAnswer3;
+    }
+
+    public void setAnswer3(String mAnswer3) {
+        this.mAnswer3 = mAnswer3;
+    }
+
+    public String getAnswer4() {
+        return mAnswer4;
+    }
+
+    public void setAnswer4(String mAnswer4) {
+        this.mAnswer4 = mAnswer4;
+    }
+
+    public int getCorrectIndex() {
+        return mCorrectIndex;
+    }
+
+    public void setCorrectIndex(int mCorrectIndex) {
+        this.mCorrectIndex = mCorrectIndex;
+    }
+    public String getDateAdded() {
+        return mDateAdded;
+    }
+
+    public void setDateAdded(String mDateAdded) {
+        this.mDateAdded = mDateAdded;
     }
 
     public void validate() throws ValidationException {
         UnsafeContentValidator validator = new UnsafeContentValidator();
         validator.validate(mQuestion);
-        for(AnswerBean answer : mAnswers) {
-            validator.validate(answer.getAnswer());
-        }
-
+        validator.validate(mAnswer1);
+        validator.validate(mAnswer2);
+        validator.validate(mAnswer3);
+        validator.validate(mAnswer4);
         new UrlValidator().validate(mNewsURL);
     }
 }

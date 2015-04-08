@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.database.DatabaseUtils;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.appchee.learnews.backend.WebClient;
 import com.appchee.learnews.beans.AnswerBean;
 import com.appchee.learnews.beans.QuestionBean;
 import com.appchee.learnews.database.DbInteractions;
+import com.appchee.learnews.database.LearNewsDbHelper;
 import com.appchee.learnews.validation.ValidationException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.appchee.learnews.AddQuestionsActivity;
@@ -116,26 +118,24 @@ public class MenuActivity extends Activity {
 
     public void initializeDB(){
         DbInteractions dbHelper = new DbInteractions(getApplicationContext());
-
-        //  String[] categories= getResources().getStringArray(R.array.categories);
         {
-            List<AnswerBean> answerBeans1 = new ArrayList<AnswerBean>();
-            AnswerBean ans1 = new AnswerBean("United States", false);
-            answerBeans1.add(ans1);
-            AnswerBean ans2 = new AnswerBean("United Kingdom", false);
-            answerBeans1.add(ans2);
-            AnswerBean ans3 = new AnswerBean("France", false);
-            answerBeans1.add(ans3);
-            AnswerBean ans4 = new AnswerBean("Egypt", true);
-            answerBeans1.add(ans4);
-
-
             QuestionBean questionBean1=new QuestionBean();
-            questionBean1.setQuestion("Who is negotiating the ceasefire between the Israeli and the Palestinitan delgeation?");
+            questionBean1.setId(1);
+            questionBean1.setQuestion("Who is negotiating the ceasefire between the Israeli and the Palestinian delegation?");
             questionBean1.setCategory("Economy");
+            questionBean1.setAnswer1("United States");
+            questionBean1.setAnswer2("United Kingdom");
+            questionBean1.setAnswer3("France");
+            questionBean1.setAnswer4("Egypt");
+            questionBean1.setCorrectIndex(3);
             questionBean1.setNewsURL("http://www.bbc.com/news/world-middle-east-28603599");
-            questionBean1.setAnswers(answerBeans1);
+            questionBean1.setCategory("Economy");
+            questionBean1.setDateAdded("Today");
             dbHelper.addQuestion(questionBean1);
+            Long numQueries = DatabaseUtils.queryNumEntries(dbHelper.getDBHelper().getReadableDatabase(),
+                    LearNewsDbHelper.QUESTIONS_TABLE);
+
+            Log.d("Queries", "" + numQueries);
         }
 
     }

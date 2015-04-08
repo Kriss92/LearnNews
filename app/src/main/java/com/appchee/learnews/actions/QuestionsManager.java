@@ -27,7 +27,6 @@ public class QuestionsManager {
 
     public QuestionBean getNextQuestion() {
 
-
         Long numQueries = DatabaseUtils.queryNumEntries(mDbHelper.getDBHelper().getReadableDatabase(),
                 LearNewsDbHelper.QUESTIONS_TABLE);
 

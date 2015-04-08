@@ -24,6 +24,7 @@ import com.appchee.learnews.database.DbInteractions;
 import com.appchee.learnews.validation.ValidationException;
 import com.appchee.learnews.backend.WebClient;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -240,22 +241,29 @@ public class AddQuestionsActivity extends Activity {
 
         Log.d("Add Question", "Try to save");
         QuestionBean questionBean = new QuestionBean();
-        questionBean.setCategory(category);
-        questionBean.setAnswers(answerBeans);
+        questionBean.setId(100);
         questionBean.setQuestion(question);
+        questionBean.setCategory(category);
+        questionBean.setAnswer1(answers[0]);
+        questionBean.setAnswer2(answers[1]);
+        questionBean.setAnswer3(answers[2]);
+        questionBean.setAnswer4(answers[3]);
+        questionBean.setCorrectIndex(buttonIndex);
         questionBean.setNewsURL(url);
+        questionBean.setCategory("Science");
+        questionBean.setDateAdded("Today");
 
         questionBean.validate();
-        //new DbInteractions(this.getApplicationContext()).addQuestion(questionBean);
+        new DbInteractions(this.getApplicationContext()).addQuestion(questionBean);
 
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                WebClient webc = new WebClient();
-                webc.addQuestion(question, answers, buttonIndex, url);
-            }
-        });
-        thread.start();
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                WebClient webc = new WebClient();
+//                webc.addQuestion(question, answers, buttonIndex, url);
+//            }
+//        });
+//        thread.start();
     }
 
 }

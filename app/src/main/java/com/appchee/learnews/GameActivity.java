@@ -27,12 +27,16 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     QuizQuestionFragment mQuizQuestionFragment;
 
     public int mCorrectAnswer=1;
-    public List<String> mAnswers = new ArrayList<String>();
+    String mAnswer1;
+    String mAnswer2;
+    String mAnswer3;
+    String mAnswer4;
     ImageView mCategoryPic;
     TextView mCategory;
     TextView mCurrQuestion;
     QuestionsManager mManager;
     QuestionBean mCurrentQuestionBean;
+    String mCorrectAnswerText = null;
 
 
 
@@ -80,16 +84,19 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     // Interfaces Implementations
     @Override
     public void onAnswerSubmittedListener(int answerSelected) {
-        
+
+        String selectedAnswerText = null;
+        setAnswer(answerSelected, selectedAnswerText);
+
         if (mCorrectAnswer == answerSelected) {
             Double correctPercentage = mManager.answerQuestion(mCurrentQuestionBean, true);
-            mCorrectAnsFragment.populate( mAnswers.get(answerSelected) , correctPercentage.intValue());
+            mCorrectAnsFragment.populate(selectedAnswerText, correctPercentage.intValue());
 
             setCorrectAnswerView();
             //generate answer view in fragment
         } else {
-             mWrongAnsFragment.populate( mAnswers.get(answerSelected), mAnswers.get(mCorrectAnswer));
-             mManager.answerQuestion(mCurrentQuestionBean, false);
+            mWrongAnsFragment.populate(selectedAnswerText, mCorrectAnswerText);
+            mManager.answerQuestion(mCurrentQuestionBean, false);
             setWrongAnswerView();
 
             //generate answer view in fragment
@@ -112,7 +119,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         Log.d("Rony", "Saving Story...." + mCurrentQuestionBean.getNewsURL());
         mManager.saveStrory(mCurrentQuestionBean);
         Toast.makeText(this, "Story saved.", Toast.LENGTH_LONG).show();
-;    }
+        ;    }
 
     @Override
     public void onSendStoryButtonListener() {
@@ -130,7 +137,6 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mCategory.setText(category);
         setCategoryImage(category);
 
-
         setNextQuestionView();
         setNextQuestionViewContent();
     }
@@ -138,16 +144,40 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     public void setNextQuestionViewContent() {
 
         mCurrQuestion.setText(mCurrentQuestionBean.getQuestion());
-        mAnswers.clear();
         List<String> answers = new ArrayList<String>();
-        for (AnswerBean answer : mCurrentQuestionBean.getAnswers()) {
-            answers.add(answer.getAnswer());
-            mAnswers.add(answer.getAnswer());
-        }
-        // mAnswers = answers;
-        Log.d("Before we crash ", " num answers " + answers.size());
-        mCorrectAnswer = mCurrentQuestionBean.getCorrectAnswer();
+        mAnswer1 = mCurrentQuestionBean.getAnswer1();
+        answers.add(mAnswer1);
+
+        mAnswer2 = mCurrentQuestionBean.getAnswer2();
+        answers.add(mAnswer2);
+
+        mAnswer3 = mCurrentQuestionBean.getAnswer3();
+        answers.add(mAnswer3);
+
+        mAnswer4 = mCurrentQuestionBean.getAnswer4();
+        answers.add(mAnswer4);
+
+        mCorrectAnswer = mCurrentQuestionBean.getCorrectIndex();
         mQuizQuestionFragment.populate(answers);
+
+        setAnswer(mCorrectAnswer, mCorrectAnswerText);
+    }
+
+    private void setAnswer(int index, String answerVar) {
+        switch (index) {
+            case 0:
+                answerVar = mAnswer1;
+                break;
+            case 1:
+                answerVar = mAnswer2;
+                break;
+            case 2:
+                answerVar = mAnswer3;
+                break;
+            case 3:
+                answerVar = mAnswer4;
+                break;
+        }
     }
 
     public void setNextQuestionView() {
@@ -180,7 +210,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     public void setCategoryImage(String category) {
         Log.d("test", "Picture Change");
-        String[] categories= getResources().getStringArray(R.array.categories);
+        String[] categories = getResources().getStringArray(R.array.categories);
         for (String c: categories) {
             if (c.equals(category)) {
                 Log.d("test", c.toLowerCase());
