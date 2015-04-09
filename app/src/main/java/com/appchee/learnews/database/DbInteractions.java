@@ -35,10 +35,6 @@ public class DbInteractions {
         values.put("category", question.getCategory());
         values.put("dateAdded", question.getDateAdded());
         mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.QUESTIONS_TABLE, null, values);
-        Long numQueries = DatabaseUtils.queryNumEntries(mDbHelper.getReadableDatabase(),
-                LearNewsDbHelper.QUESTIONS_TABLE);
-        Log.d("Queries in DbInteractions", "" + numQueries);
-
     }
 
     private static class GetQuestionsQuery {

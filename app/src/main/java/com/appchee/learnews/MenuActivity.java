@@ -96,13 +96,22 @@ public class MenuActivity extends Activity {
             public void run() {
                 WebClient webc = new WebClient();
                 try {
-                    webc.syncQuestions();
+                    List<QuestionBean> questionBeans = webc.syncQuestions();
+                    addQuestionsToDb(questionBeans);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
         thread.start();
+    }
+
+    private void addQuestionsToDb(List<QuestionBean> questionBeans) {
+        DbInteractions dbHelper = new DbInteractions(getApplicationContext());
+        for(QuestionBean questionBean: questionBeans) {
+            dbHelper.addQuestion(questionBean);
+        }
+
     }
 
     public void addQuestionsMenuButtonClicked(View view) {
@@ -132,10 +141,6 @@ public class MenuActivity extends Activity {
             questionBean1.setCategory("Economy");
             questionBean1.setDateAdded("Today");
             dbHelper.addQuestion(questionBean1);
-            Long numQueries = DatabaseUtils.queryNumEntries(dbHelper.getDBHelper().getReadableDatabase(),
-                    LearNewsDbHelper.QUESTIONS_TABLE);
-
-            Log.d("Queries", "" + numQueries);
         }
 
     }

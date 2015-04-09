@@ -22,7 +22,7 @@ public class LearNewsDbHelper extends SQLiteOpenHelper {
 
     private static final String QUESTIONS_TABLE_CREATE =
             "CREATE TABLE " +  QUESTIONS_TABLE + " (" +
-                    "id INTEGER PRIMARY KEY, " +
+                    "id INTEGER, " +
                     "question TEXT, " +
                     "answer1 TEXT, " +
                     "answer2 TEXT, " +

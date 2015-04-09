@@ -4,6 +4,7 @@ import android.util.JsonReader;
 import android.util.JsonToken;
 import android.util.Log;
 
+import com.appchee.learnews.beans.QuestionBean;
 import com.google.android.gms.games.quest.Quest;
 
 import org.json.JSONArray;
@@ -41,10 +42,10 @@ public class WebClient extends WebFunctions {
 
     }
 
-    public List<QuestionObject> syncQuestions() throws IOException {
+    public List<QuestionBean> syncQuestions() throws IOException {
         String postParameters = "username=" + "Alex" + "&password=" + "pass";
         String response = sendRequestPOST("syncQuestions.php", postParameters);
-        List<QuestionObject> result = new ArrayList<QuestionObject>();
+        List<QuestionBean> result = new ArrayList<QuestionBean>();
 
         JsonReader reader = new JsonReader(new StringReader(response));
         reader.beginArray();
@@ -56,17 +57,9 @@ public class WebClient extends WebFunctions {
         return result;
     }
 
-    public QuestionObject readQuestionObject(JsonReader reader) throws IOException {
+    public QuestionBean readQuestionObject(JsonReader reader) throws IOException {
 
-        String Question = null;
-        String Answer1 = null;
-        String Answer2 = null;
-        String Answer3 = null;
-        String Answer4 = null;
-        int CorrectIndex = 0;
-        String NewsUrl = null;
-        int i;
-        String d;
+        QuestionBean questionBean = new QuestionBean();
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -74,52 +67,32 @@ public class WebClient extends WebFunctions {
             Log.d("Name is", name);
 
             if(reader.peek() != JsonToken.NULL) {
-                if (name.equals("question")) {
-                    Question = reader.nextString();
+                if (name.equals("questionid")) {
+                    questionBean.setId(reader.nextInt());
+                } else if (name.equals("question")) {
+                    questionBean.setQuestion(reader.nextString());
                 } else if (name.equals("answer1")) {
-                    Answer1 = reader.nextString();
+                    questionBean.setAnswer1(reader.nextString());
                 } else if (name.equals("answer2")) {
-                    Answer2 = reader.nextString();
+                    questionBean.setAnswer2(reader.nextString());
                 } else if (name.equals("answer3")) {
-                    Answer3 = reader.nextString();
+                    questionBean.setAnswer3(reader.nextString());
                 } else if (name.equals("answer4")) {
-                    Answer4 = reader.nextString();
+                    questionBean.setAnswer4(reader.nextString());
                 } else if (name.equals("correctindex")) {
-                    CorrectIndex = reader.nextInt();
+                    questionBean.setCorrectIndex(reader.nextInt());
                 } else if (name.equals("newsurl")) {
-                    NewsUrl = reader.nextString();
-                } else if (name.equals("questionid")) {
-                    i = reader.nextInt();
+                    questionBean.setNewsURL(reader.nextString());
+                } else if (name.equals("category")) {
+                    questionBean.setCategory(reader.nextString());
                 } else if (name.equals("dateadded")) {
-                    d = reader.nextString();
+                    questionBean.setDateAdded(reader.nextString());
                 }
             }
         }
         reader.endObject();
-        return new QuestionObject(Question, Answer1, Answer2, Answer3, Answer4, CorrectIndex, NewsUrl);
-    }
 
-    private class QuestionObject {
-
-        String Question = null;
-        String Answer1 = null;
-        String Answer2 = null;
-        String Answer3 = null;
-        String Answer4 = null;
-        int CorrectIndex = 0;
-        String NewsUrl = null;
-
-        public QuestionObject(String Question,String Answer1, String Answer2, String Answer3,
-                              String Answer4, int CorrectIndex, String NewsUrl) {
-
-            this.Question = Question;
-            this.Answer1 = Answer1;
-            this.Answer2 = Answer2;
-            this.Answer3 = Answer3;
-            this.Answer4 = Answer4;
-            this.CorrectIndex = CorrectIndex;
-            this.NewsUrl = NewsUrl;
-        }
+        return questionBean;
 
     }
 

@@ -254,16 +254,16 @@ public class AddQuestionsActivity extends Activity {
         questionBean.setDateAdded("Today");
 
         questionBean.validate();
-        new DbInteractions(this.getApplicationContext()).addQuestion(questionBean);
+        //new DbInteractions(this.getApplicationContext()).addQuestion(questionBean);
 
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                WebClient webc = new WebClient();
-//                webc.addQuestion(question, answers, buttonIndex, url);
-//            }
-//        });
-//        thread.start();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                WebClient webc = new WebClient();
+                webc.addQuestion(question, answers, buttonIndex, url);
+            }
+        });
+        thread.start();
     }
 
 }
