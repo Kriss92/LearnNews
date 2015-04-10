@@ -208,7 +208,11 @@ public class AddQuestionsActivity extends Activity {
         }
 
         try {
-            saveQuestion(category, answerBeans, question, url, answers, buttonIndex);
+            try {
+                saveQuestion(category, question, url, answers, buttonIndex);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } catch (ValidationException e) {
             makeToastForInvalidQuestion(e.getMessage());
         }
@@ -236,11 +240,11 @@ public class AddQuestionsActivity extends Activity {
         toast.show();
     }
 
-    public void saveQuestion(String category, List<AnswerBean> answerBeans, final String question, final String url, final String[] answers, final int buttonIndex)
-            throws ValidationException {
+    public void saveQuestion(final String category, final String question, final String url, final String[] answers, final int buttonIndex)
+            throws ValidationException, InterruptedException {
 
         Log.d("Add Question", "Try to save");
-        QuestionBean questionBean = new QuestionBean();
+        final QuestionBean questionBean = new QuestionBean();
         questionBean.setId(100);
         questionBean.setQuestion(question);
         questionBean.setCategory(category);
@@ -250,7 +254,7 @@ public class AddQuestionsActivity extends Activity {
         questionBean.setAnswer4(answers[3]);
         questionBean.setCorrectIndex(buttonIndex);
         questionBean.setNewsURL(url);
-        questionBean.setCategory("Science");
+        questionBean.setCategory(category);
         questionBean.setDateAdded("Today");
 
         questionBean.validate();
@@ -260,10 +264,12 @@ public class AddQuestionsActivity extends Activity {
             @Override
             public void run() {
                 WebClient webc = new WebClient();
-                webc.addQuestion(question, answers, buttonIndex, url);
+                webc.addQuestion(questionBean);
             }
         });
         thread.start();
+
+        thread.join();
     }
 
 }
