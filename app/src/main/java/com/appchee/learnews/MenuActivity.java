@@ -90,7 +90,7 @@ public class MenuActivity extends Activity {
         startActivity(intent);
     }
 
-    public void syncDbWithServer(View view) {
+    public void syncDbWithServer(View view) throws InterruptedException {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -104,6 +104,8 @@ public class MenuActivity extends Activity {
             }
         });
         thread.start();
+
+        thread.join();
     }
 
     private void addQuestionsToDb(List<QuestionBean> questionBeans) {
@@ -144,4 +146,5 @@ public class MenuActivity extends Activity {
         }
 
     }
+
 }

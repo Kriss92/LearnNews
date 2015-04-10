@@ -16,9 +16,6 @@ public class CorrectAnswerFragment extends Fragment {
     private CorrectCallback mListener;
     private TextView mCorrectAnsText;
     private TextView mComplimentText;
-    private TextView mStatisticsText;
-
-
 
     String[] compliments= {};
 
@@ -41,7 +38,6 @@ public class CorrectAnswerFragment extends Fragment {
         //Initialize
         mCorrectAnsText = (TextView) v.findViewById(R.id.ans_correct);
         mComplimentText= (TextView) v.findViewById(R.id.ans_compliment_text);
-        mStatisticsText= (TextView) v.findViewById(R.id.ans_statistics);
 
         return v;
     }
@@ -56,6 +52,7 @@ public class CorrectAnswerFragment extends Fragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
     }
 
     @Override
@@ -67,11 +64,9 @@ public class CorrectAnswerFragment extends Fragment {
     public interface CorrectCallback {
     }
 
-    public void populate(String chosenAnswer, double precentage){
+    public void populate(String chosenAnswer){
         mCorrectAnsText.setText(chosenAnswer);
         mComplimentText.setText(getComment());
-        String text= precentage + "% Got it right";
-        mStatisticsText.setText(text);
     }
 
     private String getComment() {

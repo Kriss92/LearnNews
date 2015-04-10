@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appchee.learnews.actions.QuestionsManager;
-import com.appchee.learnews.beans.AnswerBean;
 import com.appchee.learnews.beans.QuestionBean;
 
 import java.util.ArrayList;
@@ -53,7 +52,10 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mCategory = (TextView) findViewById(R.id.q_category);
         mCategoryPic= (ImageView) findViewById(R.id.q_img);
         mManager = new QuestionsManager(getApplicationContext());
+        mManager.currentQuestionNum = -1;
+
         setNextQuestion();
+
     }
 
 
@@ -85,23 +87,16 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     @Override
     public void onAnswerSubmittedListener(int answerSelected) {
 
-        String selectedAnswerText = null;
-        setAnswer(answerSelected, selectedAnswerText);
+        String selectedAnswerText = getAnswer(answerSelected);
 
         if (mCorrectAnswer == answerSelected) {
-            Double correctPercentage = mManager.answerQuestion(mCurrentQuestionBean, true);
-            mCorrectAnsFragment.populate(selectedAnswerText, correctPercentage.intValue());
-
+            mCorrectAnsFragment.populate(selectedAnswerText);
+            mManager.deleteQuestionAnsweredCorrectly(mCurrentQuestionBean);
             setCorrectAnswerView();
-            //generate answer view in fragment
         } else {
             mWrongAnsFragment.populate(selectedAnswerText, mCorrectAnswerText);
-            mManager.answerQuestion(mCurrentQuestionBean, false);
             setWrongAnswerView();
-
-            //generate answer view in fragment
         }
-        //generating story fragment
     }
 
     @Override
@@ -117,7 +112,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     @Override
     public void onSaveStoryButtonListener() {
         Log.d("Rony", "Saving Story...." + mCurrentQuestionBean.getNewsURL());
-        mManager.saveStrory(mCurrentQuestionBean);
+        mManager.saveStory(mCurrentQuestionBean);
         Toast.makeText(this, "Story saved.", Toast.LENGTH_LONG).show();
         ;    }
 
@@ -132,7 +127,6 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     public void setNextQuestion() {
         mCurrentQuestionBean = mManager.getNextQuestion();
-        mManager.updateInteraction(mCurrentQuestionBean);
         String category=mCurrentQuestionBean.getCategory();
         mCategory.setText(category);
         setCategoryImage(category);
@@ -160,24 +154,22 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mCorrectAnswer = mCurrentQuestionBean.getCorrectIndex();
         mQuizQuestionFragment.populate(answers);
 
-        setAnswer(mCorrectAnswer, mCorrectAnswerText);
+        mCorrectAnswerText = getAnswer(mCorrectAnswer);
     }
 
-    private void setAnswer(int index, String answerVar) {
+    private String getAnswer(int index) {
         switch (index) {
             case 0:
-                answerVar = mAnswer1;
-                break;
+                return mAnswer1;
             case 1:
-                answerVar = mAnswer2;
-                break;
+                return mAnswer2;
             case 2:
-                answerVar = mAnswer3;
-                break;
+                return mAnswer3;
             case 3:
-                answerVar = mAnswer4;
-                break;
+                return mAnswer4;
         }
+
+        return "";
     }
 
     public void setNextQuestionView() {
