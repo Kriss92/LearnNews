@@ -7,4 +7,6 @@
     <color name="q_page">#FFFFFF</color>
     <color name="question_background">#80B0FF</color>
     <color name="hint">#4D89C9</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 </resources>

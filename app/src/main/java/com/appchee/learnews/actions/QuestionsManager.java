@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.DatabaseUtils;
 import android.util.Log;
 
+import com.appchee.learnews.backend.WebClient;
 import com.appchee.learnews.beans.QuestionBean;
 import com.appchee.learnews.database.DbInteractions;
 import com.appchee.learnews.database.LearNewsDbHelper;
@@ -18,6 +19,7 @@ public class QuestionsManager {
     private Context mContext;
     private Random mRandom;
     DbInteractions mDbHelper;
+    public static Integer currentQuestionNum;
 
     public QuestionsManager(Context context) {
         mContext = context;
@@ -33,31 +35,38 @@ public class QuestionsManager {
         if (numQueries < 1) {
             return new QuestionBean();
         }
+
         Integer nextQuestionNum =  mRandom.nextInt(numQueries.intValue());
+
+        while(currentQuestionNum == nextQuestionNum) {
+            nextQuestionNum =  mRandom.nextInt(numQueries.intValue());
+        }
 
         Log.d("Question num", "All queries " + numQueries
                 + " Num: " + nextQuestionNum.toString());
         return mDbHelper.getQuestionByNumber(nextQuestionNum);
     }
 
-    public void reportQuestion(QuestionBean question) {
+    public void reportQuestion(final QuestionBean question) {
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                WebClient webc = new WebClient();
+                webc.reportQuestion(question.getId());
+            }
+        });
+        thread.start();
+
+    }
+
+    public void deleteQuestionAnsweredCorrectly(QuestionBean question) {
         mDbHelper.deleteQuestion(question);
     }
 
-    public Double answerQuestion(QuestionBean question, boolean correct) {
-        mDbHelper.updateInteractions(question, correct);
-        return mDbHelper.Interactions(question);
-    }
-
-    public void saveStrory(QuestionBean mCurrentQuestionBean) {
+    public void saveStory(QuestionBean mCurrentQuestionBean) {
         mDbHelper.saveStory(mCurrentQuestionBean);
     }
-
-    public void updateInteraction(QuestionBean question) {
-        mDbHelper.createInteraction(question);
-    }
-
-
 
     //TODO:
     // validation using unsafe words

@@ -10,6 +10,7 @@ import com.appchee.learnews.LoginActivity;
 import com.appchee.learnews.actions.NewsManager;
 import com.appchee.learnews.beans.QuestionBean;
 import com.appchee.learnews.beans.StoryBean;
+import com.google.android.gms.games.quest.Quest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,12 +56,23 @@ public class DbInteractions {
     }
     public QuestionBean getQuestion(Integer questionId) {
 
-        Cursor questionCursor = mDbHelper.getReadableDatabase().query(
-                LearNewsDbHelper.QUESTIONS_TABLE, GetQuestionsQuery.PROJECTION,
-                        "id = " + questionId.toString(),  new String[]{}, null, null, null, null);
+        QuestionBean questionBean = new QuestionBean();
 
-        questionCursor.moveToNext();
-        return buildQuestion(questionCursor);
+        Cursor questionCursor =
+                mDbHelper.getReadableDatabase().query(
+                        LearNewsDbHelper.QUESTIONS_TABLE, GetQuestionsQuery.PROJECTION,
+                        "id = " + questionId.toString(), new String[]{}, null, null, null, null);
+
+        try {
+            questionCursor.moveToNext();
+            questionBean = buildQuestion(questionCursor);
+
+        }
+        finally {
+            questionCursor.close();
+        }
+
+        return questionBean;
     }
 
     public void createInteraction(QuestionBean question) {
@@ -158,13 +170,22 @@ public class DbInteractions {
 
     public QuestionBean getQuestionByNumber(Integer questionNumber) {
 
+        QuestionBean questionBean = new QuestionBean();
+
         Cursor questionCursor = mDbHelper.getReadableDatabase().query(
                 LearNewsDbHelper.QUESTIONS_TABLE, GetQuestionsQuery.PROJECTION,
                 null,  null, null, null, null, null);
 
-        questionCursor.move(questionNumber + 1);
-        return buildQuestion(questionCursor);
+        try {
+            questionCursor.move(questionNumber + 1);
+            questionBean = buildQuestion(questionCursor);
 
+        }
+        finally {
+            questionCursor.close();
+        }
+
+        return questionBean;
     }
 
     public QuestionBean buildQuestion(Cursor questionCursor ) {

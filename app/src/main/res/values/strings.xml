@@ -39,7 +39,6 @@
     <string name="background_color_3">Yellow</string>
     <string name="background_color_4">Gray</string>
     <string name="background_color_5">Red</string>
-
     <string name="title_activity_login">LoginActivity</string>
 
     <string-array name="correct_comments">
@@ -64,18 +63,16 @@
         <item>Wonderful!</item>
         <item>Oh yeah</item>
     </string-array>
-
     <string-array name="wrong_comments">
-       <item>"Oh No!"</item>
-       <item>"Try again next time..."</item>
-       <item>"Nope..."</item>
-       <item>"That\'s wrong..."</item>
-       <item>"You can do better!"</item>
-       <item>"Really\?!"</item>
-       <item>"Why don\'t you google it?"</item>
-       <item>"No Way!"</item>
+        <item>"Oh No!"</item>
+        <item>"Try again next time..."</item>
+        <item>"Nope..."</item>
+        <item>"That\'s wrong..."</item>
+        <item>"You can do better!"</item>
+        <item>"Really\?!"</item>
+        <item>"Why don\'t you google it?"</item>
+        <item>"No Way!"</item>
     </string-array>
-
     <string-array name="categories">
         <item>"Economy"</item>
         <item>"Politics"</item>
@@ -86,4 +83,19 @@
         <item>"Travel"</item>
         <item>"Sport"</item>
     </string-array>
+
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="sign_in_text">Sign In</string>
+    <string name="email_text">Email address:</string>
+    <string name="password_text">Password:</string>
+    <string name="register_help_message">Don\'t have an account?</string>
+    <string name="register_message">Register Here</string>
+    <string name="forgot_password_help_message">Forgot your password?</string>
+    <string name="forgot_password_button_message">Email password</string>
+    <string name="invalid_email_or_password">Invalid email or password. Please try again.</string>
+    <string name="unable_to_connect">Unable to connect to the internet. Please check your internet connection!</string>
+    <string name="invalid_password">Invalid password. Please try again.</string>
+    <string name="invalid_email">Invalid email address. Please try again.</string>
+
+
 </resources>

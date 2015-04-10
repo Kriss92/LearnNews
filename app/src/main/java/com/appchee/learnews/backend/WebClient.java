@@ -5,15 +5,7 @@ import android.util.JsonToken;
 import android.util.Log;
 
 import com.appchee.learnews.beans.QuestionBean;
-import com.google.android.gms.games.quest.Quest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,22 +16,47 @@ import java.util.List;
 public class WebClient extends WebFunctions {
     private final int ANSWER_CHOICES = 4;
 
+    Integer userID = -1;
+    String pass;
+    String email;
+
     public WebClient() {
 
     }
 
-    public boolean addQuestion(String question, String[] answers, Integer correctAnswerIndex, String url) {
-        String postParameters = "question=" + question;
-        int i;
-        for (i = 1; i <= ANSWER_CHOICES; i++)
-            postParameters += "&answer" + i + "=" + answers[i-1];
+    public boolean addQuestion(QuestionBean questionBean) {
 
-        postParameters += "&index=" + correctAnswerIndex + "&newsUrl=" + url;
+        String postParameters = "question=" + questionBean.getQuestion();
+
+        postParameters += "&answer1" + "=" + questionBean.getAnswer1();
+        postParameters += "&answer2" + "=" + questionBean.getAnswer1();
+        postParameters += "&answer3" + "=" + questionBean.getAnswer1();
+        postParameters += "&answer4" + "=" + questionBean.getAnswer1();
+
+        postParameters += "&index=" + questionBean.getCorrectIndex() + "&newsUrl=" +
+                questionBean.getNewsURL() + "&category=" + questionBean.getCategory();
+
         String response = sendRequestPOST("addQ.php", postParameters);
         String toPrint = "Adding question result:" + (response != null ? response : "no_connection");
         Log.d("Connection", toPrint);
         return response.equals("success");
 
+    }
+
+    public boolean reportQuestion(int questionId) {
+        String postParameters = "questionId= " + questionId;
+        String response = sendRequestPOST("reportQuestion.php", postParameters);
+        return response.equals("success");
+    }
+
+    public int signInUser(String email, String password) {
+        String postParameters = "email=" + email + "&password=" + password;
+        String response = sendRequestPOST("signInUser.php", postParameters);
+        Log.d("Email, password & response = ", email + " " + password + " " + response);
+        if(response.equals("")) {
+           return -2;
+        }
+        return Integer.parseInt(response);
     }
 
     public List<QuestionBean> syncQuestions() throws IOException {

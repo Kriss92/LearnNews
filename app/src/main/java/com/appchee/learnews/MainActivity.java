@@ -15,18 +15,16 @@ public class MainActivity extends Activity {
         //setContentView(R.layout.activity_main);
 
         Intent intent;
-        //if user is logged in
-        //{
-          intent = new Intent(this, MenuActivity.class);
-        //}
-        //else
-        //{
-        //  intent = new Intent(this, LoginActivity.class);
-        //}
+        if(CurrentUserDetails.userId == -1) {
+            intent = new Intent(this, SignInActivity.class);
+        }
+        else
+        {
+            intent = new Intent(this, MenuActivity.class);
+        }
         startActivity(intent);
         finish();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,4 +44,5 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
