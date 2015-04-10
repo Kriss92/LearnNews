@@ -42,6 +42,8 @@ public class QuestionsManager {
             nextQuestionNum =  mRandom.nextInt(numQueries.intValue());
         }
 
+        currentQuestionNum = nextQuestionNum;
+
         Log.d("Question num", "All queries " + numQueries
                 + " Num: " + nextQuestionNum.toString());
         return mDbHelper.getQuestionByNumber(nextQuestionNum);
