@@ -59,8 +59,8 @@ public class WebClient extends WebFunctions {
         return Integer.parseInt(response);
     }
 
-    public List<QuestionBean> syncQuestions() throws IOException {
-        String postParameters = "username=" + "Alex" + "&password=" + "pass";
+    public List<QuestionBean> syncQuestions(int userID) throws IOException {
+        String postParameters = "userId=" + userID;
         String response = sendRequestPOST("syncQuestions.php", postParameters);
         List<QuestionBean> result = new ArrayList<QuestionBean>();
 
