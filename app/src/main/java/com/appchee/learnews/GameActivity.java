@@ -63,6 +63,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     public void onReport(View view) {
         mManager.reportQuestion(mCurrentQuestionBean);
+        mManager.deleteQuestion(mCurrentQuestionBean);
         onSkipButtonListener();
     }
 
@@ -91,7 +92,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
         if (mCorrectAnswer == answerSelected) {
             mCorrectAnsFragment.populate(selectedAnswerText);
-            mManager.deleteQuestionAnsweredCorrectly(mCurrentQuestionBean);
+            mManager.deleteQuestion(mCurrentQuestionBean);
             setCorrectAnswerView();
         } else {
             mWrongAnsFragment.populate(selectedAnswerText, mCorrectAnswerText);

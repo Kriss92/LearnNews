@@ -56,11 +56,18 @@ public class QuestionsManager {
                 webc.reportQuestion(question.getId());
             }
         });
+
         thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    public void deleteQuestionAnsweredCorrectly(QuestionBean question) {
+    public void deleteQuestion(QuestionBean question) {
         mDbHelper.deleteQuestion(question);
     }
 
