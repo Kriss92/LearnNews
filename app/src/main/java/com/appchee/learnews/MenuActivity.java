@@ -96,6 +96,7 @@ public class MenuActivity extends Activity {
             public void run() {
                 WebClient webc = new WebClient();
                 try {
+                    Log.d("User id is ", "" + CurrentUserDetails.userId);
                     List<QuestionBean> questionBeans = webc.syncQuestions(CurrentUserDetails.userId);
                     addQuestionsToDb(questionBeans);
                 } catch (IOException e) {

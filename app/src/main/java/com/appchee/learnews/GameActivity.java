@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,8 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     QuestionsManager mManager;
     QuestionBean mCurrentQuestionBean;
     String mCorrectAnswerText = null;
+    RatingBar mRatingBar;
+    Integer mRatingGiven = -1;
 
 
 
@@ -51,6 +54,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mCurrQuestion= (TextView) findViewById(R.id.q_text);
         mCategory = (TextView) findViewById(R.id.q_category);
         mCategoryPic= (ImageView) findViewById(R.id.q_img);
+        initialiseRatingBar();
         mManager = new QuestionsManager(getApplicationContext());
         mManager.currentQuestionNum = -1;
 
@@ -58,7 +62,20 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     }
 
+    private void initialiseRatingBar() {
+        mRatingBar = (RatingBar) findViewById(R.id.rating_bar);
 
+        mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+
+                 String ratingGiven = (String.valueOf(rating));
+                Log.d("Rating given is ", ratingGiven);
+                //send to server
+
+            }
+        });
+    }
 
 
     public void onReport(View view) {
@@ -175,12 +192,14 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     public void setNextQuestionView() {
         mQuizQuestionFragment.getView().setVisibility(View.VISIBLE);
+        mRatingBar.setVisibility(View.GONE);
         mCorrectAnsFragment.getView().setVisibility(View.GONE);
         mWrongAnsFragment.getView().setVisibility(View.GONE);
     }
 
     public void setCorrectAnswerView() {
         mQuizQuestionFragment.getView().setVisibility(View.GONE);
+        mRatingBar.setVisibility(View.VISIBLE);
         mCorrectAnsFragment.getView().setVisibility(View.VISIBLE);
         mWrongAnsFragment.getView().setVisibility(View.GONE);
 
@@ -191,6 +210,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     public void setWrongAnswerView() {
         mQuizQuestionFragment.getView().setVisibility(View.GONE);
         mCorrectAnsFragment.getView().setVisibility(View.GONE);
+        mRatingBar.setVisibility(View.VISIBLE);
         mWrongAnsFragment.getView().setVisibility(View.VISIBLE);
 
     }

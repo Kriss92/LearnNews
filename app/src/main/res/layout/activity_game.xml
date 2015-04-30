@@ -98,27 +98,25 @@
             >
 
 
-                        <fragment
-                            android:id="@+id/correct_ans_fragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:name="com.appchee.learnews.CorrectAnswerFragment"
-                            android:layout_alignParentTop="true"
-                            android:layout_above="@+id/story_bar"
-                            tools:layout="@layout/fragment_correct_answer"
-                         />
+                <fragment
+                    android:id="@+id/correct_ans_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:name="com.appchee.learnews.CorrectAnswerFragment"
+                    android:layout_alignParentTop="true"
+                    android:layout_above="@+id/story_bar"
+                    tools:layout="@layout/fragment_correct_answer"
+                 />
 
-                        <fragment
-                            android:id="@+id/wrong_ans_fragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:name="com.appchee.learnews.WrongAnswerFragment"
-                            android:layout_alignParentTop="true"
-                            android:layout_above="@+id/story_bar"
-                            tools:layout="@layout/fragment_wrong_answer" />
-                            />
-
-
+                <fragment
+                    android:id="@+id/wrong_ans_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:name="com.appchee.learnews.WrongAnswerFragment"
+                    android:layout_alignParentTop="true"
+                    android:layout_above="@+id/story_bar"
+                    tools:layout="@layout/fragment_wrong_answer" />
+                    />
 
         </RelativeLayout>
 
@@ -134,12 +132,11 @@
                 >
 
                 <RatingBar
-                    android:id="@+id/raiting_bar"
+                    android:id="@+id/rating_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|bottom"
                     />
-
 
                 <Button
                     android:id="@+id/report_button"
