@@ -29,9 +29,9 @@ public class WebClient extends WebFunctions {
         String postParameters = "question=" + questionBean.getQuestion();
 
         postParameters += "&answer1" + "=" + questionBean.getAnswer1();
-        postParameters += "&answer2" + "=" + questionBean.getAnswer1();
-        postParameters += "&answer3" + "=" + questionBean.getAnswer1();
-        postParameters += "&answer4" + "=" + questionBean.getAnswer1();
+        postParameters += "&answer2" + "=" + questionBean.getAnswer2();
+        postParameters += "&answer3" + "=" + questionBean.getAnswer3();
+        postParameters += "&answer4" + "=" + questionBean.getAnswer4();
 
         postParameters += "&index=" + questionBean.getCorrectIndex() + "&newsUrl=" +
                 questionBean.getNewsURL() + "&category=" + questionBean.getCategory();

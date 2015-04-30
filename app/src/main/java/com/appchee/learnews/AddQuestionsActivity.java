@@ -252,6 +252,7 @@ public class AddQuestionsActivity extends Activity {
         questionBean.setAnswer2(answers[1]);
         questionBean.setAnswer3(answers[2]);
         questionBean.setAnswer4(answers[3]);
+
         questionBean.setCorrectIndex(buttonIndex);
         questionBean.setNewsURL(url);
         questionBean.setCategory(category);
