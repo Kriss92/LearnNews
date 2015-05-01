@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appchee.learnews.actions.QuestionsManager;
+import com.appchee.learnews.actions.RatingsManager;
 import com.appchee.learnews.beans.QuestionBean;
 
 import java.util.ArrayList;
@@ -34,7 +35,8 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     ImageView mCategoryPic;
     TextView mCategory;
     TextView mCurrQuestion;
-    QuestionsManager mManager;
+    QuestionsManager mQuestionsManager;
+    RatingsManager mRatingsManager;
     QuestionBean mCurrentQuestionBean;
     String mCorrectAnswerText = null;
     RatingBar mRatingBar;
@@ -55,8 +57,9 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mCategory = (TextView) findViewById(R.id.q_category);
         mCategoryPic= (ImageView) findViewById(R.id.q_img);
         initialiseRatingBar();
-        mManager = new QuestionsManager(getApplicationContext());
-        mManager.currentQuestionNum = -1;
+        mQuestionsManager = new QuestionsManager(getApplicationContext());
+        mQuestionsManager.currentQuestionNum = -1;
+        mRatingsManager = new RatingsManager(getApplicationContext());
 
         setNextQuestion();
 
@@ -75,12 +78,12 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     }
 
     public void updateRating(float rating) {
-        mManager.updateRating(mCurrentQuestionBean.getId(), CurrentUserDetails.userId, rating);
+        mRatingsManager.updateRating(mCurrentQuestionBean.getId(), CurrentUserDetails.userId, rating);
     }
 
     public void onReport(View view) {
-        mManager.reportQuestion(mCurrentQuestionBean);
-        mManager.deleteQuestion(mCurrentQuestionBean);
+        mQuestionsManager.reportQuestion(mCurrentQuestionBean);
+        mQuestionsManager.deleteQuestion(mCurrentQuestionBean);
         onSkipButtonListener();
     }
 
@@ -109,7 +112,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
         if (mCorrectAnswer == answerSelected) {
             mCorrectAnsFragment.populate(selectedAnswerText);
-            mManager.deleteQuestion(mCurrentQuestionBean);
+            mQuestionsManager.deleteQuestion(mCurrentQuestionBean);
             setCorrectAnswerView();
         } else {
             mWrongAnsFragment.populate(selectedAnswerText, mCorrectAnswerText);
@@ -130,7 +133,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     @Override
     public void onSaveStoryButtonListener() {
         Log.d("Rony", "Saving Story...." + mCurrentQuestionBean.getNewsURL());
-        mManager.saveStory(mCurrentQuestionBean);
+        mQuestionsManager.saveStory(mCurrentQuestionBean);
         Toast.makeText(this, "Story saved.", Toast.LENGTH_LONG).show();
         ;    }
 
@@ -144,7 +147,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     //methods:
 
     public void setNextQuestion() {
-        mCurrentQuestionBean = mManager.getNextQuestion();
+        mCurrentQuestionBean = mQuestionsManager.getNextQuestion();
         String category=mCurrentQuestionBean.getCategory();
         mCategory.setText(category);
         setCategoryImage(category);

@@ -72,10 +72,6 @@ public class QuestionsManager {
     public void deleteQuestion(QuestionBean question) {
         mDbHelper.deleteQuestion(question);
     }
-
-    public void updateRating(int questionId, int userId, float rating) {
-        mDbHelper.updateRating(questionId, userId, rating);
-    }
     public void saveStory(QuestionBean mCurrentQuestionBean) {
         mDbHelper.saveStory(mCurrentQuestionBean);
     }

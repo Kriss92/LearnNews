@@ -5,6 +5,8 @@ import android.util.JsonToken;
 import android.util.Log;
 
 import com.appchee.learnews.beans.QuestionBean;
+import com.appchee.learnews.beans.RatingBean;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -55,19 +57,50 @@ public class WebClient extends WebFunctions {
         return Integer.parseInt(response);
     }
 
+    public boolean syncRatings(RatingBean[] ratingBeans) {
+
+        int i;
+        for(i = 0; i < ratingBeans.length; i++) {
+            String postParameters = "";
+            postParameters += "questionId=" + ratingBeans[i].getQuestionId();
+            postParameters += "&userId=" + ratingBeans[i].getUserId();
+            postParameters += "&rating=" + ratingBeans[i].getRating();
+
+            Log.d("questionId=", ""+ratingBeans[i].getQuestionId());
+            Log.d("userId=", ""+ratingBeans[i].getUserId());
+            Log.d("rating=", ""+ratingBeans[i].getRating());
+            String response = sendRequestPOST("syncRatings.php", postParameters);
+            Log.d("response=", ""+response);
+
+
+            if(!response.equals("success")) {
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+
     public List<QuestionBean> syncQuestions(int userID) throws IOException {
         String postParameters = "userId=" + userID;
         String response = sendRequestPOST("syncQuestions.php", postParameters);
-        List<QuestionBean> result = new ArrayList<QuestionBean>();
 
-        JsonReader reader = new JsonReader(new StringReader(response));
-        reader.beginArray();
-        while(reader.hasNext()) {
-            result.add(readQuestionObject(reader));
+        if(! response.equals("false")) {
+            Log.d("response is ", response);
+            List<QuestionBean> result = new ArrayList<QuestionBean>();
+
+            JsonReader reader = new JsonReader(new StringReader(response));
+
+            reader.beginArray();
+            while (reader.hasNext()) {
+                result.add(readQuestionObject(reader));
+            }
+            reader.endArray();
+
+            return result;
         }
-        reader.endArray();
-
-        return result;
+        return null;
     }
 
     public QuestionBean readQuestionObject(JsonReader reader) throws IOException {

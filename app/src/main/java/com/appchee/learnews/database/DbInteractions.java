@@ -10,6 +10,7 @@ import android.util.Log;
 import com.appchee.learnews.LoginActivity;
 import com.appchee.learnews.actions.NewsManager;
 import com.appchee.learnews.beans.QuestionBean;
+import com.appchee.learnews.beans.RatingBean;
 import com.appchee.learnews.beans.StoryBean;
 import com.google.android.gms.games.quest.Quest;
 
@@ -74,6 +75,7 @@ public class DbInteractions {
         public static final int DATE_ADDED_INDEX = 9;
 
     }
+
     public QuestionBean getQuestion(Integer questionId) {
 
         QuestionBean questionBean = new QuestionBean();
@@ -107,39 +109,10 @@ public class DbInteractions {
         mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.INTERACTIONS_TABLE, null, values);
     }
 
-    private static class InteractionsQuery {
-        public static final String[] PROJECTION = {"correct", "incorrect"};
-        public static final int CORRECT_INDEX = 0;
-        public static final int INCORRECT_INDEX = 1;
-
-    }
-    public void updateInteractions(QuestionBean question, boolean correct) {
-        Cursor cursor = getInteractionsCursor(question);
-        if (!cursor.moveToNext()) {
-            return;
-        }
-        ContentValues values = new ContentValues();
-        if (correct) {
-            values.put("correct", cursor.getInt(InteractionsQuery.CORRECT_INDEX) + 1);
-        } else {
-            values.put("incorrect", cursor.getInt(InteractionsQuery.INCORRECT_INDEX) + 1 );
-        }
-        updateInteraction(question, values);
-
-    }
-
-    private void updateInteraction(QuestionBean question, ContentValues values) {
-        mDbHelper.getWritableDatabase().update(LearNewsDbHelper.INTERACTIONS_TABLE, values,
-//                "questionId = ? and userId = ?",  new String[] {question.getId().toString(), LoginActivity.mCurrentUserId});
-                "questionId = ?",  new String[] {question.getId().toString()});
-        Log.d("Interaction", "Interaction Updated");
-    }
-
     public void saveStory(QuestionBean question) {
         ContentValues values = new ContentValues();
         try {
             values.put("favorite", NewsManager.extractTitle(question.getNewsURL()));
-            updateInteraction(question, values);
         } catch (Exception e) {
             return;
         }
@@ -167,27 +140,6 @@ public class DbInteractions {
         return stories;
     }
 
-
-    public double Interactions(QuestionBean question) {
-        double correct = 0.0;
-        double incorrect = 0.0;
-        Cursor cursor = mDbHelper.getReadableDatabase().query(
-                LearNewsDbHelper.INTERACTIONS_TABLE, InteractionsQuery.PROJECTION, "questionId = ?",
-                new String[] {question.getId().toString()}, null, null, null, null);
-
-        while(cursor.moveToNext()) {
-            correct += cursor.getInt(InteractionsQuery.CORRECT_INDEX);
-            incorrect += cursor.getInt(InteractionsQuery.INCORRECT_INDEX);
-        }
-        return correct * 100 / (correct + incorrect);
-    }
-
-    private Cursor getInteractionsCursor(QuestionBean question) {
-        return mDbHelper.getReadableDatabase().query(
-                LearNewsDbHelper.INTERACTIONS_TABLE, InteractionsQuery.PROJECTION, "questionId = ?",
-                new String[] {question.getId().toString()}, null, null, null, null);
-    }
-
     public QuestionBean getQuestionByNumber(Integer questionNumber) {
 
         QuestionBean questionBean = new QuestionBean();
@@ -207,6 +159,8 @@ public class DbInteractions {
 
         return questionBean;
     }
+
+
 
     public QuestionBean buildQuestion(Cursor questionCursor ) {
         Integer id = questionCursor.getInt(GetQuestionsQuery.ID_INDEX);
@@ -230,6 +184,61 @@ public class DbInteractions {
         mDbHelper.getWritableDatabase().delete(LearNewsDbHelper.QUESTIONS_TABLE,
                 "id = ?", new String[] {questionBean.getId().toString()});
         Log.d("DbInteractions", "Question was deleted");
+    }
+
+    private static class GetRatingsQuery {
+        public static final String[] PROJECTION = {"questionId", "userId", "rating"};
+        public static final int QUESTION_ID_INDEX = 0;
+        public static final int USER_ID_INDEX = 1;
+        public static final int RATING_INDEX = 2;
+    }
+
+    public RatingBean[] getRatingBeans() {
+        RatingBean[] ratingBeans = null;
+        int numQueries = (int) DatabaseUtils.queryNumEntries(mDbHelper.getReadableDatabase(),
+                LearNewsDbHelper.RATINGS_TABLE);
+
+        if (numQueries < 1) {
+            return ratingBeans;
+        }
+        else {
+            ratingBeans = new RatingBean[numQueries];
+        }
+            int i;
+            for(i = 0; i < numQueries; i++) {
+                ratingBeans[i] = getRatingByNumber(i);
+        }
+        return ratingBeans;
+    }
+
+
+
+    public RatingBean getRatingByNumber(Integer ratingNumber) {
+
+        RatingBean ratingBean = new RatingBean();
+
+        Cursor ratingCursor = mDbHelper.getReadableDatabase().query(
+                LearNewsDbHelper.RATINGS_TABLE, GetRatingsQuery.PROJECTION,
+                null,  null, null, null, null, null);
+
+        try {
+            ratingCursor.move(ratingNumber + 1);
+            ratingBean = buildRating(ratingCursor);
+        }
+        finally {
+            ratingCursor.close();
+        }
+
+        return ratingBean;
+    }
+
+    public RatingBean buildRating(Cursor ratingCursor) {
+        Integer questionId = ratingCursor.getInt(GetRatingsQuery.QUESTION_ID_INDEX);
+        Integer userId = ratingCursor.getInt(GetRatingsQuery.USER_ID_INDEX);
+        float rating = ratingCursor.getFloat(GetRatingsQuery.RATING_INDEX);
+
+        RatingBean result = new RatingBean(questionId, userId, rating);
+        return result;
     }
 
     public LearNewsDbHelper getDBHelper() {
