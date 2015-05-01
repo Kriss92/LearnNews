@@ -40,10 +40,8 @@ public class DbInteractions {
     }
 
     public void updateRating(int questionId, int userId, float rating) {
-        String RATING_TRANSACTION = "INSERT INTO ratings_table(questionId, userId, rating)" +
+        String RATING_TRANSACTION = "INSERT OR REPLACE INTO Ratings (questionId, userId, rating)" +
                 "VALUES(" + questionId + ", " + userId + ", " + rating + ")" +
-                "ON DUPLICATE KEY UPDATE" +
-                "rating = VALUES(rating)" +
                 ";";
 
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
