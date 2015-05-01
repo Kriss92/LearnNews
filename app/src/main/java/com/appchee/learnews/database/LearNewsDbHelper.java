@@ -17,6 +17,7 @@ public class LearNewsDbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "LearNews";
 
     public static String QUESTIONS_TABLE = "Questions";
+    public static String RATINGS_TABLE = "Ratings";
     public static String INTERACTIONS_TABLE = "Interactions";
     private Context mContext;
 
@@ -34,6 +35,14 @@ public class LearNewsDbHelper extends SQLiteOpenHelper {
                     "dateAdded TEXT" +
                     ");";
 
+    private static final String RATINGS_TABLE_CREATE =
+            "CREATE TABLE " +  RATINGS_TABLE + " (" +
+                    "questionId INTEGER, " +
+                    "userId INTEGER, " +
+                    "rating REAL, " +
+                    "PRIMARY KEY (questionId, userId)" +
+                    ");";
+
     public LearNewsDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
@@ -46,6 +55,7 @@ public class LearNewsDbHelper extends SQLiteOpenHelper {
 
         try {
             db.execSQL(QUESTIONS_TABLE_CREATE);
+            db.execSQL(RATINGS_TABLE_CREATE);
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();

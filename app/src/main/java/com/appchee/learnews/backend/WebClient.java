@@ -16,10 +16,6 @@ import java.util.List;
 public class WebClient extends WebFunctions {
     private final int ANSWER_CHOICES = 4;
 
-    Integer userID = -1;
-    String pass;
-    String email;
-
     public WebClient() {
 
     }

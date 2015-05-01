@@ -38,7 +38,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     QuestionBean mCurrentQuestionBean;
     String mCorrectAnswerText = null;
     RatingBar mRatingBar;
-    Integer mRatingGiven = -1;
+    float mRatingGiven = -1;
 
 
 
@@ -69,14 +69,14 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
 
-                 String ratingGiven = (String.valueOf(rating));
-                Log.d("Rating given is ", ratingGiven);
-                //send to server
-
+                updateRating(rating);
             }
         });
     }
 
+    public void updateRating(float rating) {
+        mManager.updateRating(mCurrentQuestionBean.getId(), CurrentUserDetails.userId, rating);
+    }
 
     public void onReport(View view) {
         mManager.reportQuestion(mCurrentQuestionBean);

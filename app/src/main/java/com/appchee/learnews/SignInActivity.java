@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -79,6 +80,8 @@ public class SignInActivity extends Activity {
             Intent intent;
             intent = new Intent(this, MenuActivity.class);
             startActivity(intent);
+            Log.d("My user id is", "" + userId);
+            CurrentUserDetails.isUserInitialised = true;
             CurrentUserDetails.userId = userId;
             CurrentUserDetails.email = email;
             CurrentUserDetails.password = password;

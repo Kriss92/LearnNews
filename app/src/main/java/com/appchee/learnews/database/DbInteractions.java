@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.appchee.learnews.LoginActivity;
@@ -36,6 +37,27 @@ public class DbInteractions {
         values.put("category", question.getCategory());
         values.put("dateAdded", question.getDateAdded());
         mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.QUESTIONS_TABLE, null, values);
+    }
+
+    public void updateRating(int questionId, int userId, float rating) {
+        String RATING_TRANSACTION = "INSERT INTO ratings_table(questionId, userId, rating)" +
+                "VALUES(" + questionId + ", " + userId + ", " + rating + ")" +
+                "ON DUPLICATE KEY UPDATE" +
+                "rating = VALUES(rating)" +
+                ";";
+
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        db.beginTransaction();
+
+        try {
+            db.execSQL(RATING_TRANSACTION);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+
+        }
+
     }
 
     private static class GetQuestionsQuery {

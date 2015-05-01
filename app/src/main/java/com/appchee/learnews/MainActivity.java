@@ -15,13 +15,14 @@ public class MainActivity extends Activity {
         //setContentView(R.layout.activity_main);
 
         Intent intent;
-        if(CurrentUserDetails.userId == -1) {
-            intent = new Intent(this, SignInActivity.class);
+        if(CurrentUserDetails.isUserInitialised) {
+            intent = new Intent(this, MenuActivity.class);
         }
         else
         {
-            intent = new Intent(this, MenuActivity.class);
+            intent = new Intent(this, SignInActivity.class);
         }
+
         startActivity(intent);
         finish();
     }
