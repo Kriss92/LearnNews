@@ -85,6 +85,8 @@ public class SignInActivity extends Activity {
             CurrentUserDetails.userId = userId;
             CurrentUserDetails.email = email;
             CurrentUserDetails.password = password;
+
+            finish();
         }
     }
 

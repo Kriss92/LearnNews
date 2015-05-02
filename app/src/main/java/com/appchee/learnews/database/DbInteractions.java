@@ -52,9 +52,11 @@ public class DbInteractions {
         try {
             db.execSQL(RATING_TRANSACTION);
             db.setTransactionSuccessful();
-        } finally {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
             db.endTransaction();
-
         }
 
     }
@@ -128,7 +130,7 @@ public class DbInteractions {
         while(cursor.moveToNext()) {
             String title = cursor.getString(0);
             if (title != null && title.length() > 0) {
-                Log.d("Strory URL", title);
+                Log.d("Story URL", title);
                 StoryBean bean = new StoryBean();
                 bean.setTitle(title);
                 bean.setNewsIconId(2);
@@ -152,6 +154,9 @@ public class DbInteractions {
             questionCursor.move(questionNumber + 1);
             questionBean = buildQuestion(questionCursor);
 
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
         finally {
             questionCursor.close();
@@ -224,6 +229,9 @@ public class DbInteractions {
         try {
             ratingCursor.move(ratingNumber + 1);
             ratingBean = buildRating(ratingCursor);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
         finally {
             ratingCursor.close();

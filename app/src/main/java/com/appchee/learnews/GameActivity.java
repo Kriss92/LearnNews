@@ -2,6 +2,8 @@ package com.appchee.learnews;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -27,7 +29,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     WrongAnswerFragment mWrongAnsFragment;
     QuizQuestionFragment mQuizQuestionFragment;
 
-    public int mCorrectAnswer=1;
+    public int mCorrectAnswer = 1;
     String mAnswer1;
     String mAnswer2;
     String mAnswer3;
@@ -43,19 +45,18 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     float mRatingGiven = -1;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
         //Initializing:
-        mQuizQuestionFragment= (QuizQuestionFragment) getFragmentManager().findFragmentById(R.id.quiz_question_fragment);
-        mWrongAnsFragment= (WrongAnswerFragment) getFragmentManager().findFragmentById(R.id.wrong_ans_fragment);
-        mCorrectAnsFragment=  (CorrectAnswerFragment) getFragmentManager().findFragmentById(R.id.correct_ans_fragment);
-        mCurrQuestion= (TextView) findViewById(R.id.q_text);
+        mQuizQuestionFragment = (QuizQuestionFragment) getFragmentManager().findFragmentById(R.id.quiz_question_fragment);
+        mWrongAnsFragment = (WrongAnswerFragment) getFragmentManager().findFragmentById(R.id.wrong_ans_fragment);
+        mCorrectAnsFragment = (CorrectAnswerFragment) getFragmentManager().findFragmentById(R.id.correct_ans_fragment);
+        mCurrQuestion = (TextView) findViewById(R.id.q_text);
         mCategory = (TextView) findViewById(R.id.q_category);
-        mCategoryPic= (ImageView) findViewById(R.id.q_img);
+        mCategoryPic = (ImageView) findViewById(R.id.q_img);
         initialiseRatingBar();
         mQuestionsManager = new QuestionsManager(getApplicationContext());
         mQuestionsManager.currentQuestionNum = -1;
@@ -130,12 +131,14 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     public void onContinueButtonListener() {
         setNextQuestion();
     }
+
     @Override
     public void onSaveStoryButtonListener() {
         Log.d("Rony", "Saving Story...." + mCurrentQuestionBean.getNewsURL());
         mQuestionsManager.saveStory(mCurrentQuestionBean);
         Toast.makeText(this, "Story saved.", Toast.LENGTH_LONG).show();
-        ;    }
+        ;
+    }
 
     @Override
     public void onSendStoryButtonListener() {
@@ -148,12 +151,28 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
     public void setNextQuestion() {
         mCurrentQuestionBean = mQuestionsManager.getNextQuestion();
-        String category=mCurrentQuestionBean.getCategory();
-        mCategory.setText(category);
-        setCategoryImage(category);
+        if (mCurrentQuestionBean == null) {
+            makeToast("You are out of questions. Press 'sync' for more!");
 
-        setNextQuestionView();
-        setNextQuestionViewContent();
+            Intent intent;
+            intent = new Intent(this, MenuActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            String category = mCurrentQuestionBean.getCategory();
+            mCategory.setText(category);
+            setCategoryImage(category);
+
+            setNextQuestionView();
+            setNextQuestionViewContent();
+        }
+    }
+
+    private void makeToast(String message) {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, message, duration);
+        toast.show();
     }
 
     public void setNextQuestionViewContent() {
@@ -227,10 +246,10 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     public void setCategoryImage(String category) {
         Log.d("test", "Picture Change");
         String[] categories = getResources().getStringArray(R.array.categories);
-        for (String c: categories) {
+        for (String c : categories) {
             if (c.equals(category)) {
                 Log.d("test", c.toLowerCase());
-                int img= getResources().getIdentifier(c.toLowerCase(), "drawable" , getPackageName() );
+                int img = getResources().getIdentifier(c.toLowerCase(), "drawable", getPackageName());
                 mCategoryPic.setImageResource(img);
             }
         }

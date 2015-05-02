@@ -33,12 +33,12 @@ public class QuestionsManager {
                 LearNewsDbHelper.QUESTIONS_TABLE);
 
         if (numQueries < 1) {
-            return new QuestionBean();
+            return null;
         }
 
         Integer nextQuestionNum =  mRandom.nextInt(numQueries.intValue());
 
-        while(currentQuestionNum == nextQuestionNum) {
+        while(currentQuestionNum == nextQuestionNum && numQueries > 1) {
             nextQuestionNum =  mRandom.nextInt(numQueries.intValue());
         }
 
