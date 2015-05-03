@@ -72,7 +72,7 @@ public class SignInActivity extends Activity {
         passwordEditText.setBackgroundColor(Color.WHITE);
 
         tryToSignIn(email, password);
-        if(userId == -1) {
+        if (userId == -1) {
             startToast(R.string.invalid_password);
         } else if (userId == -2) {
             startToast(R.string.invalid_email);
