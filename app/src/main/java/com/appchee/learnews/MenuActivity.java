@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import com.appchee.learnews.R;
+import com.appchee.learnews.actions.QuestionsManager;
 import com.appchee.learnews.actions.RatingsManager;
 import com.appchee.learnews.backend.WebClient;
 import com.appchee.learnews.beans.AnswerBean;
@@ -37,6 +38,7 @@ import java.util.zip.Inflater;
 public class MenuActivity extends Activity {
 
     RatingsManager mRatingsManager;
+    QuestionsManager mQuestionsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class MenuActivity extends Activity {
         setContentView(R.layout.activity_menu);
 
         mRatingsManager = new RatingsManager(getApplicationContext());
+        mQuestionsManager = new QuestionsManager(getApplicationContext());
 
         View.OnTouchListener touchListener = new View.OnTouchListener() {
             @Override
@@ -103,7 +106,9 @@ public class MenuActivity extends Activity {
                 WebClient webc = new WebClient();
                 try {
                     Log.d("User id is ", "" + CurrentUserDetails.userId);
-                    List<QuestionBean> questionBeans = webc.syncQuestions(CurrentUserDetails.userId);
+                    int numQuestions = mQuestionsManager.getNumberOfQuestions().intValue();
+                    List<QuestionBean> questionBeans = webc.syncQuestions(CurrentUserDetails.userId,
+                            numQuestions);
                     addQuestionsToDb(questionBeans);
                     RatingBean[] ratingBeans = getRatingBeans();
                     if(ratingBeans != null) {

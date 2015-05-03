@@ -29,8 +29,7 @@ public class QuestionsManager {
 
     public QuestionBean getNextQuestion() {
 
-        Long numQueries = DatabaseUtils.queryNumEntries(mDbHelper.getDBHelper().getReadableDatabase(),
-                LearNewsDbHelper.QUESTIONS_TABLE);
+        Long numQueries = getNumberOfQuestions();
 
         if (numQueries < 1) {
             return null;
@@ -47,6 +46,11 @@ public class QuestionsManager {
         Log.d("Question num", "All queries " + numQueries
                 + " Num: " + nextQuestionNum.toString());
         return mDbHelper.getQuestionByNumber(nextQuestionNum);
+    }
+
+    public Long getNumberOfQuestions() {
+        return DatabaseUtils.queryNumEntries(mDbHelper.getDBHelper().getReadableDatabase(),
+                LearNewsDbHelper.QUESTIONS_TABLE);
     }
 
     public void reportQuestion(final QuestionBean question) {

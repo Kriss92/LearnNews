@@ -82,8 +82,8 @@ public class WebClient extends WebFunctions {
         return true;
     }
 
-    public List<QuestionBean> syncQuestions(int userID) throws IOException {
-        String postParameters = "userId=" + userID;
+    public List<QuestionBean> syncQuestions(int userID, int numQuestionsInLocalDb) throws IOException {
+        String postParameters = "userId=" + userID + "&numQuestionsInLocalDb=" + numQuestionsInLocalDb;
         String response = sendRequestPOST("syncQuestions.php", postParameters);
 
         if(! response.equals("false")) {
