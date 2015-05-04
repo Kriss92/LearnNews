@@ -164,6 +164,7 @@ public class MenuActivity extends Activity {
             questionBean1.setNewsURL("http://www.bbc.com/news/world-middle-east-28603599");
             questionBean1.setCategory("Economy");
             questionBean1.setDateAdded("Today");
+            questionBean1.setRating(5);
             dbHelper.addQuestion(questionBean1);
         }
 

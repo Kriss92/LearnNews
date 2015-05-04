@@ -12,9 +12,6 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Kriss on 01/04/2015.
- */
 public class WebClient extends WebFunctions {
     private final int ANSWER_CHOICES = 4;
 
@@ -51,9 +48,11 @@ public class WebClient extends WebFunctions {
         String postParameters = "email=" + email + "&password=" + password;
         String response = sendRequestPOST("signInUser.php", postParameters);
         Log.d("Email, password & response = ", email + " " + password + " " + response);
+
         if(response.equals("")) {
            return -2;
         }
+
         return Integer.parseInt(response);
     }
 
@@ -76,7 +75,6 @@ public class WebClient extends WebFunctions {
             if(!response.equals("success")) {
                 return false;
             }
-
         }
 
         return true;
@@ -133,6 +131,8 @@ public class WebClient extends WebFunctions {
                     questionBean.setCategory(reader.nextString());
                 } else if (name.equals("dateadded")) {
                     questionBean.setDateAdded(reader.nextString());
+                } else if (name.equals("rating")) {
+                    questionBean.setRating((float) reader.nextDouble());
                 }
             }
         }
@@ -141,7 +141,5 @@ public class WebClient extends WebFunctions {
         return questionBean;
 
     }
-
-
 
 }

@@ -37,6 +37,7 @@ public class DbInteractions {
         values.put("newsUrl", question.getNewsURL());
         values.put("category", question.getCategory());
         values.put("dateAdded", question.getDateAdded());
+        values.put("rating", question.getRating());
         mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.QUESTIONS_TABLE, null, values);
     }
 
@@ -64,7 +65,7 @@ public class DbInteractions {
     private static class GetQuestionsQuery {
         public static final String[] PROJECTION = {"id", "question", "answer1", "answer2",
                 "answer3",  "answer4",  "correctIndex",  "newsURL",
-                "category", "dateAdded"};
+                "category", "dateAdded", "rating"};
         public static final int ID_INDEX = 0;
         public static final int QUESTION_INDEX = 1;
         public static final int ANSWER1_INDEX = 2;
@@ -75,6 +76,7 @@ public class DbInteractions {
         public static final int URL_INDEX = 7;
         public static final int CATEGORY_INDEX = 8;
         public static final int DATE_ADDED_INDEX = 9;
+        public static final int RATING_INDEX = 10;
 
     }
 
@@ -178,10 +180,11 @@ public class DbInteractions {
         String url = questionCursor.getString(GetQuestionsQuery.URL_INDEX);
         String category = questionCursor.getString(GetQuestionsQuery.CATEGORY_INDEX);
         String dateAdded = questionCursor.getString(GetQuestionsQuery.DATE_ADDED_INDEX);
+        float rating = questionCursor.getFloat(GetQuestionsQuery.RATING_INDEX);
 
         QuestionBean result = new QuestionBean(id, question, answer1, answer2,
                 answer3,  answer4,  correctIndex,  url,
-                category, dateAdded);
+                category, dateAdded, rating);
         return result;
     }
 

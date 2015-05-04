@@ -23,12 +23,13 @@ public class QuestionBean {
     int mCorrectIndex;
     String mNewsURL;
     String mDateAdded;
+    float mRating;
 
     public QuestionBean() { }
 
     public QuestionBean(Integer id, String question, String answer1, String answer2,
                         String answer3, String answer4, int correctIndex, String newsURL,
-                        String category, String dateAdded) {
+                        String category, String dateAdded, float rating) {
         this.mNewsURL = newsURL;
         this.mId = id;
         this.mQuestion = question;
@@ -40,6 +41,7 @@ public class QuestionBean {
         this.mCorrectIndex = correctIndex;
         this.mNewsURL = newsURL;
         this.mDateAdded = dateAdded;
+        this.mRating = rating;
     }
 
     public Integer getId() {
@@ -113,12 +115,21 @@ public class QuestionBean {
     public void setCorrectIndex(int mCorrectIndex) {
         this.mCorrectIndex = mCorrectIndex;
     }
+
     public String getDateAdded() {
         return mDateAdded;
     }
 
     public void setDateAdded(String mDateAdded) {
         this.mDateAdded = mDateAdded;
+    }
+
+    public float getRating() {
+        return mRating;
+    }
+
+    public void setRating(float mRating) {
+        this.mRating = mRating;
     }
 
     public void validate() throws ValidationException {

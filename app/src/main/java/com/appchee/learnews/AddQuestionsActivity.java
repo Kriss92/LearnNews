@@ -257,6 +257,7 @@ public class AddQuestionsActivity extends Activity {
         questionBean.setNewsURL(url);
         questionBean.setCategory(category);
         questionBean.setDateAdded("Today");
+        questionBean.setRating(5);
 
         questionBean.validate();
         //new DbInteractions(this.getApplicationContext()).addQuestion(questionBean);

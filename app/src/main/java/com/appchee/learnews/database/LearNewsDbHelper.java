@@ -32,7 +32,8 @@ public class LearNewsDbHelper extends SQLiteOpenHelper {
                     "correctIndex INTEGER, " +
                     "newsUrl TEXT, " +
                     "category TEXT, " +
-                    "dateAdded TEXT" +
+                    "dateAdded TEXT, " +
+                    "rating REAL" +
                     ");";
 
     private static final String RATINGS_TABLE_CREATE =
@@ -59,7 +60,6 @@ public class LearNewsDbHelper extends SQLiteOpenHelper {
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
-
         }
     }
 
