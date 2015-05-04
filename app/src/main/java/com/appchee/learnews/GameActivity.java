@@ -37,12 +37,14 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     ImageView mCategoryPic;
     TextView mCategory;
     TextView mCurrQuestion;
+    TextView mScoreView;
     QuestionsManager mQuestionsManager;
     RatingsManager mRatingsManager;
     QuestionBean mCurrentQuestionBean;
     String mCorrectAnswerText = null;
     RatingBar mRatingBar;
     float mRatingGiven = -1;
+    int correctAnswerScore = 10;
 
 
     @Override
@@ -55,6 +57,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         mWrongAnsFragment = (WrongAnswerFragment) getFragmentManager().findFragmentById(R.id.wrong_ans_fragment);
         mCorrectAnsFragment = (CorrectAnswerFragment) getFragmentManager().findFragmentById(R.id.correct_ans_fragment);
         mCurrQuestion = (TextView) findViewById(R.id.q_text);
+        mScoreView = (TextView) findViewById(R.id.score_view);
         mCategory = (TextView) findViewById(R.id.q_category);
         mCategoryPic = (ImageView) findViewById(R.id.q_img);
         initialiseRatingBar();
@@ -220,12 +223,12 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     }
 
     public void setCorrectAnswerView() {
+        CurrentUserDetails.score += correctAnswerScore;
+        mScoreView.setText("" + CurrentUserDetails.score);
         mQuizQuestionFragment.getView().setVisibility(View.GONE);
         mRatingBar.setVisibility(View.VISIBLE);
         mCorrectAnsFragment.getView().setVisibility(View.VISIBLE);
         mWrongAnsFragment.getView().setVisibility(View.GONE);
-
-
     }
 
 

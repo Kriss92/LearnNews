@@ -96,6 +96,7 @@
     <string name="unable_to_connect">Unable to connect to the internet. Please check your internet connection!</string>
     <string name="invalid_password">Invalid password. Please try again.</string>
     <string name="invalid_email">Invalid email address. Please try again.</string>
+    <string name="default_score">0</string>
 
 
 </resources>

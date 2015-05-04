@@ -114,6 +114,11 @@ public class MenuActivity extends Activity {
                     if(ratingBeans != null) {
                         webc.syncRatings(ratingBeans);
                     }
+                    try {
+                        CurrentUserDetails.syncCurrentUsersScore();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

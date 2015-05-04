@@ -140,7 +140,6 @@ public class DbInteractions {
             }
         }
 
-
         return stories;
     }
 
@@ -218,8 +217,6 @@ public class DbInteractions {
         }
         return ratingBeans;
     }
-
-
 
     public RatingBean getRatingByNumber(Integer ratingNumber) {
 

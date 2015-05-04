@@ -18,6 +18,8 @@ import com.appchee.learnews.beans.QuestionBean;
 import java.io.IOException;
 import java.util.List;
 
+import static com.appchee.learnews.CurrentUserDetails.*;
+
 
 public class SignInActivity extends Activity {
 
@@ -77,17 +79,26 @@ public class SignInActivity extends Activity {
         } else if (userId == -2) {
             startToast(R.string.invalid_email);
         } else {
-            Intent intent;
-            intent = new Intent(this, MenuActivity.class);
-            startActivity(intent);
-            Log.d("My user id is", "" + userId);
-            CurrentUserDetails.isUserInitialised = true;
-            CurrentUserDetails.userId = userId;
-            CurrentUserDetails.email = email;
-            CurrentUserDetails.password = password;
-
+            setUserDetails(email, password);
+            startMenuActivity();
             finish();
         }
+    }
+
+    private void setUserDetails(String email, String password) throws InterruptedException {
+        Log.d("My user id is", "" + userId);
+        isUserInitialised = true;
+        CurrentUserDetails.userId = userId;
+        CurrentUserDetails.email = email;
+        CurrentUserDetails.password = password;
+        CurrentUserDetails.score = 0;
+        CurrentUserDetails.syncCurrentUsersScore();
+    }
+
+    private void startMenuActivity() {
+        Intent intent;
+        intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
     }
 
     private void startToast(int message) {

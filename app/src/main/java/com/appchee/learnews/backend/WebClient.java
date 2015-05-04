@@ -56,6 +56,26 @@ public class WebClient extends WebFunctions {
         return Integer.parseInt(response);
     }
 
+    public int syncScore(int userId, int score) throws IOException {
+        String postParameters = "userId=" + userId + "&score=" + score;
+        String response = sendRequestPOST("syncScore.php", postParameters);
+
+        if(!response.equals("false")) {
+            Log.d("Score sync response is ", response);
+            int result = 0;
+
+            JsonReader reader = new JsonReader(new StringReader(response));
+
+            reader.beginArray();
+            result = readScoreObject(reader);
+            reader.endArray();
+
+            return result;
+        }
+
+        return 0;
+    }
+
     public boolean syncRatings(RatingBean[] ratingBeans) {
 
         int i;
@@ -101,45 +121,63 @@ public class WebClient extends WebFunctions {
         return null;
     }
 
-    public QuestionBean readQuestionObject(JsonReader reader) throws IOException {
-
-        QuestionBean questionBean = new QuestionBean();
-
+    public int readScoreObject(JsonReader reader) throws IOException {
+        int score = 0;
         reader.beginObject();
-        while (reader.hasNext()) {
+        if (reader.hasNext()) {
             String name = reader.nextName();
             Log.d("Name is", name);
 
             if(reader.peek() != JsonToken.NULL) {
-                if (name.equals("questionid")) {
-                    questionBean.setId(reader.nextInt());
-                } else if (name.equals("question")) {
-                    questionBean.setQuestion(reader.nextString());
-                } else if (name.equals("answer1")) {
-                    questionBean.setAnswer1(reader.nextString());
-                } else if (name.equals("answer2")) {
-                    questionBean.setAnswer2(reader.nextString());
-                } else if (name.equals("answer3")) {
-                    questionBean.setAnswer3(reader.nextString());
-                } else if (name.equals("answer4")) {
-                    questionBean.setAnswer4(reader.nextString());
-                } else if (name.equals("correctindex")) {
-                    questionBean.setCorrectIndex(reader.nextInt());
-                } else if (name.equals("newsurl")) {
-                    questionBean.setNewsURL(reader.nextString());
-                } else if (name.equals("category")) {
-                    questionBean.setCategory(reader.nextString());
-                } else if (name.equals("dateadded")) {
-                    questionBean.setDateAdded(reader.nextString());
-                } else if (name.equals("rating")) {
-                    questionBean.setRating((float) reader.nextDouble());
+                if (name.equals("score")) {
+                    score = reader.nextInt();
                 }
             }
         }
         reader.endObject();
 
-        return questionBean;
+        return score;
 
     }
+
+    public QuestionBean readQuestionObject(JsonReader reader) throws IOException {
+
+        QuestionBean questionBean = new QuestionBean();
+
+            reader.beginObject();
+            while (reader.hasNext()) {
+                    String name = reader.nextName();
+                    Log.d("Name is", name);
+
+                    if(reader.peek() != JsonToken.NULL) {
+                       if (name.equals("questionid")) {
+                            questionBean.setId(reader.nextInt());
+                            } else if (name.equals("question")) {
+                                questionBean.setQuestion(reader.nextString());
+                            } else if (name.equals("answer1")) {
+                                questionBean.setAnswer1(reader.nextString());
+                            } else if (name.equals("answer2")) {
+                                questionBean.setAnswer2(reader.nextString());
+                            } else if (name.equals("answer3")) {
+                                questionBean.setAnswer3(reader.nextString());
+                            } else if (name.equals("answer4")) {
+                                questionBean.setAnswer4(reader.nextString());
+                            } else if (name.equals("correctindex")) {
+                                questionBean.setCorrectIndex(reader.nextInt());
+                            } else if (name.equals("newsurl")) {
+                                questionBean.setNewsURL(reader.nextString());
+                            } else if (name.equals("category")) {
+                                questionBean.setCategory(reader.nextString());
+                            } else if (name.equals("dateadded")) {
+                                questionBean.setDateAdded(reader.nextString());
+                            } else if (name.equals("rating")) {
+                                questionBean.setRating((float) reader.nextDouble());
+                            }
+                        }
+                    }
+                    reader.endObject();
+
+                    return questionBean;
+                }
 
 }

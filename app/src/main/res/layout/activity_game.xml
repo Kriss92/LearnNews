@@ -39,14 +39,14 @@
                     android:layout_alignBottom="@id/q_img"
                     android:layout_marginLeft="20dp" >
 
-                    <TextView
-                        android:id="@+id/q_category"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Category"
-                        android:textSize="50sp"
-                        android:paddingLeft="10dp"
-                        android:paddingBottom="15dp"/>
+                <TextView
+                    android:id="@+id/q_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Category"
+                    android:textSize="50sp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="15dp"/>
                 </LinearLayout>
 
 
@@ -145,6 +145,15 @@
                     android:text="@string/report_button"
                     android:layout_gravity="center_vertical"
                     android:onClick="onReport"
+                    />
+
+                <TextView
+                    android:id="@+id/score_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/default_score"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignRight="@+id/report_button"
                     />
 
             </LinearLayout>
