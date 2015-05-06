@@ -13,29 +13,25 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.appchee.learnews.backend.WebClient;
-import com.appchee.learnews.beans.QuestionBean;
 
-import java.io.IOException;
-import java.util.List;
-
-import static com.appchee.learnews.CurrentUserDetails.*;
+import static com.appchee.learnews.CurrentUserDetails.isUserInitialised;
 
 
-public class SignInActivity extends Activity {
+public class RegisterActivity extends Activity {
 
     int userId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_register);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sign_in, menu);
+        getMenuInflater().inflate(R.menu.menu_register, menu);
         return true;
     }
 
@@ -54,7 +50,7 @@ public class SignInActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void signInButtonClicked(View view) throws InterruptedException {
+    public void registerAccountButtonClicked(View view) throws InterruptedException {
         EditText emailEditText = (EditText) findViewById(R.id.email_field);
         String email = emailEditText.getText().toString();
         if (email.isEmpty()) {
@@ -64,20 +60,39 @@ public class SignInActivity extends Activity {
         }
         emailEditText.setBackgroundColor(Color.WHITE);
 
+        EditText confirmEmailEditText = (EditText) findViewById(R.id.confirm_email_field);
+        String confirmEmail = confirmEmailEditText.getText().toString();
+        if (!confirmEmail.equals(email)) {
+            Log.d("Emails are", email + " " + confirmEmail );
+            startToast(R.string.emails_do_not_match);
+            confirmEmailEditText.setBackgroundColor(Color.parseColor("#FFB1A3"));
+            return;
+        }
+        confirmEmailEditText.setBackgroundColor(Color.WHITE);
+
         EditText passwordEditText = (EditText) findViewById(R.id.password_field);
         String password = passwordEditText.getText().toString();
         if (password.isEmpty()) {
             startToast(R.string.complete_all_fields);
             passwordEditText.setBackgroundColor(Color.parseColor("#FFB1A3"));
             return;
+        } else if (password.length() < 6) {
+            startToast(R.string.password_min_length);
         }
         passwordEditText.setBackgroundColor(Color.WHITE);
 
-        tryToSignIn(email, password);
+        EditText confirmPasswordEditText = (EditText) findViewById(R.id.confirm_password_field);
+        String confirmPassword = confirmPasswordEditText.getText().toString();
+        if (!confirmPassword.equals(password)) {
+            startToast(R.string.passwords_do_not_match);
+            confirmPasswordEditText.setBackgroundColor(Color.parseColor("#FFB1A3"));
+            return;
+        }
+        confirmPasswordEditText.setBackgroundColor(Color.WHITE);
+
+        tryToRegister(email, password);
         if (userId == -1) {
-            startToast(R.string.invalid_password);
-        } else if (userId == -2) {
-            startToast(R.string.invalid_email);
+            startToast(R.string.email_not_unique);
         } else {
             setUserDetails(email, password);
             startMenuActivity();
@@ -109,13 +124,13 @@ public class SignInActivity extends Activity {
         toast.show();
     }
 
-    private void tryToSignIn(final String email, final String password) throws InterruptedException {
+    private void tryToRegister(final String email, final String password) throws InterruptedException {
 
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 WebClient webc = new WebClient();
-                setUserId(webc.signInUser(email, password));
+                setUserId(webc.registerUser(email, password));
             }
         });
         thread.start();
@@ -127,11 +142,10 @@ public class SignInActivity extends Activity {
         this.userId = userId;
     }
 
-    public void onRegisterButtonClicked(View view) throws InterruptedException {
+    public void signInButtonClicked(View view) throws InterruptedException {
         Intent intent;
-        intent = new Intent(this, RegisterActivity.class);
+        intent = new Intent(this, SignInActivity.class);
         startActivity(intent);
         finish();
-        Log.d("Got here", "  yeaa...");
     }
 }

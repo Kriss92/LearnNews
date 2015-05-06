@@ -180,4 +180,15 @@ public class WebClient extends WebFunctions {
                     return questionBean;
                 }
 
+    public int registerUser(String email, String password) {
+        String postParameters = "email=" + email + "&password=" + password;
+        String response = sendRequestPOST("registerUserAccount.php", postParameters);
+        Log.d("Email, password & response = ", email + " " + password + " " + response);
+
+        if(response.equals("")) {
+            return -1;
+        }
+
+        return Integer.parseInt(response);
+    }
 }

@@ -9,8 +9,10 @@ import android.util.Log;
 
 import com.appchee.learnews.LoginActivity;
 import com.appchee.learnews.actions.NewsManager;
+import com.appchee.learnews.actions.RecentQuestionsManager;
 import com.appchee.learnews.beans.QuestionBean;
 import com.appchee.learnews.beans.RatingBean;
+import com.appchee.learnews.beans.RecentQuestionBean;
 import com.appchee.learnews.beans.StoryBean;
 import com.google.android.gms.games.quest.Quest;
 
@@ -101,18 +103,6 @@ public class DbInteractions {
         return questionBean;
     }
 
-    public void createInteraction(QuestionBean question) {
-//        Cursor cursor = getInteractionsCursor(question);
-//        if (cursor.moveToNext()) {
-//            return;
-//        }
-
-        ContentValues values = new ContentValues();
-        values.put("questionId", question.getId());
-        values.put("userId", LoginActivity.mCurrentUserId);
-        mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.INTERACTIONS_TABLE, null, values);
-    }
-
     public void saveStory(QuestionBean question) {
         ContentValues values = new ContentValues();
         try {
@@ -184,6 +174,7 @@ public class DbInteractions {
         QuestionBean result = new QuestionBean(id, question, answer1, answer2,
                 answer3,  answer4,  correctIndex,  url,
                 category, dateAdded, rating);
+
         return result;
     }
 
@@ -191,6 +182,113 @@ public class DbInteractions {
         mDbHelper.getWritableDatabase().delete(LearNewsDbHelper.QUESTIONS_TABLE,
                 "id = ?", new String[] {questionBean.getId().toString()});
         Log.d("DbInteractions", "Question was deleted");
+    }
+
+    private static class GetRecentQuestionsQuery {
+        public static final String[] PROJECTION = {"id", "question", "answer1", "answer2",
+                "answer3",  "answer4",  "correctIndex", "selectedIndex", "newsURL",
+                "category", "dateAdded", "dateAnswered", "rating"};
+        public static final int ID_INDEX = 0;
+        public static final int QUESTION_INDEX = 1;
+        public static final int ANSWER1_INDEX = 2;
+        public static final int ANSWER2_INDEX = 3;
+        public static final int ANSWER3_INDEX = 4;
+        public static final int ANSWER4_INDEX = 5;
+        public static final int CORRECT_INDEX_INDEX = 6;
+        public static final int SELECTED_INDEX_INDEX = 7;
+        public static final int URL_INDEX = 8;
+        public static final int CATEGORY_INDEX = 9;
+        public static final int DATE_ADDED_INDEX = 10;
+        public static final int DATE_ANSWERED_INDEX = 11;
+        public static final int RATING_INDEX = 12;
+    }
+
+    public RecentQuestionBean getRecentQuestionByNumber(Integer recentQuestionNumber) {
+
+        RecentQuestionBean recentQuestionBean = new RecentQuestionBean();
+
+        Cursor recentQuestionCursor = mDbHelper.getReadableDatabase().query(
+                LearNewsDbHelper.RECENT_QUESTIONS_TABLE, GetRecentQuestionsQuery.PROJECTION,
+                null,  null, null, null, null, null);
+
+        try {
+            recentQuestionCursor.move(recentQuestionNumber + 1);
+            recentQuestionBean = buildRecentQuestion(recentQuestionCursor);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            recentQuestionCursor.close();
+        }
+
+        return recentQuestionBean;
+    }
+
+    public RecentQuestionBean buildRecentQuestion(Cursor recentQuestionCursor ) {
+        Integer id = recentQuestionCursor.getInt(GetRecentQuestionsQuery.ID_INDEX);
+        String question = recentQuestionCursor.getString(GetRecentQuestionsQuery.QUESTION_INDEX);
+        String answer1 = recentQuestionCursor.getString(GetRecentQuestionsQuery.ANSWER1_INDEX);
+        String answer2 = recentQuestionCursor.getString(GetRecentQuestionsQuery.ANSWER2_INDEX);
+        String answer3 = recentQuestionCursor.getString(GetRecentQuestionsQuery.ANSWER3_INDEX);
+        String answer4 = recentQuestionCursor.getString(GetRecentQuestionsQuery.ANSWER4_INDEX);
+        int correctIndex = recentQuestionCursor.getInt(GetRecentQuestionsQuery.CORRECT_INDEX_INDEX);
+        int selectedIndex = recentQuestionCursor.getInt(GetRecentQuestionsQuery.SELECTED_INDEX_INDEX);
+        String url = recentQuestionCursor.getString(GetRecentQuestionsQuery.URL_INDEX);
+        String category = recentQuestionCursor.getString(GetRecentQuestionsQuery.CATEGORY_INDEX);
+        String dateAdded = recentQuestionCursor.getString(GetRecentQuestionsQuery.DATE_ADDED_INDEX);
+        long dateAnswered = recentQuestionCursor.getLong(GetRecentQuestionsQuery.DATE_ANSWERED_INDEX);
+        float rating = recentQuestionCursor.getFloat(GetRecentQuestionsQuery.RATING_INDEX);
+
+        RecentQuestionBean result = new RecentQuestionBean(id, question, answer1, answer2,
+                answer3,  answer4,  correctIndex, selectedIndex,  url,
+                category, dateAdded, dateAnswered, rating);
+        return result;
+    }
+    public void deleteTopRecentQuestion() {
+
+        String DELETE_TOP_RECENT_QUESTION_TRANSATION = "DELETE FROM RecentQuestions WHERE " +
+                "id NOT IN (SELECT id FROM RecentQuestions ORDER BY dateAnswered DESC " +
+                "LIMIT " + RecentQuestionsManager.MAX_RECENT_QUESTIONS +
+                ";";
+
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        db.beginTransaction();
+
+        try {
+            db.execSQL(DELETE_TOP_RECENT_QUESTION_TRANSATION);
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            db.endTransaction();
+        }
+    }
+
+    public void deleteRecentQuestion(RecentQuestionBean recentQuestionBean) {
+        mDbHelper.getWritableDatabase().delete(LearNewsDbHelper.RECENT_QUESTIONS_TABLE,
+                "id = ?", new String[] {recentQuestionBean.getId().toString()});
+        Log.d("DbInteractions", "Question was deleted");
+    }
+
+    public void addRecentQuestion(RecentQuestionBean recentQuestion) {
+        ContentValues values = new ContentValues();
+        values.put("id", recentQuestion.getId());
+        values.put("question", recentQuestion.getQuestion());
+        values.put("answer1", recentQuestion.getAnswer1());
+        values.put("answer2", recentQuestion.getAnswer2());
+        values.put("answer3", recentQuestion.getAnswer3());
+        values.put("answer4", recentQuestion.getAnswer4());
+        values.put("correctIndex", recentQuestion.getCorrectIndex());
+        values.put("selectedIndex", recentQuestion.getCorrectIndex());
+        values.put("newsUrl", recentQuestion.getNewsURL());
+        values.put("category", recentQuestion.getCategory());
+        values.put("dateAdded", recentQuestion.getDateAdded());
+        values.put("dateAnswered", recentQuestion.getDateAnswered());
+        values.put("rating", recentQuestion.getRating());
+        mDbHelper.getWritableDatabase().insert(LearNewsDbHelper.RECENT_QUESTIONS_TABLE, null, values);
     }
 
     private static class GetRatingsQuery {

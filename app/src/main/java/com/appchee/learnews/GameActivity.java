@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 import com.appchee.learnews.actions.QuestionsManager;
 import com.appchee.learnews.actions.RatingsManager;
+import com.appchee.learnews.actions.RecentQuestionsManager;
 import com.appchee.learnews.beans.QuestionBean;
+import com.appchee.learnews.beans.RecentQuestionBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
     TextView mCurrQuestion;
     TextView mScoreView;
     QuestionsManager mQuestionsManager;
+    RecentQuestionsManager mRecentQuestionsManager;
     RatingsManager mRatingsManager;
     QuestionBean mCurrentQuestionBean;
     String mCorrectAnswerText = null;
@@ -63,6 +66,7 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
         initialiseRatingBar();
         mQuestionsManager = new QuestionsManager(getApplicationContext());
         mQuestionsManager.currentQuestionNum = -1;
+        mRecentQuestionsManager = new RecentQuestionsManager(getApplicationContext());
         mRatingsManager = new RatingsManager(getApplicationContext());
 
         setNextQuestion();
@@ -114,6 +118,8 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
 
         String selectedAnswerText = getAnswer(answerSelected);
 
+        addRecentQuestion(answerSelected);
+
         if (mCorrectAnswer == answerSelected) {
             mCorrectAnsFragment.populate(selectedAnswerText);
             mQuestionsManager.deleteQuestion(mCurrentQuestionBean);
@@ -122,6 +128,26 @@ public class GameActivity extends Activity implements QuizQuestionFragment.Quest
             mWrongAnsFragment.populate(selectedAnswerText, mCorrectAnswerText);
             setWrongAnswerView();
         }
+    }
+
+    private void addRecentQuestion(int answerSelected) {
+        RecentQuestionBean recentQuestionBean = new RecentQuestionBean();
+        recentQuestionBean.setId(mCurrentQuestionBean.getId());
+        recentQuestionBean.setQuestion(mCurrentQuestionBean.getQuestion());
+        recentQuestionBean.setAnswer1(mCurrentQuestionBean.getAnswer1());
+        recentQuestionBean.setAnswer2(mCurrentQuestionBean.getAnswer2());
+        recentQuestionBean.setAnswer3(mCurrentQuestionBean.getAnswer3());
+        recentQuestionBean.setAnswer4(mCurrentQuestionBean.getAnswer4());
+        recentQuestionBean.setCorrectIndex(mCurrentQuestionBean.getCorrectIndex());
+        recentQuestionBean.setSelectedIndex(answerSelected);
+        recentQuestionBean.setNewsURL(mCurrentQuestionBean.getNewsURL());
+        recentQuestionBean.setCategory(mCurrentQuestionBean.getCategory());
+        recentQuestionBean.setDateAdded(mCurrentQuestionBean.getDateAdded());
+        recentQuestionBean.setDateAnswered(System.currentTimeMillis());
+        recentQuestionBean.setRating(mCurrentQuestionBean.getRating());
+
+        mRecentQuestionsManager.addRecentQuestion(recentQuestionBean);
+
     }
 
     @Override

@@ -97,6 +97,18 @@
     <string name="invalid_password">Invalid password. Please try again.</string>
     <string name="invalid_email">Invalid email address. Please try again.</string>
     <string name="default_score">0</string>
-
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="register_text">Register a new account</string>
+    <string name="confirm_email_text">Confirm email address:</string>
+    <string name="confirm_password_text">Confirm password:</string>
+    <string name="register_account_message">Register Account</string>
+    <string name="passwords_do_not_match">Passwords don\'t match! Please try again. </string>
+    <string name="password_min_length">Please choose a password with minimum 6 characters. </string>
+    <string name="emails_do_not_match">Emails don\'t match! Please try again.</string>
+    <string name="go_to_sign_in_message">Already have an account?</string>
+    <string name="email_not_unique">Email was used before!</string>
+    <string name="recent_questions">Recent Questions</string>
+    <string name="recent_activity">Recent Activity</string>
+    <string name="title_activity_recent_questions">RecentQuestionsActivity</string>
 
 </resources>

@@ -1,39 +1,26 @@
 package com.appchee.learnews;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
-import android.database.DatabaseUtils;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import com.appchee.learnews.R;
+import android.widget.Toast;
+
 import com.appchee.learnews.actions.QuestionsManager;
 import com.appchee.learnews.actions.RatingsManager;
 import com.appchee.learnews.backend.WebClient;
-import com.appchee.learnews.beans.AnswerBean;
 import com.appchee.learnews.beans.QuestionBean;
 import com.appchee.learnews.beans.RatingBean;
 import com.appchee.learnews.database.DbInteractions;
-import com.appchee.learnews.database.LearNewsDbHelper;
-import com.appchee.learnews.validation.ValidationException;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.appchee.learnews.AddQuestionsActivity;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class MenuActivity extends Activity {
 
@@ -44,6 +31,9 @@ public class MenuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        String welcomeMessage = "Welcome, user number " + CurrentUserDetails.userId;
+        startToast(welcomeMessage);
 
         mRatingsManager = new RatingsManager(getApplicationContext());
         mQuestionsManager = new QuestionsManager(getApplicationContext());
@@ -64,6 +54,8 @@ public class MenuActivity extends Activity {
         newGameButton.setOnTouchListener(touchListener);
         Button addQuestionButton = (Button) findViewById(R.id.add_questions_menu_button);
         addQuestionButton.setOnTouchListener(touchListener);
+        Button recentActivityButton = (Button) findViewById(R.id.recently_answered_questions_button);
+        recentActivityButton.setOnTouchListener(touchListener);
         Button savedStoriesButton = (Button) findViewById(R.id.your_stories_menu_button);
         savedStoriesButton.setOnTouchListener(touchListener);
 
@@ -140,7 +132,6 @@ public class MenuActivity extends Activity {
                 dbHelper.addQuestion(questionBean);
             }
         }
-
     }
 
     public void addQuestionsMenuButtonClicked(View view) {
@@ -154,25 +145,38 @@ public class MenuActivity extends Activity {
     }
 
 
-    public void initializeDB(){
-        DbInteractions dbHelper = new DbInteractions(getApplicationContext());
-        {
-            QuestionBean questionBean1=new QuestionBean();
-            questionBean1.setId(1);
-            questionBean1.setQuestion("Who is negotiating the ceasefire between the Israeli and the Palestinian delegation?");
-            questionBean1.setCategory("Economy");
-            questionBean1.setAnswer1("United States");
-            questionBean1.setAnswer2("United Kingdom");
-            questionBean1.setAnswer3("France");
-            questionBean1.setAnswer4("Egypt");
-            questionBean1.setCorrectIndex(3);
-            questionBean1.setNewsURL("http://www.bbc.com/news/world-middle-east-28603599");
-            questionBean1.setCategory("Economy");
-            questionBean1.setDateAdded("Today");
-            questionBean1.setRating(5);
-            dbHelper.addQuestion(questionBean1);
-        }
+    public void recentActivityButtonClicked(View view) {
+        Intent intent = new Intent(this, RecentQuestionsActivity.class);
+        startActivity(intent);
+    }
 
+    public void initializeDB(){
+//        DbInteractions dbHelper = new DbInteractions(getApplicationContext());
+//        {
+//            QuestionBean questionBean1=new QuestionBean();
+//            questionBean1.setId(1);
+//            questionBean1.setQuestion("Who is negotiating the ceasefire between the Israeli and the Palestinian delegation?");
+//            questionBean1.setCategory("Economy");
+//            questionBean1.setAnswer1("United States");
+//            questionBean1.setAnswer2("United Kingdom");
+//            questionBean1.setAnswer3("France");
+//            questionBean1.setAnswer4("Egypt");
+//            questionBean1.setCorrectIndex(3);
+//            questionBean1.setNewsURL("http://www.bbc.com/news/world-middle-east-28603599");
+//            questionBean1.setCategory("Economy");
+//            questionBean1.setDateAdded("Today");
+//            questionBean1.setRating(5);
+//            dbHelper.addQuestion(questionBean1);
+//        }
+
+    }
+
+    private void startToast(String message) {
+        Context context = getApplicationContext();
+        CharSequence text = message;
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
 }
